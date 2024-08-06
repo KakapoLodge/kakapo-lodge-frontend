@@ -2,7 +2,7 @@
 import Image from "next/image";
 import PageContent from "./ui/PageContent";
 
-const Home = () => {
+const LandingPage = () => {
   return (
     <PageContent>
       <MainBanner />
@@ -10,12 +10,12 @@ const Home = () => {
   );
 }
 
-export default Home;
+export default LandingPage;
 
 const MainBanner = () => {
   return (
     <Image
-      src="/landing_page/main_banner.png"
+      src="/landing_page/banner.png"
       alt="Main Banner"
       width={1621}
       height={855}
