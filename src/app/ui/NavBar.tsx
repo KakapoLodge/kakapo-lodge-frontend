@@ -1,14 +1,32 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
 import styled from "styled-components";
 import BookDirectButton from "./BookDirectButton";
 import { usePathname } from "next/navigation";
+import CustomLink from "./CustomLink";
+
+type Page = {
+  name: string;
+  path: string;
+  target: string;
+};
+
+const SUB_PAGES: Page[] = [
+  { name: "Accommodation", path: "/accommodation", target: "_self" },
+  { name: "Facilities", path: "/facilities", target: "_self" },
+  {
+    name: "Attractions",
+    path: "https://visithanmersprings.co.nz/things-to-do/",
+    target: "_blank",
+  },
+  { name: "Contact", path: "/contact", target: "_self" },
+];
 
 const NavBar = () => {
+  const pathname = usePathname();
   return (
     <TopBar>
-      <Link href="/">
+      <CustomLink href="/" isSelected={pathname === "/"}>
         <Image
           src={"/kakapo_logo_with_text.png"}
           alt="Kakapo logo with text"
@@ -16,30 +34,21 @@ const NavBar = () => {
           height={1278}
           style={{ height: "80px", width: "auto" }}
         />
-      </Link>
+      </CustomLink>
 
       <MainNav>
         <MainMenu>
-          <MenuItem>
-            <Link href="/accommodation">{"Accommodation"}</Link>
-          </MenuItem>
-
-          <MenuItem>
-            <Link href="/facilities">{"Facilities"}</Link>
-          </MenuItem>
-
-          <MenuItem>
-            <Link
-              target="_blank"
-              href="https://visithanmersprings.co.nz/things-to-do/"
-            >
-              {"Attractions"}
-            </Link>
-          </MenuItem>
-
-          <MenuItem>
-            <Link href="/contact">{"Contact"}</Link>
-          </MenuItem>
+          {SUB_PAGES.map((page) => (
+            <MenuItem>
+              <CustomLink
+                href={page.path}
+                target={page.target}
+                isSelected={pathname === page.path}
+              >
+                {page.name}
+              </CustomLink>
+            </MenuItem>
+          ))}
         </MainMenu>
 
         <BookDirectButton />
