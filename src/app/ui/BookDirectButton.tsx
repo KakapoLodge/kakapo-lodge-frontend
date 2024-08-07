@@ -1,11 +1,17 @@
 "use client";
+import Link from "next/link";
 import styled from "styled-components";
 
-const BookDirectButton = () => {
+type BookDirectButtonProps = {
+  isMobile?: boolean;
+};
+
+const BookDirectButton = ({ isMobile = false }: BookDirectButtonProps) => {
   return (
     <Button
       target="_blank"
       href="https://apac.littlehotelier.com/properties/kakapolodgedirect?promotion_code=5OFF"
+      isMobile={isMobile}
     >
       <DiscountSymbol />
       Book Direct
@@ -16,14 +22,14 @@ const BookDirectButton = () => {
 export default BookDirectButton;
 
 type ButtonProps = {
-  isMobile?: boolean;
+  isMobile: boolean;
 };
 
-const Button = styled.a<ButtonProps>`
+const Button = styled(Link)<ButtonProps>`
   background-color: var(--primary-color);
   color: white;
 
-  display: ${props => props.isMobile ? "none" : "flex"};
+  display: ${(props) => (props.isMobile ? "none" : "flex")};
   align-items: center;
   justify-content: center;
   gap: 8px;
@@ -37,13 +43,12 @@ const Button = styled.a<ButtonProps>`
   }
 
   @media (width < 800px) {
-    display: ${props => props.isMobile ? "flex" : "none"};
+    display: ${(props) => (props.isMobile ? "flex" : "none")};
 
     margin: 0px;
     padding: 6px 0px;
 
-    height: 44px;
-    width: 65%;
+    width: 60%;
   }
 `;
 
