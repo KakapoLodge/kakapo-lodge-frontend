@@ -15,11 +15,15 @@ const BookDirectButton = () => {
 
 export default BookDirectButton;
 
-const Button = styled.a`
+type ButtonProps = {
+  isMobile?: boolean;
+};
+
+const Button = styled.a<ButtonProps>`
   background-color: var(--primary-color);
   color: white;
 
-  display: flex;
+  display: ${props => props.isMobile ? "none" : "flex"};
   align-items: center;
   justify-content: center;
   gap: 8px;
@@ -33,11 +37,13 @@ const Button = styled.a`
   }
 
   @media (width < 800px) {
+    display: ${props => props.isMobile ? "flex" : "none"};
+
     margin: 0px;
     padding: 6px 0px;
 
     height: 44px;
-    width: 33%;
+    width: 65%;
   }
 `;
 

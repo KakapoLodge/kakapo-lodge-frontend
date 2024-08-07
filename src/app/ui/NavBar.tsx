@@ -4,6 +4,9 @@ import styled from "styled-components";
 import BookDirectButton from "./BookDirectButton";
 import { usePathname } from "next/navigation";
 import CustomLink from "./CustomLink";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 type Page = {
   name: string;
@@ -22,21 +25,33 @@ const SUB_PAGES: Page[] = [
   { name: "Contact", path: "/contact", target: "_self" },
 ];
 
+const MOBILE_MAX_WIDTH = 800;
+
 const NavBar = () => {
   const pathname = usePathname();
+
+  const isMobile = document.documentElement.clientWidth < MOBILE_MAX_WIDTH;
+
+  const [showMenu, setShowMenu] = useState(!isMobile);
+  const toggleMenu = () => setShowMenu(!showMenu);
+  const closeMenu = () => setShowMenu(false);
+
   return (
     <TopBar>
-      <CustomLink href="/" isSelected={pathname === "/"}>
-        <Image
-          src={"/kakapo_logo_with_text.png"}
-          alt="Kakapo logo with text"
-          width={2963}
-          height={1278}
-          style={{ height: "80px", width: "auto" }}
-        />
-      </CustomLink>
+      <PreMenu>
+        <CustomLink href="/" isSelected={pathname === "/"} onClick={closeMenu}>
+          <Logo
+            src={"/kakapo_logo_with_text.png"}
+            alt="Kakapo logo with text"
+            width={2963}
+            height={1278}
+          />
+        </CustomLink>
 
-      <MainNav>
+        {isMobile ? <MenuButton icon={faBars} onClick={toggleMenu} /> : <></>}
+      </PreMenu>
+
+      <MainNav showMenu={showMenu}>
         <MainMenu>
           {SUB_PAGES.map((page) => (
             <MenuItem>
@@ -44,6 +59,7 @@ const NavBar = () => {
                 href={page.path}
                 target={page.target}
                 isSelected={pathname === page.path}
+                onClick={closeMenu}
               >
                 {page.name}
               </CustomLink>
@@ -51,7 +67,7 @@ const NavBar = () => {
           ))}
         </MainMenu>
 
-        <BookDirectButton />
+        {isMobile ? <></> : <BookDirectButton />}
       </MainNav>
     </TopBar>
   );
@@ -70,10 +86,41 @@ const TopBar = styled.header`
   top: 0px;
 
   z-index: 4;
+
+  @media (width < 800px) {
+    flex-direction: column;
+  }
 `;
 
-const MainNav = styled.div`
+const PreMenu = styled.div`
   display: flex;
+  justify-content: space-between;
+
+  @media (width < 800px) {
+    width: 100%;
+  }
+`;
+
+const Logo = styled(Image)`
+  width: auto;
+  height: 80px;
+
+  @media (width < 800px) {
+    height: 64px;
+  }
+`;
+
+const MenuButton = styled(FontAwesomeIcon)`
+  font-size: 32px;
+  padding: 16px 28px;
+`;
+
+type MainNavProps = {
+  showMenu: boolean;
+};
+
+const MainNav = styled.div<MainNavProps>`
+  display: ${(props) => (props.showMenu ? "flex" : "none")};
 
   @media (width < 800px) {
     flex-direction: column;
