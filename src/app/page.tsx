@@ -2,6 +2,10 @@
 import Image from "next/image";
 import PageContent from "./ui/PageContent";
 import styled from "styled-components";
+import Link from "next/link";
+
+const MOBILE_MAX_WIDTH = 700;
+const IS_MOBILE = document.documentElement.clientWidth < MOBILE_MAX_WIDTH;
 
 const LandingPage = () => {
   return (
@@ -9,7 +13,7 @@ const LandingPage = () => {
       <MainBanner />
 
       <Introduction>
-        <Title>Welcome to Kakapo Lodge</Title>
+        <IntroductionTitle>Welcome to Kakapo Lodge</IntroductionTitle>
 
         <p>
           The two-story purpose-built backpacker hostel features modern rooms,
@@ -31,6 +35,17 @@ const LandingPage = () => {
           shampoo.
         </p>
       </Introduction>
+
+      <>
+        <ReviewsTitle>What Our Previous Guests Say</ReviewsTitle>
+        <Reviews>
+        {IS_MOBILE ? (
+          <MobileTripadvisorReviews />
+        ) : (
+          <DesktopTripadvisorReviews />
+        )}
+        </Reviews>
+      </>
     </LandingPageContent>
   );
 };
@@ -72,7 +87,7 @@ const Introduction = styled.div`
   }
 `;
 
-const Title = styled.h1`
+const IntroductionTitle = styled.h1`
   text-align: center;
   font-size: xx-large;
   font-weight: 500;
@@ -81,3 +96,73 @@ const Title = styled.h1`
     font-size: x-large;
   }
 `;
+
+const ReviewsTitle = styled.h2`
+  font-size: larger;
+  text-align: center;
+`;
+
+const Reviews = styled.div`
+  width: 468px;
+  margin: 0px auto;
+
+  @media (width < 700px) {
+    width: 240px;
+  }
+`;
+
+const DesktopTripadvisorReviews = () => {
+  return (
+    <>
+      <div id="TA_selfserveprop949" className="TA_selfserveprop">
+        <ul id="k3tfslo5aC52" className="TA_links E8XtQq04cH">
+          <li id="T5jNwkCQ1" className="d17vdf67Ro">
+            <Link
+              target="_blank"
+              href="https://www.tripadvisor.com/Hotel_Review-g635990-d1125137-Reviews-Kakapo_Lodge-Hanmer_Springs_Canterbury_Region_South_Island.html"
+            >
+              <img
+                src="https://www.tripadvisor.com/img/cdsi/img2/branding/v2/Tripadvisor_lockup_horizontal_secondary_registered-11900-2.svg"
+                alt="TripAdvisor"
+              />
+            </Link>
+          </li>
+        </ul>
+      </div>
+      <script
+        async
+        src="https://www.jscache.com/wejs?wtype=selfserveprop&amp;uniq=949&amp;locationId=1125137&amp;lang=en_US&amp;rating=true&amp;nreviews=4&amp;writereviewlink=true&amp;popIdx=true&amp;iswide=true&amp;border=false&amp;display_version=2"
+        data-loadtrk
+        // onload="this.loadtrk=true"
+      ></script>
+    </>
+  );
+};
+
+const MobileTripadvisorReviews = () => {
+  return (
+    <>
+      <div id="TA_selfserveprop241" className="TA_selfserveprop">
+        <ul id="1WCwuo" className="TA_links rziphGMK">
+          <li id="wzN5H1whM" className="5lrWc3hRiDv">
+            <a
+              target="_blank"
+              href="https://www.tripadvisor.com/Hotel_Review-g635990-d1125137-Reviews-Kakapo_Lodge-Hanmer_Springs_Canterbury_Region_South_Island.html"
+            >
+              <img
+                src="https://www.tripadvisor.com/img/cdsi/img2/branding/v2/Tripadvisor_lockup_horizontal_secondary_registered-11900-2.svg"
+                alt="TripAdvisor"
+              />
+            </a>
+          </li>
+        </ul>
+      </div>
+      <script
+        async
+        src="https://www.jscache.com/wejs?wtype=selfserveprop&amp;uniq=241&amp;locationId=1125137&amp;lang=en_US&amp;rating=true&amp;nreviews=5&amp;writereviewlink=true&amp;popIdx=true&amp;iswide=false&amp;border=false&amp;display_version=2"
+        data-loadtrk
+        // onload="this.loadtrk=true"
+      ></script>
+    </>
+  );
+};
