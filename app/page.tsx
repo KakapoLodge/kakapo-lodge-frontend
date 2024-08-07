@@ -36,7 +36,7 @@ const LandingPage = () => {
         </p>
       </Introduction>
 
-      <>
+      {/* <>
         <ReviewsTitle>What Our Previous Guests Say</ReviewsTitle>
         <Reviews>
         {IS_MOBILE ? (
@@ -45,7 +45,7 @@ const LandingPage = () => {
           <DesktopTripadvisorReviews />
         )}
         </Reviews>
-      </>
+      </> */}
     </LandingPageContent>
   );
 };
