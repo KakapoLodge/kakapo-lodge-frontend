@@ -4,24 +4,33 @@ import BookDirectButton from "./BookDirectButton";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
+import { useContext } from "react";
+import { IsMobileContext } from "../context";
+import { useIsMobile } from "../hooks";
 
 const Footer = () => {
-  return (
-    <BottomBar>
+  const isMobile = useIsMobile();
+
+  return isMobile ? (
+    <IsMobileContext.Provider value={isMobile}>
+      <BottomBar>
         <CallButton />
-      <BookDirectButton isMobile />
-    </BottomBar>
+        <BookDirectButton isFooter />
+      </BottomBar>
+    </IsMobileContext.Provider>
+  ) : (
+    <></>
   );
 };
 
 export default Footer;
 
 const BottomBar = styled.footer`
-  display: none;
-
-  padding: 8px 0px;
+  display: flex;
   justify-content: space-evenly;
   align-items: center;
+
+  padding: 8px 0px;
 
   position: fixed;
   left: 0px;
@@ -34,10 +43,6 @@ const BottomBar = styled.footer`
 
   background-color: white;
   box-shadow: 0px -4px 20px 0px rgba(0, 64, 0, 0.1);
-
-  @media (width < 800px) {
-    display: flex;
-  }
 `;
 
 const CallButton = () => {

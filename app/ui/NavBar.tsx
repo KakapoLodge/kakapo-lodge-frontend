@@ -3,36 +3,20 @@ import Image from "next/image";
 import styled from "styled-components";
 import BookDirectButton from "./BookDirectButton";
 import { usePathname } from "next/navigation";
-import CustomLink from "./CustomLink";
+import NavLink from "./NavLink";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { MouseEventHandler, useState } from "react";
-
-type Page = {
-  name: string;
-  path: string;
-  target: string;
-};
-
-const SUB_PAGES: Page[] = [
-  { name: "Accommodation", path: "/accommodation", target: "_self" },
-  { name: "Facilities", path: "/facilities", target: "_self" },
-  {
-    name: "Attractions",
-    path: "https://visithanmersprings.co.nz/things-to-do/",
-    target: "_blank",
-  },
-  { name: "Contact", path: "/contact", target: "_self" },
-];
-
-const MOBILE_MAX_WIDTH = 800;
-const IS_MOBILE = document.documentElement.clientWidth < MOBILE_MAX_WIDTH;
+import { MouseEventHandler, useContext, useState } from "react";
+import { IsMobileContext } from "../context";
+import { IsMobileProps } from "../types";
+import { useIsMobile } from "../hooks";
 
 const NavBar = () => {
   const pathname = usePathname();
+  const isMobile = useIsMobile();
 
-  const [showMenu, setShowMenu] = useState(!IS_MOBILE);
-  const closeMenu = () => setShowMenu(false);
+  const [showMenu, setShowMenu] = useState(!isMobile);
+  const closeMenu = isMobile ? () => setShowMenu(false) : undefined;
 
   const [disableMenuButton, setDisableMenuButton] = useState(false);
   const toggleMenu = () => {
@@ -43,47 +27,34 @@ const NavBar = () => {
   };
 
   return (
-    <TopBar>
-      <PreMenu>
-        <CustomLink href="/" isSelected={pathname === "/"} onClick={closeMenu}>
-          <Logo
-            src={"/kakapo_logo_with_text.png"}
-            alt="Kakapo logo with text"
-            width={2963}
-            height={1278}
-          />
-        </CustomLink>
+    <IsMobileContext.Provider value={isMobile}>
+      <TopBar>
+        <PreMenu>
+          <Logo pathname={pathname} onClick={closeMenu} />
+          <MenuButton disabled={disableMenuButton} onClick={toggleMenu} />
+        </PreMenu>
 
-        <MenuButton onClick={toggleMenu} disabled={disableMenuButton} />
-      </PreMenu>
-
-      <MainNav showMenu={showMenu}>
-        <MainMenu>
-          {SUB_PAGES.map((page) => (
-            <MenuItem>
-              <CustomLink
-                href={page.path}
-                target={page.target}
-                isSelected={pathname === page.path}
-                onClick={closeMenu}
-              >
-                {page.name}
-              </CustomLink>
-            </MenuItem>
-          ))}
-        </MainMenu>
-
-        {IS_MOBILE ? <></> : <BookDirectButton />}
-      </MainNav>
-    </TopBar>
+        <MainNav pathname={pathname} showMenu={showMenu} onClick={closeMenu} />
+      </TopBar>
+    </IsMobileContext.Provider>
   );
 };
 
 export default NavBar;
 
-const TopBar = styled.header`
+const TopBar = ({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) => {
+  const isMobile = useContext(IsMobileContext);
+  return <StyledTopBar $isMobile={isMobile}>{children}</StyledTopBar>;
+};
+
+const StyledTopBar = styled.header<IsMobileProps>`
   display: flex;
   justify-content: space-between;
+  flex-direction: ${(props) => (props.$isMobile ? "column" : "row")};
 
   background-color: white;
   box-shadow: 0px 2px 32px 2px rgba(0, 64, 0, 0.1);
@@ -92,38 +63,58 @@ const TopBar = styled.header`
   top: 0px;
 
   z-index: 4;
-
-  @media (width < 800px) {
-    flex-direction: column;
-  }
 `;
 
-const PreMenu = styled.div`
+const PreMenu = ({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) => {
+  const isMobile = useContext(IsMobileContext);
+  return <StyledPreMenu $isMobile={isMobile}>{children}</StyledPreMenu>;
+};
+
+const StyledPreMenu = styled.div<IsMobileProps>`
   display: flex;
   justify-content: space-between;
-
-  @media (width < 800px) {
-    width: 100%;
-  }
+  width: ${(props) => (props.$isMobile ? "100%" : "auto")};
 `;
 
-const Logo = styled(Image)`
-  width: auto;
-  height: 80px;
+type LogoProps = {
+  pathname: string;
+  onClick?: MouseEventHandler<Element>;
+};
 
-  @media (width < 800px) {
-    height: 64px;
-  }
+const Logo = ({ pathname, onClick }: LogoProps) => {
+  const isMobile = useContext(IsMobileContext);
+  return (
+    <NavLink href="/" $isSelected={pathname === "/"} onClick={onClick}>
+      <StyledLogo
+        src={"/kakapo_logo_with_text.png"}
+        alt="Kakapo logo with text"
+        width={2963}
+        height={1278}
+        $isMobile={isMobile}
+      />
+    </NavLink>
+  );
+};
+
+const StyledLogo = styled(Image)<IsMobileProps>`
+  width: auto;
+  height: ${(props) => (props.$isMobile ? "64px" : "80px")};
 `;
 
 type MenuButtonProps = {
-  onClick: MouseEventHandler<SVGSVGElement>;
   disabled: boolean;
+  onClick: MouseEventHandler<Element>;
 };
 
-const MenuButton = ({ onClick, disabled }: MenuButtonProps) => {
-  return IS_MOBILE ? (
-    <MenuIcon icon={faBars} onClick={onClick} disabled={disabled} />
+const MenuButton = ({ disabled, onClick }: MenuButtonProps) => {
+  const isMobile = useContext(IsMobileContext);
+
+  return isMobile ? (
+    <MenuIcon icon={faBars} disabled={disabled} onClick={onClick} />
   ) : (
     <></>
   );
@@ -139,29 +130,85 @@ const MenuIcon = styled(FontAwesomeIcon)<MenuIconProps>`
   pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
 `;
 
-type MainNavProps = {
-  showMenu: boolean;
+type Page = {
+  name: string;
+  path: string;
+  target?: string;
 };
 
-const MainNav = styled.div<MainNavProps>`
-  display: ${(props) => (props.showMenu ? "flex" : "none")};
+const SUB_PAGES: Page[] = [
+  { name: "Accommodation", path: "/accommodation" },
+  { name: "Facilities", path: "/facilities" },
+  {
+    name: "Attractions",
+    path: "https://visithanmersprings.co.nz/things-to-do/",
+    target: "_blank",
+  },
+  { name: "Contact", path: "/contact" },
+];
 
-  @media (width < 800px) {
-    flex-direction: column;
-  }
+type MainNavProps = {
+  pathname: string;
+  showMenu: boolean;
+  onClick?: MouseEventHandler<Element>;
+};
+
+const MainNav = ({ pathname, showMenu, onClick }: MainNavProps) => {
+  return showMenu ? (
+    <_MainNav>
+      <MainMenu>
+        {SUB_PAGES.map(({ name, path, target = "_self" }) => (
+          <MenuItem key={name}>
+            <NavLink
+              href={path}
+              target={target}
+              $isSelected={pathname === path}
+              onClick={onClick}
+            >
+              {name}
+            </NavLink>
+          </MenuItem>
+        ))}
+      </MainMenu>
+
+      <BookDirectButton />
+    </_MainNav>
+  ) : (
+    <></>
+  );
+};
+
+const _MainNav = ({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) => {
+  const isMobile = useContext(IsMobileContext);
+  return <StyledMainNav $isMobile={isMobile}>{children}</StyledMainNav>;
+};
+
+const StyledMainNav = styled.div<IsMobileProps>`
+  display: flex;
+  flex-direction: ${(props) => (props.$isMobile ? "column" : "row")};
+  gap: 8px;
 `;
 
-const MainMenu = styled.ul`
+const MainMenu = ({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) => {
+  const isMobile = useContext(IsMobileContext);
+  return <StyledMainMenu $isMobile={isMobile}>{children}</StyledMainMenu>;
+};
+
+const StyledMainMenu = styled.ul<IsMobileProps>`
   display: flex;
-  margin: 0px;
+  flex-direction: ${(props) => (props.$isMobile ? "column" : "row")};
+  gap: ${(props) => (props.$isMobile ? "8px" : "24px")};
 
-  @media (width < 800px) {
-    flex-direction: column;
-    gap: 8px;
-
-    margin: 0px 16px;
-    padding-left: 0px;
-  }
+  margin: ${(props) => (props.$isMobile ? "0px 16px" : "0px")};
+  padding-left: 0px;
 `;
 
 const MenuItem = styled.li`
@@ -170,6 +217,4 @@ const MenuItem = styled.li`
   display: flex;
   justify-content: right;
   align-items: center;
-
-  margin: 0px 12px;
 `;
