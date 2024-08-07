@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import CustomLink from "./CustomLink";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { MouseEventHandler, useState } from "react";
 
 type Page = {
   name: string;
@@ -26,15 +26,21 @@ const SUB_PAGES: Page[] = [
 ];
 
 const MOBILE_MAX_WIDTH = 800;
+const IS_MOBILE = document.documentElement.clientWidth < MOBILE_MAX_WIDTH;
 
 const NavBar = () => {
   const pathname = usePathname();
 
-  const isMobile = document.documentElement.clientWidth < MOBILE_MAX_WIDTH;
-
-  const [showMenu, setShowMenu] = useState(!isMobile);
-  const toggleMenu = () => setShowMenu(!showMenu);
+  const [showMenu, setShowMenu] = useState(!IS_MOBILE);
   const closeMenu = () => setShowMenu(false);
+
+  const [disableMenuButton, setDisableMenuButton] = useState(false);
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+
+    setDisableMenuButton(true);
+    setTimeout(() => setDisableMenuButton(false), 500);
+  };
 
   return (
     <TopBar>
@@ -48,7 +54,7 @@ const NavBar = () => {
           />
         </CustomLink>
 
-        {isMobile ? <MenuButton icon={faBars} onClick={toggleMenu} /> : <></>}
+        <MenuButton onClick={toggleMenu} disabled={disableMenuButton} />
       </PreMenu>
 
       <MainNav showMenu={showMenu}>
@@ -67,7 +73,7 @@ const NavBar = () => {
           ))}
         </MainMenu>
 
-        {isMobile ? <></> : <BookDirectButton />}
+        {IS_MOBILE ? <></> : <BookDirectButton />}
       </MainNav>
     </TopBar>
   );
@@ -110,9 +116,27 @@ const Logo = styled(Image)`
   }
 `;
 
-const MenuButton = styled(FontAwesomeIcon)`
+type MenuButtonProps = {
+  onClick: MouseEventHandler<SVGSVGElement>;
+  disabled: boolean;
+};
+
+const MenuButton = ({ onClick, disabled }: MenuButtonProps) => {
+  return IS_MOBILE ? (
+    <MenuIcon icon={faBars} onClick={onClick} disabled={disabled} />
+  ) : (
+    <></>
+  );
+};
+
+type MenuIconProps = {
+  disabled: boolean;
+};
+
+const MenuIcon = styled(FontAwesomeIcon)<MenuIconProps>`
   font-size: 32px;
   padding: 16px 28px;
+  pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
 `;
 
 type MainNavProps = {
