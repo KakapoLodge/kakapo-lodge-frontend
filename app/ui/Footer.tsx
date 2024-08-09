@@ -36,7 +36,7 @@ const BottomBar = styled.footer`
   left: 0px;
   bottom: 0px;
   width: 100%;
-  z-index: 2;
+  z-index: 1001;
 
   border-radius: 12px 12px 0px 0px;
   border-top: 1px solid #8c9b3e50;

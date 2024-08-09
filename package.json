@@ -13,10 +13,11 @@
     "@fortawesome/free-brands-svg-icons": "^6",
     "@fortawesome/free-regular-svg-icons": "^6",
     "@fortawesome/free-solid-svg-icons": "^6",
-    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@fortawesome/react-fontawesome": "^0",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
+    "react-multi-carousel": "^2",
     "styled-components": "^6"
   },
   "devDependencies": {

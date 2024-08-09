@@ -62,7 +62,7 @@ const StyledTopBar = styled.header<IsMobileProps>`
   position: sticky;
   top: 0px;
 
-  z-index: 4;
+  z-index: 1002;
 `;
 
 const PreMenu = ({
