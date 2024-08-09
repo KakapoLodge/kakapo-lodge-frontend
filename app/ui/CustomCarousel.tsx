@@ -2,19 +2,27 @@
 
 import Image from "next/image";
 import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 import styled from "styled-components";
 
 type CustomCarouselProps = {
-  imagePaths: string[];
   description: string;
+  imagePaths: string[];
+  widthPercentage?: number;
 };
 
 const CustomCarousel = ({
-  imagePaths,
   description,
+  imagePaths,
+  widthPercentage = 100,
 }: CustomCarouselProps) => {
   return (
-    <Carousel responsive={CAROUSEL_RESPONSIVE} showDots={true} infinite={true}>
+    <_Carousel
+      showDots={true}
+      infinite={true}
+      responsive={CAROUSEL_RESPONSIVE}
+      $widthPercentage={widthPercentage}
+    >
       {imagePaths.map((imagePath) => (
         <CarouselImage
           key={imagePath}
@@ -25,11 +33,19 @@ const CustomCarousel = ({
           height={900}
         />
       ))}
-    </Carousel>
+    </_Carousel>
   );
 };
 
 export default CustomCarousel;
+
+type _CarouselProps = {
+  $widthPercentage: number;
+};
+
+const _Carousel = styled(Carousel)<_CarouselProps>`
+  width: ${(props) => `${props.$widthPercentage}%`};
+`;
 
 const CAROUSEL_RESPONSIVE = {
   superLargeDesktop: {

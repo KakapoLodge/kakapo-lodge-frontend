@@ -1,12 +1,12 @@
 "use client";
-import styled from "styled-components";
-import BookDirectButton from "./BookDirectButton";
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
-import { useContext } from "react";
-import { IsMobileContext } from "../context";
-import { useIsMobile } from "../hooks";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
+import styled from "styled-components";
+import { IsMobileContext } from "../lib/context";
+import { useIsMobile } from "../lib/hooks";
+import BookDirectButton from "./BookDirectButton";
 
 const Footer = () => {
   const isMobile = useIsMobile();

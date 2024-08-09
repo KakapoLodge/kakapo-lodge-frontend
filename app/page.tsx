@@ -1,12 +1,12 @@
 "use client";
+
 import Image from "next/image";
-import PageContent from "./ui/PageContent";
-import styled from "styled-components";
-import Link from "next/link";
-import { useIsMobile } from "./hooks";
-import { IsMobileContext } from "./context";
-import { IsMobileProps } from "./types";
 import { useContext } from "react";
+import styled from "styled-components";
+import { IsMobileContext } from "./lib/context";
+import { useIsMobile } from "./lib/hooks";
+import { IsMobileProps } from "./lib/types";
+import PageContent from "./ui/PageContent";
 
 const LandingPage = () => {
   const isMobile = useIsMobile();
@@ -54,13 +54,13 @@ const LandingPageContent = ({
   const isMobile = useContext(IsMobileContext);
 
   return (
-    <StyledLandingPageContent $isMobile={isMobile}>
+    <_LandingPageContent $isMobile={isMobile}>
       {children}
-    </StyledLandingPageContent>
+    </_LandingPageContent>
   );
 };
 
-const StyledLandingPageContent = styled(PageContent)<IsMobileProps>`
+const _LandingPageContent = styled(PageContent)<IsMobileProps>`
   display: flex;
   flex-direction: column;
   gap: ${(props) => (props.$isMobile ? "16px" : "24px")};
@@ -91,11 +91,11 @@ const Introduction = ({
   const isMobile = useContext(IsMobileContext);
 
   return (
-    <StyledIntroduction $isMobile={isMobile}>{children}</StyledIntroduction>
+    <_Introduction $isMobile={isMobile}>{children}</_Introduction>
   );
 };
 
-const StyledIntroduction = styled.div<IsMobileProps>`
+const _Introduction = styled.div<IsMobileProps>`
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -111,13 +111,13 @@ const IntroductionTitle = ({
   const isMobile = useContext(IsMobileContext);
 
   return (
-    <StyledIntroductionTitle $isMobile={isMobile}>
+    <_IntroductionTitle $isMobile={isMobile}>
       {children}
-    </StyledIntroductionTitle>
+    </_IntroductionTitle>
   );
 };
 
-const StyledIntroductionTitle = styled.h1<IsMobileProps>`
+const _IntroductionTitle = styled.h1<IsMobileProps>`
   text-align: center;
   font-size: ${(props) => (props.$isMobile ? "x-large" : "xx-large")};
   font-weight: 500;

@@ -1,15 +1,16 @@
 "use client";
-import Image from "next/image";
-import styled from "styled-components";
-import BookDirectButton from "./BookDirectButton";
-import { usePathname } from "next/navigation";
-import NavLink from "./NavLink";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { MouseEventHandler, useContext, useState } from "react";
-import { IsMobileContext } from "../context";
-import { IsMobileProps } from "../types";
-import { useIsMobile } from "../hooks";
+import styled from "styled-components";
+import { IsMobileContext } from "../lib/context";
+import { useIsMobile } from "../lib/hooks";
+import { IsMobileProps } from "../lib/types";
+import BookDirectButton from "./BookDirectButton";
+import CustomLink from "./CustomLink";
 
 const NavBar = () => {
   const pathname = usePathname();
@@ -48,10 +49,10 @@ const TopBar = ({
   children: React.ReactNode;
 }>) => {
   const isMobile = useContext(IsMobileContext);
-  return <StyledTopBar $isMobile={isMobile}>{children}</StyledTopBar>;
+  return <_TopBar $isMobile={isMobile}>{children}</_TopBar>;
 };
 
-const StyledTopBar = styled.header<IsMobileProps>`
+const _TopBar = styled.header<IsMobileProps>`
   display: flex;
   justify-content: space-between;
   flex-direction: ${(props) => (props.$isMobile ? "column" : "row")};
@@ -71,10 +72,10 @@ const PreMenu = ({
   children: React.ReactNode;
 }>) => {
   const isMobile = useContext(IsMobileContext);
-  return <StyledPreMenu $isMobile={isMobile}>{children}</StyledPreMenu>;
+  return <_PreMenu $isMobile={isMobile}>{children}</_PreMenu>;
 };
 
-const StyledPreMenu = styled.div<IsMobileProps>`
+const _PreMenu = styled.div<IsMobileProps>`
   display: flex;
   justify-content: space-between;
   width: ${(props) => (props.$isMobile ? "100%" : "auto")};
@@ -88,19 +89,19 @@ type LogoProps = {
 const Logo = ({ pathname, onClick }: LogoProps) => {
   const isMobile = useContext(IsMobileContext);
   return (
-    <NavLink href="/" $isSelected={pathname === "/"} onClick={onClick}>
-      <StyledLogo
+    <CustomLink href="/" $isSelected={pathname === "/"} onClick={onClick}>
+      <_Logo
         src={"/kakapo_logo_with_text.png"}
         alt="Kakapo logo with text"
         width={2963}
         height={1278}
         $isMobile={isMobile}
       />
-    </NavLink>
+    </CustomLink>
   );
 };
 
-const StyledLogo = styled(Image)<IsMobileProps>`
+const _Logo = styled(Image)<IsMobileProps>`
   width: auto;
   height: ${(props) => (props.$isMobile ? "64px" : "80px")};
 `;
@@ -159,14 +160,14 @@ const MainNav = ({ pathname, showMenu, onClick }: MainNavProps) => {
       <MainMenu>
         {SUB_PAGES.map(({ name, path, target = "_self" }) => (
           <MenuItem key={name}>
-            <NavLink
+            <CustomLink
               href={path}
               target={target}
               $isSelected={pathname === path}
               onClick={onClick}
             >
               {name}
-            </NavLink>
+            </CustomLink>
           </MenuItem>
         ))}
       </MainMenu>
@@ -199,10 +200,10 @@ const MainMenu = ({
   children: React.ReactNode;
 }>) => {
   const isMobile = useContext(IsMobileContext);
-  return <StyledMainMenu $isMobile={isMobile}>{children}</StyledMainMenu>;
+  return <_MainMenu $isMobile={isMobile}>{children}</_MainMenu>;
 };
 
-const StyledMainMenu = styled.ul<IsMobileProps>`
+const _MainMenu = styled.ul<IsMobileProps>`
   display: flex;
   flex-direction: ${(props) => (props.$isMobile ? "column" : "row")};
   gap: ${(props) => (props.$isMobile ? "8px" : "24px")};

@@ -1,14 +1,15 @@
 "use client";
-import styled from "styled-components";
-import PageContent, { PageTitle } from "../ui/PageContent";
-import NavLink from "../ui/NavLink";
-import { IsMobileProps } from "../types";
-import { IsMobileContext } from "../context";
-import { useIsMobile } from "../hooks";
-import { useContext } from "react";
-import Link from "next/link";
 
-const Contact = () => {
+import Link from "next/link";
+import { useContext } from "react";
+import styled from "styled-components";
+import { IsMobileContext } from "../lib/context";
+import { useIsMobile } from "../lib/hooks";
+import { IsMobileProps } from "../lib/types";
+import PageContent, { PageTitle } from "../ui/PageContent";
+import CustomLink from "../ui/CustomLink";
+
+const ContactPage = () => {
   const isMobile = useIsMobile();
 
   return (
@@ -21,15 +22,15 @@ const Contact = () => {
             <ContactHeader>Reach us via</ContactHeader>
             <p>
               Phone:&nbsp;
-              <ContactLink href="tel:03 315 7472" target="_blank">
+              <CustomLink href="tel:03 315 7472" target="_blank">
                 (03) 315 7472
-              </ContactLink>
+              </CustomLink>
             </p>
             <p>
               Email:&nbsp;
-              <ContactLink href="mailto:staykakapo@xtra.co.nz" target="_blank">
+              <CustomLink href="mailto:staykakapo@xtra.co.nz" target="_blank">
                 staykakapo@xtra.co.nz
-              </ContactLink>
+              </CustomLink>
             </p>
           </ContactDetails>
 
@@ -45,7 +46,7 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default ContactPage;
 
 const ContactInformation = ({
   children,
@@ -79,12 +80,6 @@ const ContactHeader = ({
 
 const _ContactHeader = styled.h2<IsMobileProps>`
   font-size: ${(props) => (props.$isMobile ? "larger" : "x-large")};
-`;
-
-const ContactLink = styled(Link)`
-  &:hover {
-    text-decoration: underline;
-  }
 `;
 
 const GoogleMaps = () => {

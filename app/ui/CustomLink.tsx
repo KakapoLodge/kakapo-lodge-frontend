@@ -3,11 +3,11 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-type NavLinkProps = {
+type CustomLinkProps = {
   $isSelected?: boolean;
 };
 
-const NavLink = styled(Link)<NavLinkProps>`
+const CustomLink = styled(Link)<CustomLinkProps>`
   color: ${(props) =>
     props.$isSelected ? "var(--secondary-color)" : "var(--primary-color)"};
 
@@ -18,4 +18,4 @@ const NavLink = styled(Link)<NavLinkProps>`
   }
 `;
 
-export default NavLink;
+export default CustomLink;

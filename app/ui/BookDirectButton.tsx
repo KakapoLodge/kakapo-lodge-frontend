@@ -1,9 +1,10 @@
 "use client";
+
 import Link from "next/link";
 import { useContext } from "react";
 import styled from "styled-components";
-import { IsMobileContext } from "../context";
-import { IsMobileProps } from "../types";
+import { IsMobileContext } from "../lib/context";
+import { IsMobileProps } from "../lib/types";
 
 type BookDirectButtonProps = {
   isFooter?: boolean;

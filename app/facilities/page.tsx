@@ -1,27 +1,27 @@
 "use client";
 
-import styled from "styled-components";
-import PageContent, { PageTitle } from "../ui/PageContent";
-import { IsMobileProps } from "../types";
-import { useIsMobile } from "../hooks";
-import { IsMobileContext } from "../context";
-import { Fragment, useContext } from "react";
-import "react-multi-carousel/lib/styles.css";
-import CustomCarousel from "../ui/CustomCarousel";
-import { FACILITIES, PURCHASEABLES, SERVICES } from "./content";
-import CustomIcon from "../ui/CustomIcon";
+import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faBicycle,
   faBook,
   faBowlFood,
   faBox,
+  faClock,
   faJugDetergent,
   faRug,
   faSuitcaseRolling,
   faTicket,
   faWifi,
 } from "@fortawesome/free-solid-svg-icons";
-import { library } from "@fortawesome/fontawesome-svg-core";
+import { Fragment, useContext } from "react";
+import styled from "styled-components";
+import { IsMobileContext } from "../lib/context";
+import { useIsMobile } from "../lib/hooks";
+import { IsMobileProps } from "../lib/types";
+import CustomCarousel from "../ui/CustomCarousel";
+import CustomIcon from "../ui/CustomIcon";
+import PageContent, { PageTitle } from "../ui/PageContent";
+import { FACILITIES, PURCHASEABLES, SERVICES } from "./content";
 
 library.add(
   faBook,
@@ -32,10 +32,11 @@ library.add(
   faRug,
   faBicycle,
   faJugDetergent,
-  faBowlFood
+  faBowlFood,
+  faClock
 );
 
-const Facilities = () => {
+const FacilitiesPage = () => {
   const isMobile = useIsMobile();
 
   return (
@@ -78,7 +79,7 @@ const Facilities = () => {
   );
 };
 
-export default Facilities;
+export default FacilitiesPage;
 
 const FacilitySections = ({
   children,
@@ -120,7 +121,7 @@ type ServiceProps = {
 const Service = ({ iconName, description }: ServiceProps) => {
   return (
     <div>
-      <CustomIcon iconName={iconName} /> {description}
+      <CustomIcon icon={iconName} /> {description}
     </div>
   );
 };

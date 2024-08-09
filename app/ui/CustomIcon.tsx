@@ -1,15 +1,16 @@
 "use client";
 
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
 type CustomIconProps = {
-  iconName: string;
+  icon: string | IconDefinition;
 };
 
-const CustomIcon = ({ iconName }: CustomIconProps) => {
+const CustomIcon = ({ icon }: CustomIconProps) => {
   // @ts-ignore
-  return <_CustomIcon icon={iconName} />;
+  return <_CustomIcon icon={icon} />;
 };
 
 export default CustomIcon;

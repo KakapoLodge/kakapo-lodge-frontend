@@ -80,19 +80,26 @@ export const FACILITIES = [
 ];
 
 export const SERVICES = [
-  { iconName: "fa-solid fa-wifi", description: "Free wifi" },
-  { iconName: "fa-solid fa-suitcase-rolling", description: "Luggage storage" },
-  { iconName: "fa-solid fa-box", description: "Parcel drop-off" },
-  { iconName: "fa-solid fa-book", description: "Book exchange" },
+  { iconName: "fa-wifi", description: "Free wifi" },
+  { iconName: "fa-suitcase-rolling", description: "Luggage storage" },
+  { iconName: "fa-box", description: "Parcel drop-off" },
+  { iconName: "fa-book", description: "Book exchange" },
 ];
 
 export const PURCHASEABLES = [
   {
-    iconName: "fa-solid fa-ticket",
+    iconName: "fa-ticket",
     description: "Pool tickets @ $37 (regular price: $40)",
   },
-  { iconName: "fa-solid fa-rug", description: "Towel hire @ $2" },
-  { iconName: "fa-solid fa-bicycle", description: "Bike hire @ $20" },
-  { iconName: "fa-solid fa-jug-detergent", description: "Laundry powder @ $1" },
-  { iconName: "fa-solid fa-bowl-food", description: " Food kiosk" },
+  { iconName: "fa-rug", description: "Towel hire @ $2" },
+  { iconName: "fa-jug-detergent", description: "Laundry powder @ $1" },
+  {
+    iconName: "fa-bicycle",
+    description: "Bike hire starting from $20",
+  },
+  {
+    iconName: "fa-clock",
+    description: "Watch battery and strap replacement",
+  },
+  { iconName: "fa-bowl-food", description: " Food kiosk" },
 ];
