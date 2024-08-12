@@ -6,6 +6,7 @@ export const FACILITIES = [
     imagePaths: [
       "/sub_pages/facilities/fireplace/fireplace_1.png",
       "/sub_pages/facilities/fireplace/fireplace_2.png",
+      "/sub_pages/facilities/kakapo_discount_banner.png",
     ],
   },
   {
@@ -15,6 +16,7 @@ export const FACILITIES = [
     imagePaths: [
       "/sub_pages/facilities/communal_kitchen/communal_kitchen_1.png",
       "/sub_pages/facilities/communal_kitchen/communal_kitchen_2.png",
+      "/sub_pages/facilities/kakapo_discount_banner.png",
     ],
   },
   {
@@ -24,6 +26,8 @@ export const FACILITIES = [
     imagePaths: [
       "/sub_pages/facilities/shared_bathroom/shared_bathroom_1.png",
       "/sub_pages/facilities/shared_bathroom/shared_bathroom_2.png",
+      "/sub_pages/facilities/shared_bathroom/shared_bathroom_3.png",
+      "/sub_pages/facilities/kakapo_discount_banner.png",
     ],
   },
   {
@@ -32,7 +36,7 @@ export const FACILITIES = [
       "Outfitted with 2 washers and 2 dryers for your cleaning needs.",
     imagePaths: [
       "/sub_pages/facilities/laundry_room/laundry_room_1.png",
-      "/sub_pages/facilities/laundry_room/laundry_room_2.png",
+      "/sub_pages/facilities/kakapo_discount_banner.png",
     ],
   },
   {
@@ -41,6 +45,8 @@ export const FACILITIES = [
     imagePaths: [
       "/sub_pages/facilities/tv_lounge/tv_lounge_1.png",
       "/sub_pages/facilities/tv_lounge/tv_lounge_2.png",
+      "/sub_pages/facilities/tv_lounge/tv_lounge_3.png",
+      "/sub_pages/facilities/kakapo_discount_banner.png",
     ],
   },
   {
@@ -50,6 +56,7 @@ export const FACILITIES = [
     imagePaths: [
       "/sub_pages/facilities/balcony/balcony_1.png",
       "/sub_pages/facilities/balcony/balcony_2.png",
+      "/sub_pages/facilities/kakapo_discount_banner.png",
     ],
   },
   {
@@ -58,6 +65,11 @@ export const FACILITIES = [
     imagePaths: [
       "/sub_pages/facilities/courtyard/courtyard_1.png",
       "/sub_pages/facilities/courtyard/courtyard_2.png",
+      "/sub_pages/facilities/courtyard/courtyard_3.png",
+      "/sub_pages/facilities/courtyard/courtyard_4.png",
+      "/sub_pages/facilities/courtyard/courtyard_5.png",
+      "/sub_pages/facilities/courtyard/courtyard_6.png",
+      "/sub_pages/facilities/kakapo_discount_banner.png",
     ],
   },
   {
@@ -66,6 +78,8 @@ export const FACILITIES = [
     imagePaths: [
       "/sub_pages/facilities/car_park/car_park_1.png",
       "/sub_pages/facilities/car_park/car_park_2.png",
+      "/sub_pages/facilities/car_park/car_park_3.png",
+      "/sub_pages/facilities/kakapo_discount_banner.png",
     ],
   },
   {
@@ -74,7 +88,7 @@ export const FACILITIES = [
       "Enjoy a 5 minutes walk down a stretch of oak trees on your way to the hot pools. ",
     imagePaths: [
       "/sub_pages/facilities/amuri_avenue_reserve/amuri_avenue_reserve_1.png",
-      "/sub_pages/facilities/amuri_avenue_reserve/amuri_avenue_reserve_2.png",
+      "/sub_pages/facilities/kakapo_discount_banner.png",
     ],
   },
 ];
