@@ -44,7 +44,7 @@ library.add(
   faMugHot,
   faBreadSlice,
   faFireBurner,
-  faUtensils
+  faUtensils,
 );
 
 const AccommodationPage = () => {
@@ -204,7 +204,7 @@ const Features = ({
       </div>
 
       {...otherFeatures.map(({ icon, description }) => (
-        <div>
+        <div key={description}>
           <CustomIcon icon={icon} /> {description}
         </div>
       ))}
