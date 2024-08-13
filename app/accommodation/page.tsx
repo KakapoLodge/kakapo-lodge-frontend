@@ -109,7 +109,7 @@ const AccommodationCard = (props: AccommodationCardProps) => {
       <CustomCarousel
         imagePaths={imagePaths}
         description={name}
-        widthPercentage={48}
+        widthPercentage={isMobile ? 100 : 48}
       />
 
       <Text>
@@ -129,7 +129,7 @@ const _Card = styled.div<IsMobileProps>`
   flex-direction: ${(props) => (props.$isMobile ? "column" : "row")};
   gap: ${(props) => (props.$isMobile ? "16px" : "32px")};
 
-  width: ${(props) => (props.$isMobile ? "92%" : "76%")};
+  width: 80%;
   margin: 0px auto;
   padding: 16px;
 
@@ -262,7 +262,7 @@ const _BookButton = styled(Link)<IsMobileProps>`
   background-color: var(--secondary-color);
   color: white;
 
-  width: ${(props) => (props.$isMobile ? "100%" : "240px")};
+  width: ${(props) => (props.$isMobile ? "calc(100% - 32px)" : "240px")};
   padding: 8px 16px;
 
   border-radius: 8px;
