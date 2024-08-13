@@ -10,12 +10,12 @@ export const ALL_ACCOMMODATION = [
     url: "https://apac.littlehotelier.com/reservations/kakapolodgedirect/9239?promotion_code=5OFF",
     otherFeatures: [
       {
-        icon: "fa-venus-mars",
-        description: "Mixed gender",
-      },
-      {
         icon: "fa-shower",
         description: "Shared bathroom",
+      },
+      {
+        icon: "fa-venus-mars",
+        description: "Mixed gender",
       },
     ],
     imagePaths: [
@@ -25,7 +25,7 @@ export const ALL_ACCOMMODATION = [
   },
   {
     id: "4-bed-dorm",
-    name: "Bed in 4-Bed Dorm",
+    name: "Bed in 4-Bed Female Dorm",
     price: 50,
     sleeps: 1,
     size: 18,
@@ -34,12 +34,12 @@ export const ALL_ACCOMMODATION = [
     url: "https://apac.littlehotelier.com/reservations/kakapolodgedirect/9238?promotion_code=5OFF",
     otherFeatures: [
       {
-        icon: "fa-venus",
-        description: "Female only",
-      },
-      {
         icon: "fa-shower",
         description: "Shared bathroom",
+      },
+      {
+        icon: "fa-venus",
+        description: "Female only",
       },
     ],
     imagePaths: ["/sub_pages/accommodation/4_bed_dorm/4_bed_dorm_1.png"],
