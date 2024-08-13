@@ -2,6 +2,7 @@
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
+  faArrowDownWideShort,
   faBath,
   faBed,
   faBedPulse,
@@ -22,7 +23,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useContext } from "react";
+import {
+  ChangeEventHandler,
+  MouseEventHandler,
+  useContext,
+  useState,
+} from "react";
 import styled from "styled-components";
 import { IsMobileContext } from "../lib/context";
 import { useIsMobile } from "../lib/hooks";
@@ -30,7 +36,13 @@ import { IsMobileProps } from "../lib/types";
 import CustomCarousel from "../ui/CustomCarousel";
 import CustomIcon from "../ui/CustomIcon";
 import PageContent, { PageTitle } from "../ui/PageContent";
-import { ALL_ACCOMMODATION } from "./content";
+import {
+  ALL_ACCOMMODATION,
+  ALL_IDS,
+  PRIVATE_BATHROOM_IDS,
+  PRIVATE_ROOM_IDS,
+  SEPARATE_BEDS_IDS,
+} from "./content";
 
 library.add(
   faBed,
@@ -47,15 +59,65 @@ library.add(
   faUtensils,
 );
 
+// TODO: refactor
 const AccommodationPage = () => {
   const isMobile = useIsMobile();
+
+  const [matchingIds, setMatchingIds] = useState(ALL_IDS);
+
+  const [isPrivateRoom, setIsPrivateRoom] = useState(false);
+  const [havePrivateBathroom, setHavePrivateBathroom] = useState(false);
+  const [haveSeparateBeds, setHaveSeparateBeds] = useState(false);
+
+  const toggleFilterPrivateRoom = () => {
+    const newValue = !isPrivateRoom;
+    setIsPrivateRoom(newValue);
+
+    const accommodationIds = filterAccommodation(
+      newValue,
+      havePrivateBathroom,
+      haveSeparateBeds,
+    );
+
+    setMatchingIds(new Set(accommodationIds));
+  };
+
+  const toggleFilterPrivateBathroom = () => {
+    const newValue = !havePrivateBathroom;
+    setHavePrivateBathroom(newValue);
+
+    const accommodationIds = filterAccommodation(
+      isPrivateRoom,
+      newValue,
+      haveSeparateBeds,
+    );
+
+    setMatchingIds(new Set(accommodationIds));
+  };
+
+  const toggleFilterSeparateBeds = () => {
+    const newValue = !haveSeparateBeds;
+    setHaveSeparateBeds(newValue);
+
+    const accommodationIds = filterAccommodation(
+      isPrivateRoom,
+      havePrivateBathroom,
+      newValue,
+    );
+
+    setMatchingIds(new Set(accommodationIds));
+  };
 
   return (
     <IsMobileContext.Provider value={isMobile}>
       <PageContent>
         <PageTitle>Accommodation</PageTitle>
-
-        <AccommodationCards />
+        <AccommodationCriteria
+          toggleFilterPrivateRoom={toggleFilterPrivateRoom}
+          toggleFilterPrivateBathroom={toggleFilterPrivateBathroom}
+          toggleFilterSeparateBeds={toggleFilterSeparateBeds}
+        />
+        <AccommodationCards matchingIds={matchingIds} />
       </PageContent>
     </IsMobileContext.Provider>
   );
@@ -63,11 +125,160 @@ const AccommodationPage = () => {
 
 export default AccommodationPage;
 
-const AccommodationCards = () => {
+type AccommodationCriteriaProps = {
+  toggleFilterPrivateRoom: ChangeEventHandler<HTMLInputElement>;
+  toggleFilterPrivateBathroom: ChangeEventHandler<HTMLInputElement>;
+  toggleFilterSeparateBeds: ChangeEventHandler<HTMLInputElement>;
+};
+
+const AccommodationCriteria = (props: AccommodationCriteriaProps) => {
+  const isMobile = useContext(IsMobileContext);
+
+  const [showFilters, setShowFilters] = useState(false);
+  const [disableFilterButton, setDisableFilterButton] = useState(false);
+
+  const toggleShowFilters = () => {
+    setShowFilters(!showFilters);
+    setDisableFilterButton(true);
+    setTimeout(() => setDisableFilterButton(false), 500);
+  };
+
+  return (
+    <_AccommodationCriteria $isMobile={isMobile}>
+      <FilterButton
+        disabled={disableFilterButton}
+        onClick={toggleShowFilters}
+      />
+      {showFilters ? <Filters {...props} /> : <></>}
+    </_AccommodationCriteria>
+  );
+};
+
+const _AccommodationCriteria = styled.div<IsMobileProps>`
+  box-shadow: 0px 2px 32px 2px rgba(0, 64, 0, 0.1);
+  background-color: var(--secondary-color);
+  color: white;
+
+  position: sticky;
+  top: ${(props) => (props.$isMobile ? "64px" : "80px")};
+
+  z-index: 1001;
+
+  display: ${(props) => (props.$isMobile ? "block" : "flex")};
+  gap: 16px;
+  justify-content: center;
+`;
+
+type FilterButtonProps = {
+  disabled: boolean;
+  onClick: MouseEventHandler<Element>;
+};
+
+const FilterButton = ({ disabled, onClick }: FilterButtonProps) => {
   const isMobile = useContext(IsMobileContext);
   return (
+    <_FilterButton $isMobile={isMobile} $disabled={disabled} onClick={onClick}>
+      Filter <FontAwesomeIcon icon={faArrowDownWideShort} />
+    </_FilterButton>
+  );
+};
+
+type _FilterButtonProps = {
+  $disabled: boolean;
+};
+
+const _FilterButton = styled.div<IsMobileProps & _FilterButtonProps>`
+  display: ${(props) => (props.$isMobile ? "block" : "none")};
+
+  text-align: center;
+  padding: 6px;
+
+  pointer-events: ${(props) => (props.$disabled ? "none" : "auto")};
+
+  /* border-top: 1px solid var(--primary-color); */
+  box-shadow: 0px 2px 32px 2px rgba(0, 64, 0, 0.1);
+`;
+
+type FiltersProps = {
+  toggleFilterPrivateRoom: ChangeEventHandler<HTMLInputElement>;
+  toggleFilterPrivateBathroom: ChangeEventHandler<HTMLInputElement>;
+  toggleFilterSeparateBeds: ChangeEventHandler<HTMLInputElement>;
+};
+
+const Filters = ({
+  toggleFilterPrivateRoom,
+  toggleFilterPrivateBathroom,
+  toggleFilterSeparateBeds,
+}: FiltersProps) => {
+  const isMobile = useContext(IsMobileContext);
+
+  return (
+    <_Filters $isMobile={isMobile}>
+      <Filter label="Private Room?" onChange={toggleFilterPrivateRoom} />
+      <Filter
+        label="Private Bathroom?"
+        onChange={toggleFilterPrivateBathroom}
+      />
+      <Filter label="Separate Beds?" onChange={toggleFilterSeparateBeds} />
+    </_Filters>
+  );
+};
+
+const _Filters = styled.div<IsMobileProps>`
+  display: flex;
+
+  flex-direction: ${(props) => (props.$isMobile ? "column" : "row")};
+  gap: ${(props) => (props.$isMobile ? "4px" : "20px")};
+
+  padding: 8px;
+  justify-content: center;
+`;
+
+type FilterProps = {
+  label: string;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+};
+
+const Filter = ({ label, onChange }: FilterProps) => {
+  const isMobile = useContext(IsMobileContext);
+
+  // last character should be question mark
+  const filterId = label.slice(0, -1).toLowerCase().replaceAll(" ", "-");
+
+  return (
+    <_Filter $isMobile={isMobile}>
+      <label htmlFor={filterId}>{label}</label>
+      <Checkbox id={filterId} type="checkbox" onChange={onChange} />
+    </_Filter>
+  );
+};
+
+const _Filter = styled.div<IsMobileProps>`
+  display: flex;
+  align-items: center;
+  justify-content: ${(props) => (props.$isMobile ? "space-between" : "normal")};
+  gap: 4px;
+`;
+
+const Checkbox = styled.input`
+  width: 20px;
+  height: 20px;
+`;
+
+type AccommodationCardsProps = {
+  matchingIds: Set<string>;
+};
+
+const AccommodationCards = ({ matchingIds }: AccommodationCardsProps) => {
+  const isMobile = useContext(IsMobileContext);
+
+  const matchingAccommodation = ALL_ACCOMMODATION.filter((accommodation) =>
+    matchingIds.has(accommodation.id),
+  );
+
+  return (
     <_AccommodationCards $isMobile={isMobile}>
-      {ALL_ACCOMMODATION.map((accommodation) => (
+      {matchingAccommodation.map((accommodation) => (
         <AccommodationCard key={accommodation.name} {...accommodation} />
       ))}
     </_AccommodationCards>
@@ -267,3 +478,25 @@ const _BookButton = styled(Link)<IsMobileProps>`
 
   border-radius: 8px;
 `;
+
+const filterAccommodation = (
+  isPrivateRoom: boolean,
+  isPrivateBathroom: boolean,
+  haveSeparateBeds: boolean,
+) => {
+  let accommodationIds = structuredClone(ALL_IDS);
+
+  if (isPrivateRoom) {
+    accommodationIds = accommodationIds.intersection(PRIVATE_ROOM_IDS);
+  }
+
+  if (isPrivateBathroom) {
+    accommodationIds = accommodationIds.intersection(PRIVATE_BATHROOM_IDS);
+  }
+
+  if (haveSeparateBeds) {
+    accommodationIds = accommodationIds.intersection(SEPARATE_BEDS_IDS);
+  }
+
+  return accommodationIds;
+};

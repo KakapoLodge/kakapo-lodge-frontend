@@ -96,6 +96,7 @@ const Logo = ({ pathname, onClick }: LogoProps) => {
         width={2963}
         height={1278}
         $isMobile={isMobile}
+        priority
       />
     </CustomLink>
   );
@@ -156,7 +157,7 @@ type MainNavProps = {
 
 const MainNav = ({ pathname, showMenu, onClick }: MainNavProps) => {
   return showMenu ? (
-    <_MainNav>
+    <Nav>
       <MainMenu>
         {SUB_PAGES.map(({ name, path, target = "_self" }) => (
           <MenuItem key={name}>
@@ -173,22 +174,22 @@ const MainNav = ({ pathname, showMenu, onClick }: MainNavProps) => {
       </MainMenu>
 
       <BookDirectButton />
-    </_MainNav>
+    </Nav>
   ) : (
     <></>
   );
 };
 
-const _MainNav = ({
+const Nav = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
   const isMobile = useContext(IsMobileContext);
-  return <StyledMainNav $isMobile={isMobile}>{children}</StyledMainNav>;
+  return <_Nav $isMobile={isMobile}>{children}</_Nav>;
 };
 
-const StyledMainNav = styled.div<IsMobileProps>`
+const _Nav = styled.nav<IsMobileProps>`
   display: flex;
   flex-direction: ${(props) => (props.$isMobile ? "column" : "row")};
   gap: 8px;

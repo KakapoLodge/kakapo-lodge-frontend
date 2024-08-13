@@ -1,5 +1,6 @@
 export const ALL_ACCOMMODATION = [
   {
+    id: "5-bed-dorm",
     name: "Bed in 5-Bed Dorm",
     price: 45,
     sleeps: 1,
@@ -23,6 +24,7 @@ export const ALL_ACCOMMODATION = [
     ],
   },
   {
+    id: "4-bed-dorm",
     name: "Bed in 4-Bed Dorm",
     price: 50,
     sleeps: 1,
@@ -43,6 +45,7 @@ export const ALL_ACCOMMODATION = [
     imagePaths: ["/sub_pages/accommodation/4_bed_dorm/4_bed_dorm_1.png"],
   },
   {
+    id: "private-double",
     name: "Private Double",
     price: 90,
     sleeps: 2,
@@ -63,6 +66,7 @@ export const ALL_ACCOMMODATION = [
     ],
   },
   {
+    id: "private-twin",
     name: "Private Twin",
     price: 96,
     sleeps: 2,
@@ -83,6 +87,7 @@ export const ALL_ACCOMMODATION = [
     ],
   },
   {
+    id: "family-room",
     name: "Family Room",
     price: 120,
     sleeps: 5,
@@ -106,6 +111,7 @@ export const ALL_ACCOMMODATION = [
     ],
   },
   {
+    id: "double-ensuite",
     name: "Double Ensuite",
     price: 110,
     sleeps: 2,
@@ -143,6 +149,7 @@ export const ALL_ACCOMMODATION = [
     ],
   },
   {
+    id: "deluxe-double-ensuite",
     name: "Deluxe Double Ensuite",
     price: 120,
     sleeps: 2,
@@ -184,6 +191,7 @@ export const ALL_ACCOMMODATION = [
     ],
   },
   {
+    id: "motel-unit",
     name: "Motel Unit",
     price: 140,
     sleeps: 3,
@@ -224,3 +232,37 @@ export const ALL_ACCOMMODATION = [
     ],
   },
 ];
+
+export const ALL_IDS = new Set([
+  "5-bed-dorm",
+  "4-bed-dorm",
+  "private-double",
+  "private-twin",
+  "family-room",
+  "double-ensuite",
+  "deluxe-double-ensuite",
+  "motel-unit",
+]);
+
+export const PRIVATE_ROOM_IDS = new Set([
+  "private-double",
+  "private-twin",
+  "family-room",
+  "double-ensuite",
+  "deluxe-double-ensuite",
+  "motel-unit",
+]);
+
+export const PRIVATE_BATHROOM_IDS = new Set([
+  "double-ensuite",
+  "deluxe-double-ensuite",
+  "motel-unit",
+]);
+
+export const SEPARATE_BEDS_IDS = new Set([
+  "5-bed-dorm",
+  "4-bed-dorm",
+  "private-twin",
+  "family-room",
+  "motel-unit",
+]);
