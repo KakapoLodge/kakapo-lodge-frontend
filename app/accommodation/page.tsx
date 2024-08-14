@@ -29,6 +29,7 @@ import {
   useContext,
   useState,
 } from "react";
+import { SyncLoader } from "react-spinners";
 import styled from "styled-components";
 import { IsMobileContext } from "../lib/context";
 import { useIsMobile } from "../lib/hooks";
@@ -38,11 +39,14 @@ import CustomIcon from "../ui/CustomIcon";
 import PageContent, { PageTitle } from "../ui/PageContent";
 import {
   ALL_ACCOMMODATION,
-  ALL_IDS,
-  PRIVATE_BATHROOM_IDS,
-  PRIVATE_ROOM_IDS,
-  SEPARATE_BEDS_IDS,
+  ALL_NAME_IDS,
+  PRIVATE_BATHROOM_NAME_IDS,
+  PRIVATE_ROOM_NAME_IDS,
+  SEPARATE_BEDS_NAME_IDS,
 } from "./content";
+import { getTodaysDateRfc3339 } from "./date";
+import { RatePlansMap } from "./mapping";
+import { useGetRatesQuery } from "./rates";
 
 library.add(
   faBed,
@@ -63,7 +67,7 @@ library.add(
 const AccommodationPage = () => {
   const isMobile = useIsMobile();
 
-  const [matchingIds, setMatchingIds] = useState(ALL_IDS);
+  const [matchingNameIds, setMatchingNameIds] = useState(ALL_NAME_IDS);
 
   const [isPrivateRoom, setIsPrivateRoom] = useState(false);
   const [havePrivateBathroom, setHavePrivateBathroom] = useState(false);
@@ -79,7 +83,7 @@ const AccommodationPage = () => {
       haveSeparateBeds,
     );
 
-    setMatchingIds(new Set(accommodationIds));
+    setMatchingNameIds(new Set(accommodationIds));
   };
 
   const toggleFilterPrivateBathroom = () => {
@@ -92,7 +96,7 @@ const AccommodationPage = () => {
       haveSeparateBeds,
     );
 
-    setMatchingIds(new Set(accommodationIds));
+    setMatchingNameIds(new Set(accommodationIds));
   };
 
   const toggleFilterSeparateBeds = () => {
@@ -105,8 +109,15 @@ const AccommodationPage = () => {
       newValue,
     );
 
-    setMatchingIds(new Set(accommodationIds));
+    setMatchingNameIds(new Set(accommodationIds));
   };
+
+  const todaysDateRfc3339 = getTodaysDateRfc3339();
+
+  const { data, error, isLoading } = useGetRatesQuery({
+    start_date: todaysDateRfc3339,
+    end_date: todaysDateRfc3339,
+  });
 
   return (
     <IsMobileContext.Provider value={isMobile}>
@@ -117,7 +128,18 @@ const AccommodationPage = () => {
           toggleFilterPrivateBathroom={toggleFilterPrivateBathroom}
           toggleFilterSeparateBeds={toggleFilterSeparateBeds}
         />
-        <AccommodationCards matchingIds={matchingIds} />
+        {error ? (
+          <>Oh no, there was an error</>
+        ) : isLoading ? (
+          <SyncLoader />
+        ) : data ? (
+          <AccommodationCards
+            matchingNameIds={matchingNameIds}
+            ratePlansMap={data}
+          />
+        ) : (
+          <></>
+        )}
       </PageContent>
     </IsMobileContext.Provider>
   );
@@ -266,21 +288,35 @@ const Checkbox = styled.input`
 `;
 
 type AccommodationCardsProps = {
-  matchingIds: Set<string>;
+  matchingNameIds: Set<string>;
+  ratePlansMap: RatePlansMap;
 };
 
-const AccommodationCards = ({ matchingIds }: AccommodationCardsProps) => {
+const AccommodationCards = ({
+  matchingNameIds,
+  ratePlansMap,
+}: AccommodationCardsProps) => {
   const isMobile = useContext(IsMobileContext);
 
   const matchingAccommodation = ALL_ACCOMMODATION.filter((accommodation) =>
-    matchingIds.has(accommodation.id),
+    matchingNameIds.has(accommodation.nameId),
   );
 
   return (
     <_AccommodationCards $isMobile={isMobile}>
-      {matchingAccommodation.map((accommodation) => (
-        <AccommodationCard key={accommodation.name} {...accommodation} />
-      ))}
+      {matchingAccommodation.map((accommodation) => {
+        const ratePlan = ratePlansMap[accommodation.nameId];
+        const ratePlanDate = ratePlan["rate_plan_dates"][0];
+
+        return (
+          <AccommodationCard
+            key={accommodation.name}
+            {...accommodation}
+            price={ratePlanDate.rate}
+            available={ratePlanDate.available}
+          />
+        );
+      })}
     </_AccommodationCards>
   );
 };
@@ -484,18 +520,18 @@ const filterAccommodation = (
   isPrivateBathroom: boolean,
   haveSeparateBeds: boolean,
 ) => {
-  let accommodationIds = structuredClone(ALL_IDS);
+  let accommodationIds = structuredClone(ALL_NAME_IDS);
 
   if (isPrivateRoom) {
-    accommodationIds = accommodationIds.intersection(PRIVATE_ROOM_IDS);
+    accommodationIds = accommodationIds.intersection(PRIVATE_ROOM_NAME_IDS);
   }
 
   if (isPrivateBathroom) {
-    accommodationIds = accommodationIds.intersection(PRIVATE_BATHROOM_IDS);
+    accommodationIds = accommodationIds.intersection(PRIVATE_BATHROOM_NAME_IDS);
   }
 
   if (haveSeparateBeds) {
-    accommodationIds = accommodationIds.intersection(SEPARATE_BEDS_IDS);
+    accommodationIds = accommodationIds.intersection(SEPARATE_BEDS_NAME_IDS);
   }
 
   return accommodationIds;

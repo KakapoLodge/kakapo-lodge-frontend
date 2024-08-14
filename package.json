@@ -15,10 +15,13 @@
     "@fortawesome/free-regular-svg-icons": "^6",
     "@fortawesome/free-solid-svg-icons": "^6",
     "@fortawesome/react-fontawesome": "^0",
+    "@reduxjs/toolkit": "^2.2.7",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
     "react-multi-carousel": "^2",
+    "react-redux": "^9.1.2",
+    "react-spinners": "^0.14.1",
     "styled-components": "^6"
   },
   "devDependencies": {
