@@ -156,7 +156,7 @@ type AccommodationCriteriaProps = {
 const AccommodationCriteria = (props: AccommodationCriteriaProps) => {
   const isMobile = useContext(IsMobileContext);
 
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(!isMobile);
   const [disableFilterButton, setDisableFilterButton] = useState(false);
 
   const toggleShowFilters = () => {
