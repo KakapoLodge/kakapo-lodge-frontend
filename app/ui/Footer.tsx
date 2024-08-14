@@ -3,6 +3,7 @@
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import styled from "styled-components";
 import { IsMobileContext } from "../lib/context";
 import { useIsMobile } from "../lib/hooks";
@@ -11,7 +12,10 @@ import BookDirectButton from "./BookDirectButton";
 const Footer = () => {
   const isMobile = useIsMobile();
 
-  return isMobile ? (
+  const pathname = usePathname();
+  const isAccommodationPage = pathname.includes("accommodation");
+
+  return isMobile && !isAccommodationPage ? (
     <IsMobileContext.Provider value={isMobile}>
       <BottomBar>
         <CallButton />
