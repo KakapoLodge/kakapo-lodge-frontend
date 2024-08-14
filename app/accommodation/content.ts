@@ -63,6 +63,7 @@ export const ALL_ACCOMMODATION = [
       "/sub_pages/accommodation/private_double/private_double_1.png",
       "/sub_pages/accommodation/private_double/private_double_2.png",
       "/sub_pages/accommodation/private_double/private_double_3.png",
+      "/sub_pages/accommodation/private_double/private_double_4.png",
     ],
   },
   {
@@ -84,6 +85,8 @@ export const ALL_ACCOMMODATION = [
       "/sub_pages/accommodation/private_twin/private_twin_1.png",
       "/sub_pages/accommodation/private_twin/private_twin_2.png",
       "/sub_pages/accommodation/private_twin/private_twin_3.png",
+      "/sub_pages/accommodation/private_twin/private_twin_4.png",
+      "/sub_pages/accommodation/private_twin/private_twin_5.png",
     ],
   },
   {
@@ -146,6 +149,9 @@ export const ALL_ACCOMMODATION = [
       "/sub_pages/accommodation/double_ensuite/double_ensuite_2.png",
       "/sub_pages/accommodation/double_ensuite/double_ensuite_3.png",
       "/sub_pages/accommodation/double_ensuite/double_ensuite_4.png",
+      "/sub_pages/accommodation/double_ensuite/double_ensuite_5.png",
+      "/sub_pages/accommodation/double_ensuite/double_ensuite_6.png",
+      "/sub_pages/accommodation/double_ensuite/double_ensuite_7.png",
     ],
   },
   {

@@ -2,6 +2,8 @@
 
 Copyright (c) 2024, James Bae
 
+Images should follow aspect ratio of 16:9
+
 ## Set-Up
 
 Install / update dependencies:
