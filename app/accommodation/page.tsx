@@ -29,13 +29,13 @@ import {
   useContext,
   useState,
 } from "react";
-import { SyncLoader } from "react-spinners";
 import styled from "styled-components";
 import { IsMobileContext } from "../lib/context";
 import { useIsMobile } from "../lib/hooks";
 import { IsMobileProps } from "../lib/types";
 import CustomCarousel from "../ui/CustomCarousel";
 import CustomIcon from "../ui/CustomIcon";
+import LoadingAnimation from "../ui/LoadingAnimation";
 import PageContent, { PageTitle } from "../ui/PageContent";
 import {
   ALL_ACCOMMODATION,
@@ -131,7 +131,7 @@ const AccommodationPage = () => {
         {error ? (
           <>Oh no, there was an error</>
         ) : isLoading ? (
-          <SyncLoader />
+          <LoadingAnimation />
         ) : data ? (
           <AccommodationCards
             matchingNameIds={matchingNameIds}
@@ -330,6 +330,7 @@ const _AccommodationCards = styled.div<IsMobileProps>`
 `;
 
 type AccommodationCardProps = {
+  nameId: string;
   name: string;
   price: number;
   sleeps: number;
@@ -348,11 +349,10 @@ type Feature = {
 
 const AccommodationCard = (props: AccommodationCardProps) => {
   const isMobile = useContext(IsMobileContext);
-
-  const { name, price, available, url, imagePaths } = props;
+  const { nameId, name, price, available, url, imagePaths } = props;
 
   return (
-    <_Card $isMobile={isMobile}>
+    <_Card $isMobile={isMobile} id={nameId}>
       <CustomCarousel
         imagePaths={imagePaths}
         description={name}
