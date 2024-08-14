@@ -4,6 +4,7 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { IsMobileContext } from "../lib/context";
 import { IsMobileProps } from "../lib/types";
+import { usePathname } from "next/navigation";
 
 const PageContent = ({
   children,
@@ -11,13 +12,25 @@ const PageContent = ({
   children: React.ReactNode;
 }>) => {
   const isMobile = useContext(IsMobileContext);
-  return <_PageContent $isMobile={isMobile}>{children}</_PageContent>;
+
+  const pathname = usePathname();
+  const isAccommodationPage = pathname.includes("accommodation");
+
+  return (
+    <_PageContent $largerBottomMargin={isMobile && !isAccommodationPage}>
+      {children}
+    </_PageContent>
+  );
 };
 
 export default PageContent;
 
-const _PageContent = styled.main<IsMobileProps>`
-  margin-bottom: ${(props) => (props.$isMobile ? "72px" : "16px")};
+type _PageContentProps = {
+  $largerBottomMargin: boolean;
+};
+
+const _PageContent = styled.main<_PageContentProps>`
+  margin-bottom: ${(props) => (props.$largerBottomMargin ? "72px" : "16px")};
 `;
 
 export const PageTitle = ({
