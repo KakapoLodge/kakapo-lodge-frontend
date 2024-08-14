@@ -7,7 +7,7 @@ Copyright (c) 2024, James Bae
 Install / update dependencies:
 
 ```bash
-bun install # or npm install
+bun install
 ```
 
 ## Run
@@ -19,6 +19,12 @@ bun dev
 ```
 
 ## Deployment
+
+Install / update npm dependencies:
+
+```bash
+npm install
+```
 
 Platform: DigitalOcean  
 Product: App Platform  
