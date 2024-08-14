@@ -93,8 +93,8 @@ const Logo = ({ pathname, onClick }: LogoProps) => {
       <_Logo
         src={"/kakapo_logo_with_text.png"}
         alt="Kakapo logo with text"
-        width={2963}
-        height={1278}
+        width={371}
+        height={160}
         $isMobile={isMobile}
         priority
       />
@@ -128,7 +128,7 @@ type MenuIconProps = {
 
 const MenuIcon = styled(FontAwesomeIcon)<MenuIconProps>`
   font-size: 32px;
-  padding: 16px 28px;
+  padding: 16px 24px;
   pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
 `;
 
@@ -164,7 +164,7 @@ const MainNav = ({ pathname, showMenu, onClick }: MainNavProps) => {
             <CustomLink
               href={path}
               target={target}
-              $isSelected={pathname === path}
+              $isSelected={pathname.includes(path)}
               onClick={onClick}
             >
               {name}
