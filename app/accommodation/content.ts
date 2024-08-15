@@ -1,6 +1,6 @@
 import { AccommodationNameId, AllRates } from "./types";
 
-export const ALL_NAME_IDS: AccommodationNameId[] = [
+export const ACCOMMODATION_NAME_IDS: AccommodationNameId[] = [
   "5-bed-dorm",
   "4-bed-dorm",
   "private-double",
@@ -34,7 +34,7 @@ export const SEPARATE_BEDS_NAME_IDS: Set<AccommodationNameId> = new Set([
   "motel-unit",
 ]);
 
-export const NAMES = {
+export const ACCOMMODATION_NAMES = {
   "5-bed-dorm": "Bed in 5-Bed Dorm",
   "4-bed-dorm": "Bed in 4-Bed Female Dorm",
   "private-double": "Private Double",
@@ -226,7 +226,7 @@ export const BOOKING_URLS = {
     "https://apac.littlehotelier.com/reservations/kakapolodgedirect/9240?promotion_code=5OFF",
 };
 
-export const ALL_IMAGE_PATHS = {
+export const ACCOMMODATION_IMAGE_PATHS = {
   "5-bed-dorm": [
     "/sub_pages/accommodation/5_bed_dorm/5_bed_dorm_1.png",
     "/sub_pages/accommodation/5_bed_dorm/5_bed_dorm_2.png",

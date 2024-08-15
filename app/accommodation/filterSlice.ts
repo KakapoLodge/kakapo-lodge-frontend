@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  ALL_NAME_IDS,
+  ACCOMMODATION_NAME_IDS,
   PRIVATE_BATHROOM_NAME_IDS,
   PRIVATE_ROOM_NAME_IDS,
   SEPARATE_BEDS_NAME_IDS,
@@ -15,7 +15,7 @@ type FilterState = {
 };
 
 const initialState: FilterState = {
-  matchingNameIds: [...ALL_NAME_IDS],
+  matchingNameIds: [...ACCOMMODATION_NAME_IDS],
   isPrivateRoom: false,
   havePrivateBathroom: false,
   haveSeparateBeds: false,
@@ -72,7 +72,7 @@ const filterAccommodation = (
   isPrivateBathroom: boolean,
   haveSeparateBeds: boolean,
 ) => {
-  let accommodationIds = new Set(ALL_NAME_IDS);
+  let accommodationIds = new Set(ACCOMMODATION_NAME_IDS);
 
   if (isPrivateRoom) {
     accommodationIds = accommodationIds.intersection(PRIVATE_ROOM_NAME_IDS);

@@ -40,12 +40,12 @@ import PageContent from "../ui/PageContent";
 import PageTitle from "../ui/PageTitle";
 import {
   ALL_ADDITIONAL_FEATURES,
-  ALL_IMAGE_PATHS,
-  ALL_NAME_IDS,
+  ACCOMMODATION_IMAGE_PATHS,
+  ACCOMMODATION_NAME_IDS,
   BASE_FEATURES,
   BOOKING_URLS,
   DEFAULT_RATES,
-  NAMES,
+  ACCOMMODATION_NAMES,
 } from "./content";
 import { getTodaysDateRfc3339 } from "./date";
 import { filterSlice } from "./filterSlice";
@@ -247,7 +247,9 @@ const AccommodationCards = ({ allRates }: AccommodationCardsProps) => {
   const matchingNameIds = new Set(
     useAppSelector((state) => state.filter.matchingNameIds),
   );
-  const nameIds = ALL_NAME_IDS.filter((nameId) => matchingNameIds.has(nameId));
+  const nameIds = ACCOMMODATION_NAME_IDS.filter((nameId) =>
+    matchingNameIds.has(nameId),
+  );
 
   return (
     <_AccommodationCards $isMobile={isMobile}>
@@ -277,12 +279,12 @@ type AccommodationCardProps = {
 
 const AccommodationCard = ({ nameId, rates }: AccommodationCardProps) => {
   const isMobile = useContext(IsMobileContext);
-  const name = NAMES[nameId];
+  const name = ACCOMMODATION_NAMES[nameId];
 
   return (
     <_Card $isMobile={isMobile} id={nameId}>
       <ImageCarousel
-        imagePaths={ALL_IMAGE_PATHS[nameId]}
+        imagePaths={ACCOMMODATION_IMAGE_PATHS[nameId]}
         description={name}
         widthPercentage={isMobile ? 100 : 48}
       />

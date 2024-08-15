@@ -1,9 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import styled from "styled-components";
+import CarouselImage from "./CarouselImage";
+import CustomCarousel from "./CustomCarousel";
 
 type ImageCarouselProps = {
   description: string;
@@ -17,56 +15,20 @@ const ImageCarousel = ({
   widthPercentage = 100,
 }: ImageCarouselProps) => {
   return (
-    <_Carousel
+    <CustomCarousel
       showDots={true}
-      infinite={true}
-      responsive={CAROUSEL_RESPONSIVE}
-      $widthPercentage={widthPercentage}
+      singleItem={true}
+      widthPercentage={widthPercentage}
     >
       {imagePaths.map((imagePath) => (
         <CarouselImage
           key={imagePath}
-          src={imagePath}
-          alt={description}
-          loading="lazy"
-          width={1600}
-          height={900}
+          imagePath={imagePath}
+          description={description}
         />
       ))}
-    </_Carousel>
+    </CustomCarousel>
   );
 };
 
 export default ImageCarousel;
-
-type _CarouselProps = {
-  $widthPercentage: number;
-};
-
-const _Carousel = styled(Carousel)<_CarouselProps>`
-  width: ${(props) => `${props.$widthPercentage}%`};
-`;
-
-const CAROUSEL_RESPONSIVE = {
-  superLargeDesktop: {
-    breakpoint: { max: 4000, min: 3000 },
-    items: 1,
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 1,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 1,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-  },
-};
-
-const CarouselImage = styled(Image)`
-  width: 100%;
-  height: auto;
-`;
