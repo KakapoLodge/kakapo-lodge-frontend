@@ -43,6 +43,7 @@ import {
   ALL_NAME_IDS,
   BASE_FEATURES,
   BOOKING_URLS,
+  DEFAULT_RATES,
   NAMES,
 } from "./content";
 import { getTodaysDateRfc3339 } from "./date";
@@ -82,7 +83,7 @@ const AccommodationPage = () => {
         <PageTitle>Accommodation</PageTitle>
         <AccommodationCriteria />
         {error ? (
-          <>Oh no, there was an error</>
+          <AccommodationCards allRates={DEFAULT_RATES} />
         ) : isLoading ? (
           <LoadingAnimation />
         ) : data ? (

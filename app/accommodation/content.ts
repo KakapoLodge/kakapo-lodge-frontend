@@ -1,4 +1,4 @@
-import { AccommodationNameId } from "./types";
+import { AccommodationNameId, AllRates } from "./types";
 
 export const ALL_NAME_IDS: AccommodationNameId[] = [
   "5-bed-dorm",
@@ -269,4 +269,55 @@ export const ALL_IMAGE_PATHS = {
     "/sub_pages/accommodation/motel_unit/motel_unit_2.png",
     "/sub_pages/accommodation/motel_unit/motel_unit_3.png",
   ],
+};
+
+export const DEFAULT_RATES: AllRates = {
+  "5-bed-dorm": {
+    price: 45,
+    overallAvailable: null,
+    overallMinStay: null,
+    isForSale: true,
+  },
+  "4-bed-dorm": {
+    price: 50,
+    overallAvailable: null,
+    overallMinStay: null,
+    isForSale: true,
+  },
+  "private-double": {
+    price: 90,
+    overallAvailable: null,
+    overallMinStay: null,
+    isForSale: true,
+  },
+  "private-twin": {
+    price: 96,
+    overallAvailable: null,
+    overallMinStay: null,
+    isForSale: true,
+  },
+  "family-room": {
+    price: 120,
+    overallAvailable: null,
+    overallMinStay: null,
+    isForSale: true,
+  },
+  "double-ensuite": {
+    price: 110,
+    overallAvailable: null,
+    overallMinStay: null,
+    isForSale: true,
+  },
+  "deluxe-double-ensuite": {
+    price: 120,
+    overallAvailable: null,
+    overallMinStay: null,
+    isForSale: true,
+  },
+  "motel-unit": {
+    price: 140,
+    overallAvailable: null,
+    overallMinStay: null,
+    isForSale: true,
+  },
 };

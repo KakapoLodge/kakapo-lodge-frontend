@@ -1,3 +1,4 @@
+import { DEFAULT_RATES } from "./content";
 import { AccommodationNameId, AllRates, LHRate, LHRatePlanDate } from "./types";
 
 export const mapResponse = (rates: LHRate[]): AllRates => {
@@ -58,57 +59,6 @@ const checkIsForSale = (ratePlanDates: LHRatePlanDate[]) => {
   return !ratePlanDates
     .map((ratePlanDate) => ratePlanDate["stop_online_sell"])
     .reduce((overallStop, stopNight) => overallStop || stopNight, false);
-};
-
-const DEFAULT_RATES: AllRates = {
-  "5-bed-dorm": {
-    price: 45,
-    overallAvailable: null,
-    overallMinStay: null,
-    isForSale: true,
-  },
-  "4-bed-dorm": {
-    price: 50,
-    overallAvailable: null,
-    overallMinStay: null,
-    isForSale: true,
-  },
-  "private-double": {
-    price: 90,
-    overallAvailable: null,
-    overallMinStay: null,
-    isForSale: true,
-  },
-  "private-twin": {
-    price: 96,
-    overallAvailable: null,
-    overallMinStay: null,
-    isForSale: true,
-  },
-  "family-room": {
-    price: 120,
-    overallAvailable: null,
-    overallMinStay: null,
-    isForSale: true,
-  },
-  "double-ensuite": {
-    price: 110,
-    overallAvailable: null,
-    overallMinStay: null,
-    isForSale: true,
-  },
-  "deluxe-double-ensuite": {
-    price: 120,
-    overallAvailable: null,
-    overallMinStay: null,
-    isForSale: true,
-  },
-  "motel-unit": {
-    price: 140,
-    overallAvailable: null,
-    overallMinStay: null,
-    isForSale: true,
-  },
 };
 
 const MAX_AVAILABLE = {
