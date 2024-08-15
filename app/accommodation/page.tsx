@@ -38,8 +38,12 @@ import CustomIcon from "../ui/CustomIcon";
 import LoadingAnimation from "../ui/LoadingAnimation";
 import PageContent, { PageTitle } from "../ui/PageContent";
 import {
-  ALL_ACCOMMODATION,
+  ALL_ADDITIONAL_FEATURES,
+  ALL_IMAGE_PATHS,
   ALL_NAME_IDS,
+  BASE_FEATURES,
+  BOOKING_URLS,
+  NAMES,
   PRIVATE_BATHROOM_NAME_IDS,
   PRIVATE_ROOM_NAME_IDS,
   SEPARATE_BEDS_NAME_IDS,
@@ -47,6 +51,7 @@ import {
 import { getTodaysDateRfc3339 } from "./date";
 import { RatePlansMap } from "./mapping";
 import { useGetRatesQuery } from "./rates";
+import { AccommodationNameId } from "./types";
 
 library.add(
   faBed,
@@ -67,7 +72,7 @@ library.add(
 const AccommodationPage = () => {
   const isMobile = useIsMobile();
 
-  const [matchingNameIds, setMatchingNameIds] = useState(ALL_NAME_IDS);
+  const [matchingNameIds, setMatchingNameIds] = useState(new Set(ALL_NAME_IDS));
 
   const [isPrivateRoom, setIsPrivateRoom] = useState(false);
   const [havePrivateBathroom, setHavePrivateBathroom] = useState(false);
@@ -297,21 +302,18 @@ const AccommodationCards = ({
   ratePlansMap,
 }: AccommodationCardsProps) => {
   const isMobile = useContext(IsMobileContext);
-
-  const matchingAccommodation = ALL_ACCOMMODATION.filter((accommodation) =>
-    matchingNameIds.has(accommodation.nameId),
-  );
+  const nameIds = ALL_NAME_IDS.filter((nameId) => matchingNameIds.has(nameId));
 
   return (
     <_AccommodationCards $isMobile={isMobile}>
-      {matchingAccommodation.map((accommodation) => {
-        const ratePlan = ratePlansMap[accommodation.nameId];
+      {nameIds.map((nameId) => {
+        const ratePlan = ratePlansMap[nameId];
         const ratePlanDate = ratePlan["rate_plan_dates"][0];
 
         return (
           <AccommodationCard
-            key={accommodation.name}
-            {...accommodation}
+            key={nameId}
+            nameId={nameId}
             price={ratePlanDate.rate}
             available={ratePlanDate.available}
           />
@@ -330,26 +332,21 @@ const _AccommodationCards = styled.div<IsMobileProps>`
 `;
 
 type AccommodationCardProps = {
-  nameId: string;
-  name: string;
+  nameId: AccommodationNameId;
   price: number;
-  sleeps: number;
-  size: number;
   available: number;
-  roomConfiguration: string;
-  url: string;
-  otherFeatures: Feature[];
-  imagePaths: string[];
 };
 
-type Feature = {
-  icon: string;
-  description: string;
-};
-
-const AccommodationCard = (props: AccommodationCardProps) => {
+const AccommodationCard = ({
+  nameId,
+  price,
+  available,
+}: AccommodationCardProps) => {
   const isMobile = useContext(IsMobileContext);
-  const { nameId, name, price, available, url, imagePaths } = props;
+
+  const name = NAMES[nameId];
+  const url = BOOKING_URLS[nameId];
+  const imagePaths = ALL_IMAGE_PATHS[nameId];
 
   return (
     <_Card $isMobile={isMobile} id={nameId}>
@@ -362,7 +359,7 @@ const AccommodationCard = (props: AccommodationCardProps) => {
       <Text>
         <Name>{name}</Name>
         <Price>Tonight: ${price}</Price>
-        <Features {...props} />
+        <Features nameId={nameId} />
         <br />
         <Availability>{available} available tonight</Availability>
         <BookButton price={price} url={url} />
@@ -422,18 +419,13 @@ const Price = styled.p`
 `;
 
 type FeaturesProps = {
-  sleeps: number;
-  size: number;
-  roomConfiguration: string;
-  otherFeatures: Feature[];
+  nameId: AccommodationNameId;
 };
 
-const Features = ({
-  sleeps,
-  size,
-  roomConfiguration,
-  otherFeatures,
-}: FeaturesProps) => {
+const Features = ({ nameId }: FeaturesProps) => {
+  const { sleeps, size, roomConfiguration } = BASE_FEATURES[nameId];
+  const additionalFeatures = ALL_ADDITIONAL_FEATURES[nameId];
+
   return (
     <_Features>
       <div>
@@ -450,7 +442,7 @@ const Features = ({
         <FontAwesomeIcon icon={faFan} /> Fan in summer)
       </div>
 
-      {...otherFeatures.map(({ icon, description }) => (
+      {...additionalFeatures.map(({ icon, description }) => (
         <div key={description}>
           <CustomIcon icon={icon} /> {description}
         </div>
@@ -520,7 +512,7 @@ const filterAccommodation = (
   isPrivateBathroom: boolean,
   haveSeparateBeds: boolean,
 ) => {
-  let accommodationIds = structuredClone(ALL_NAME_IDS);
+  let accommodationIds = new Set(ALL_NAME_IDS);
 
   if (isPrivateRoom) {
     accommodationIds = accommodationIds.intersection(PRIVATE_ROOM_NAME_IDS);
