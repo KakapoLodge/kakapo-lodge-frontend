@@ -18,10 +18,11 @@ import styled from "styled-components";
 import { IsMobileContext } from "../lib/context";
 import { useIsMobile } from "../lib/hooks";
 import { IsMobileProps } from "../lib/types";
-import ImageCarousel from "../ui/ImageCarousel";
 import CustomIcon from "../ui/CustomIcon";
-import PageContent, { PageTitle } from "../ui/PageContent";
+import ImageCarousel from "../ui/ImageCarousel";
+import PageContent from "../ui/PageContent";
 import { FACILITIES, PURCHASEABLES, SERVICES } from "./content";
+import PageTitle from "../ui/PageTitle";
 
 library.add(
   faBook,
@@ -42,7 +43,7 @@ const FacilitiesPage = () => {
   return (
     <IsMobileContext.Provider value={isMobile}>
       <PageContent>
-        <PageTitle>Facilities</PageTitle>
+        <PageTitle text="Facilities" />
 
         <FacilitySections>
           {FACILITIES.map((facility) => (

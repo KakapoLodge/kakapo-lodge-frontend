@@ -1,13 +1,13 @@
 "use client";
 
-import Link from "next/link";
 import { useContext } from "react";
 import styled from "styled-components";
 import { IsMobileContext } from "../lib/context";
 import { useIsMobile } from "../lib/hooks";
 import { IsMobileProps } from "../lib/types";
-import PageContent, { PageTitle } from "../ui/PageContent";
 import CustomLink from "../ui/CustomLink";
+import PageContent from "../ui/PageContent";
+import PageTitle from "../ui/PageTitle";
 
 const ContactPage = () => {
   const isMobile = useIsMobile();
@@ -15,7 +15,7 @@ const ContactPage = () => {
   return (
     <IsMobileContext.Provider value={isMobile}>
       <PageContent>
-        <PageTitle>Contact Us</PageTitle>
+        <PageTitle text="Contact Us" />
 
         <ContactInformation>
           <ContactDetails>

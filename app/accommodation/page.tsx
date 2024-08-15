@@ -33,10 +33,11 @@ import styled from "styled-components";
 import { IsMobileContext } from "../lib/context";
 import { useAppDispatch, useAppSelector, useIsMobile } from "../lib/hooks";
 import { IsMobileProps } from "../lib/types";
-import ImageCarousel from "../ui/ImageCarousel";
 import CustomIcon from "../ui/CustomIcon";
+import ImageCarousel from "../ui/ImageCarousel";
 import LoadingAnimation from "../ui/LoadingAnimation";
-import PageContent, { PageTitle } from "../ui/PageContent";
+import PageContent from "../ui/PageContent";
+import PageTitle from "../ui/PageTitle";
 import {
   ALL_ADDITIONAL_FEATURES,
   ALL_IMAGE_PATHS,
@@ -80,8 +81,9 @@ const AccommodationPage = () => {
   return (
     <IsMobileContext.Provider value={isMobile}>
       <PageContent>
-        <PageTitle>Accommodation</PageTitle>
+        <PageTitle text="Accommodation" />
         <AccommodationCriteria />
+
         {error ? (
           <AccommodationCards allRates={DEFAULT_RATES} />
         ) : isLoading ? (

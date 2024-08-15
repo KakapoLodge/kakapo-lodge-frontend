@@ -3,11 +3,12 @@
 import Image from "next/image";
 import { useContext } from "react";
 import styled from "styled-components";
+import { INTRODUCTION } from "./content";
 import { IsMobileContext } from "./lib/context";
 import { useIsMobile } from "./lib/hooks";
 import { IsMobileProps } from "./lib/types";
 import PageContent from "./ui/PageContent";
-import { INTRODUCTION } from "./content";
+import PageTitle from "./ui/PageTitle";
 
 const LandingPage = () => {
   const isMobile = useIsMobile();
@@ -19,9 +20,8 @@ const LandingPage = () => {
       <LandingPageContent>
         <MainBanner />
 
+        <PageTitle text={title} />
         <Introduction>
-          <IntroductionTitle>{title}</IntroductionTitle>
-
           {paragraphs.map((paragraph, index) => (
             <p key={`introduction-paragraph-${index}`}>{paragraph}</p>
           ))}
@@ -84,22 +84,4 @@ const _Introduction = styled.div<IsMobileProps>`
   gap: 12px;
 
   padding: ${(props) => (props.$isMobile ? "0px 32px" : "0px 16vw")};
-`;
-
-const IntroductionTitle = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => {
-  const isMobile = useContext(IsMobileContext);
-
-  return (
-    <_IntroductionTitle $isMobile={isMobile}>{children}</_IntroductionTitle>
-  );
-};
-
-const _IntroductionTitle = styled.h1<IsMobileProps>`
-  text-align: center;
-  font-size: ${(props) => (props.$isMobile ? "x-large" : "xx-large")};
-  font-weight: 500;
 `;
