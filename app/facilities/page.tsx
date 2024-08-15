@@ -19,11 +19,12 @@ import { IsMobileContext } from "../lib/context";
 import { useIsMobile } from "../lib/hooks";
 import { IsMobileProps } from "../lib/types";
 import CustomIcon from "../ui/CustomIcon";
+import Header from "../ui/Header";
 import ImageCarousel from "../ui/ImageCarousel";
 import PageContent from "../ui/PageContent";
-import { FACILITIES, PURCHASEABLES, SERVICES } from "./content";
 import PageTitle from "../ui/PageTitle";
 import Section from "../ui/Section";
+import { FACILITIES, PURCHASEABLES, SERVICES } from "./content";
 
 library.add(
   faBook,
@@ -55,8 +56,7 @@ const FacilitiesPage = () => {
           ))}
 
           <Section>
-            <FacilityName>Our Services</FacilityName>
-
+            <Header text="Our Services" />
             <div>
               {SERVICES.map((service) => (
                 <Service key={service.description} {...service} />
@@ -67,8 +67,7 @@ const FacilitiesPage = () => {
           <Divider />
 
           <Section>
-            <FacilityName>Purchaseable</FacilityName>
-
+            <Header text="Purchaseable" />
             <div>
               {PURCHASEABLES.map((purchaseable) => (
                 <Service key={purchaseable.description} {...purchaseable} />
@@ -107,9 +106,8 @@ type FacilityProps = {
 const Facility = ({ name, description, imagePaths }: FacilityProps) => {
   return (
     <Section>
-      <FacilityName>{name}</FacilityName>
+      <Header text={name} />
       <p>{description}</p>
-
       <ImageCarousel imagePaths={imagePaths} description={description} />
     </Section>
   );
@@ -127,19 +125,6 @@ const Service = ({ iconName, description }: ServiceProps) => {
     </div>
   );
 };
-
-const FacilityName = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => {
-  const isMobile = useContext(IsMobileContext);
-  return <_FacilityName $isMobile={isMobile}>{children}</_FacilityName>;
-};
-
-const _FacilityName = styled.h2<IsMobileProps>`
-  font-size: ${(props) => (props.$isMobile ? "larger" : "x-large")};
-`;
 
 const Divider = () => {
   const isMobile = useContext(IsMobileContext);

@@ -6,6 +6,7 @@ import { IsMobileContext } from "../lib/context";
 import { useIsMobile } from "../lib/hooks";
 import { IsMobileProps } from "../lib/types";
 import CustomLink from "../ui/CustomLink";
+import Header from "../ui/Header";
 import PageContent from "../ui/PageContent";
 import PageTitle from "../ui/PageTitle";
 
@@ -19,7 +20,7 @@ const ContactPage = () => {
 
         <ContactInformation>
           <ContactDetails>
-            <ContactHeader>Reach us via</ContactHeader>
+            <Header text="Reach us via" />
             <p>
               Phone:&nbsp;
               <CustomLink href="tel:03 315 7472" target="_blank">
@@ -35,7 +36,7 @@ const ContactPage = () => {
           </ContactDetails>
 
           <ContactDetails>
-            <ContactHeader>Our Location</ContactHeader>
+            <Header text="Our Location" />
             <p>Just a 5 minutes walk away from the Hot Pools!</p>
 
             <GoogleMaps />
@@ -67,19 +68,6 @@ const _ContactInformation = styled.div<IsMobileProps>`
 
 const ContactDetails = styled.div`
   text-align: center;
-`;
-
-const ContactHeader = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => {
-  const isMobile = useContext(IsMobileContext);
-  return <_ContactHeader $isMobile={isMobile}>{children}</_ContactHeader>;
-};
-
-const _ContactHeader = styled.h2<IsMobileProps>`
-  font-size: ${(props) => (props.$isMobile ? "larger" : "x-large")};
 `;
 
 const GoogleMaps = () => {
