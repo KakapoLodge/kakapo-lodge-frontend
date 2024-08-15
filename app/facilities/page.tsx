@@ -23,6 +23,7 @@ import ImageCarousel from "../ui/ImageCarousel";
 import PageContent from "../ui/PageContent";
 import { FACILITIES, PURCHASEABLES, SERVICES } from "./content";
 import PageTitle from "../ui/PageTitle";
+import Section from "../ui/Section";
 
 library.add(
   faBook,
@@ -53,7 +54,7 @@ const FacilitiesPage = () => {
             </Fragment>
           ))}
 
-          <FacilitySection>
+          <Section>
             <FacilityName>Our Services</FacilityName>
 
             <div>
@@ -61,11 +62,11 @@ const FacilitiesPage = () => {
                 <Service key={service.description} {...service} />
               ))}
             </div>
-          </FacilitySection>
+          </Section>
 
           <Divider />
 
-          <FacilitySection>
+          <Section>
             <FacilityName>Purchaseable</FacilityName>
 
             <div>
@@ -73,7 +74,7 @@ const FacilitiesPage = () => {
                 <Service key={purchaseable.description} {...purchaseable} />
               ))}
             </div>
-          </FacilitySection>
+          </Section>
         </FacilitySections>
       </PageContent>
     </IsMobileContext.Provider>
@@ -105,12 +106,12 @@ type FacilityProps = {
 
 const Facility = ({ name, description, imagePaths }: FacilityProps) => {
   return (
-    <FacilitySection>
+    <Section>
       <FacilityName>{name}</FacilityName>
       <p>{description}</p>
 
       <ImageCarousel imagePaths={imagePaths} description={description} />
-    </FacilitySection>
+    </Section>
   );
 };
 
@@ -126,24 +127,6 @@ const Service = ({ iconName, description }: ServiceProps) => {
     </div>
   );
 };
-
-const FacilitySection = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => {
-  const isMobile = useContext(IsMobileContext);
-  return <_FacilitySection $isMobile={isMobile}>{children}</_FacilitySection>;
-};
-
-const _FacilitySection = styled.div<IsMobileProps>`
-  display: flex;
-  flex-direction: column;
-  gap: ${(props) => (props.$isMobile ? "4px" : "8px")};
-
-  width: ${(props) => (props.$isMobile ? "calc(100% - 16px)" : "64%")};
-  margin: 0px auto;
-`;
 
 const FacilityName = ({
   children,
