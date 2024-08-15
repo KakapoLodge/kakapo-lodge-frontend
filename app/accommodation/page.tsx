@@ -46,11 +46,7 @@ import {
   NAMES,
 } from "./content";
 import { getTodaysDateRfc3339 } from "./date";
-import {
-  toggleFilterPrivateBathroom,
-  toggleFilterPrivateRoom,
-  toggleFilterSeparateBeds,
-} from "./filterSlice";
+import { filterSlice } from "./filterSlice";
 import { RatePlansMap } from "./mapping";
 import { useGetRatesQuery } from "./rates";
 import { AccommodationNameId } from "./types";
@@ -173,6 +169,12 @@ const _FilterButton = styled.div<IsMobileProps & _FilterButtonProps>`
 const Filters = () => {
   const isMobile = useContext(IsMobileContext);
   const dispatch = useAppDispatch();
+
+  const {
+    toggleFilterPrivateRoom,
+    toggleFilterPrivateBathroom,
+    toggleFilterSeparateBeds,
+  } = filterSlice.actions;
 
   return (
     <_Filters $isMobile={isMobile}>
