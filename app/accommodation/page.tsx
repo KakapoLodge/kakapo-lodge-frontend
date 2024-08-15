@@ -31,7 +31,7 @@ import {
 } from "react";
 import styled from "styled-components";
 import { IsMobileContext } from "../lib/context";
-import { useIsMobile } from "../lib/hooks";
+import { useAppDispatch, useAppSelector, useIsMobile } from "../lib/hooks";
 import { IsMobileProps } from "../lib/types";
 import CustomCarousel from "../ui/CustomCarousel";
 import CustomIcon from "../ui/CustomIcon";
@@ -44,11 +44,13 @@ import {
   BASE_FEATURES,
   BOOKING_URLS,
   NAMES,
-  PRIVATE_BATHROOM_NAME_IDS,
-  PRIVATE_ROOM_NAME_IDS,
-  SEPARATE_BEDS_NAME_IDS,
 } from "./content";
 import { getTodaysDateRfc3339 } from "./date";
+import {
+  toggleFilterPrivateBathroom,
+  toggleFilterPrivateRoom,
+  toggleFilterSeparateBeds,
+} from "./filterSlice";
 import { RatePlansMap } from "./mapping";
 import { useGetRatesQuery } from "./rates";
 import { AccommodationNameId } from "./types";
@@ -72,51 +74,6 @@ library.add(
 const AccommodationPage = () => {
   const isMobile = useIsMobile();
 
-  const [matchingNameIds, setMatchingNameIds] = useState(new Set(ALL_NAME_IDS));
-
-  const [isPrivateRoom, setIsPrivateRoom] = useState(false);
-  const [havePrivateBathroom, setHavePrivateBathroom] = useState(false);
-  const [haveSeparateBeds, setHaveSeparateBeds] = useState(false);
-
-  const toggleFilterPrivateRoom = () => {
-    const newValue = !isPrivateRoom;
-    setIsPrivateRoom(newValue);
-
-    const accommodationIds = filterAccommodation(
-      newValue,
-      havePrivateBathroom,
-      haveSeparateBeds,
-    );
-
-    setMatchingNameIds(new Set(accommodationIds));
-  };
-
-  const toggleFilterPrivateBathroom = () => {
-    const newValue = !havePrivateBathroom;
-    setHavePrivateBathroom(newValue);
-
-    const accommodationIds = filterAccommodation(
-      isPrivateRoom,
-      newValue,
-      haveSeparateBeds,
-    );
-
-    setMatchingNameIds(new Set(accommodationIds));
-  };
-
-  const toggleFilterSeparateBeds = () => {
-    const newValue = !haveSeparateBeds;
-    setHaveSeparateBeds(newValue);
-
-    const accommodationIds = filterAccommodation(
-      isPrivateRoom,
-      havePrivateBathroom,
-      newValue,
-    );
-
-    setMatchingNameIds(new Set(accommodationIds));
-  };
-
   const todaysDateRfc3339 = getTodaysDateRfc3339();
 
   const { data, error, isLoading } = useGetRatesQuery({
@@ -128,20 +85,13 @@ const AccommodationPage = () => {
     <IsMobileContext.Provider value={isMobile}>
       <PageContent>
         <PageTitle>Accommodation</PageTitle>
-        <AccommodationCriteria
-          toggleFilterPrivateRoom={toggleFilterPrivateRoom}
-          toggleFilterPrivateBathroom={toggleFilterPrivateBathroom}
-          toggleFilterSeparateBeds={toggleFilterSeparateBeds}
-        />
+        <AccommodationCriteria />
         {error ? (
           <>Oh no, there was an error</>
         ) : isLoading ? (
           <LoadingAnimation />
         ) : data ? (
-          <AccommodationCards
-            matchingNameIds={matchingNameIds}
-            ratePlansMap={data}
-          />
+          <AccommodationCards ratePlansMap={data} />
         ) : (
           <></>
         )}
@@ -152,13 +102,7 @@ const AccommodationPage = () => {
 
 export default AccommodationPage;
 
-type AccommodationCriteriaProps = {
-  toggleFilterPrivateRoom: ChangeEventHandler<HTMLInputElement>;
-  toggleFilterPrivateBathroom: ChangeEventHandler<HTMLInputElement>;
-  toggleFilterSeparateBeds: ChangeEventHandler<HTMLInputElement>;
-};
-
-const AccommodationCriteria = (props: AccommodationCriteriaProps) => {
+const AccommodationCriteria = () => {
   const isMobile = useContext(IsMobileContext);
 
   const [showFilters, setShowFilters] = useState(!isMobile);
@@ -176,7 +120,7 @@ const AccommodationCriteria = (props: AccommodationCriteriaProps) => {
         disabled={disableFilterButton}
         onClick={toggleShowFilters}
       />
-      {showFilters ? <Filters {...props} /> : <></>}
+      {showFilters ? <Filters /> : <></>}
     </_AccommodationCriteria>
   );
 };
@@ -226,27 +170,24 @@ const _FilterButton = styled.div<IsMobileProps & _FilterButtonProps>`
   box-shadow: 0px 2px 32px 2px rgba(0, 64, 0, 0.1);
 `;
 
-type FiltersProps = {
-  toggleFilterPrivateRoom: ChangeEventHandler<HTMLInputElement>;
-  toggleFilterPrivateBathroom: ChangeEventHandler<HTMLInputElement>;
-  toggleFilterSeparateBeds: ChangeEventHandler<HTMLInputElement>;
-};
-
-const Filters = ({
-  toggleFilterPrivateRoom,
-  toggleFilterPrivateBathroom,
-  toggleFilterSeparateBeds,
-}: FiltersProps) => {
+const Filters = () => {
   const isMobile = useContext(IsMobileContext);
+  const dispatch = useAppDispatch();
 
   return (
     <_Filters $isMobile={isMobile}>
-      <Filter label="Private Room?" onChange={toggleFilterPrivateRoom} />
+      <Filter
+        label="Private Room?"
+        onChange={() => dispatch(toggleFilterPrivateRoom())}
+      />
       <Filter
         label="Private Bathroom?"
-        onChange={toggleFilterPrivateBathroom}
+        onChange={() => dispatch(toggleFilterPrivateBathroom())}
       />
-      <Filter label="Separate Beds?" onChange={toggleFilterSeparateBeds} />
+      <Filter
+        label="Separate Beds?"
+        onChange={() => dispatch(toggleFilterSeparateBeds())}
+      />
     </_Filters>
   );
 };
@@ -293,15 +234,15 @@ const Checkbox = styled.input`
 `;
 
 type AccommodationCardsProps = {
-  matchingNameIds: Set<string>;
   ratePlansMap: RatePlansMap;
 };
 
-const AccommodationCards = ({
-  matchingNameIds,
-  ratePlansMap,
-}: AccommodationCardsProps) => {
+const AccommodationCards = ({ ratePlansMap }: AccommodationCardsProps) => {
   const isMobile = useContext(IsMobileContext);
+
+  const matchingNameIds = new Set(
+    useAppSelector((state) => state.filter.matchingNameIds),
+  );
   const nameIds = ALL_NAME_IDS.filter((nameId) => matchingNameIds.has(nameId));
 
   return (
@@ -506,25 +447,3 @@ const _BookButton = styled(Link)<IsMobileProps>`
 
   border-radius: 8px;
 `;
-
-const filterAccommodation = (
-  isPrivateRoom: boolean,
-  isPrivateBathroom: boolean,
-  haveSeparateBeds: boolean,
-) => {
-  let accommodationIds = new Set(ALL_NAME_IDS);
-
-  if (isPrivateRoom) {
-    accommodationIds = accommodationIds.intersection(PRIVATE_ROOM_NAME_IDS);
-  }
-
-  if (isPrivateBathroom) {
-    accommodationIds = accommodationIds.intersection(PRIVATE_BATHROOM_NAME_IDS);
-  }
-
-  if (haveSeparateBeds) {
-    accommodationIds = accommodationIds.intersection(SEPARATE_BEDS_NAME_IDS);
-  }
-
-  return accommodationIds;
-};

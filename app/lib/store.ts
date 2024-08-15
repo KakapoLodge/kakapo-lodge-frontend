@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { filterSlice } from "../accommodation/filterSlice";
 import { ratesApi } from "../accommodation/rates";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       [ratesApi.reducerPath]: ratesApi.reducer,
+      [filterSlice.reducerPath]: filterSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(ratesApi.middleware),
