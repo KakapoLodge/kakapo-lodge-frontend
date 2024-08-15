@@ -47,9 +47,8 @@ import {
 } from "./content";
 import { getTodaysDateRfc3339 } from "./date";
 import { filterSlice } from "./filterSlice";
-import { RatePlansMap } from "./mapping";
 import { useGetRatesQuery } from "./rates";
-import { AccommodationNameId } from "./types";
+import { AccommodationNameId, AllRates, Rates } from "./types";
 
 library.add(
   faBed,
@@ -87,7 +86,7 @@ const AccommodationPage = () => {
         ) : isLoading ? (
           <LoadingAnimation />
         ) : data ? (
-          <AccommodationCards ratePlansMap={data} />
+          <AccommodationCards allRates={data} />
         ) : (
           <></>
         )}
@@ -236,10 +235,10 @@ const Checkbox = styled.input`
 `;
 
 type AccommodationCardsProps = {
-  ratePlansMap: RatePlansMap;
+  allRates: AllRates;
 };
 
-const AccommodationCards = ({ ratePlansMap }: AccommodationCardsProps) => {
+const AccommodationCards = ({ allRates }: AccommodationCardsProps) => {
   const isMobile = useContext(IsMobileContext);
 
   const matchingNameIds = new Set(
@@ -249,19 +248,13 @@ const AccommodationCards = ({ ratePlansMap }: AccommodationCardsProps) => {
 
   return (
     <_AccommodationCards $isMobile={isMobile}>
-      {nameIds.map((nameId) => {
-        const ratePlan = ratePlansMap[nameId];
-        const ratePlanDate = ratePlan["rate_plan_dates"][0];
-
-        return (
-          <AccommodationCard
-            key={nameId}
-            nameId={nameId}
-            price={ratePlanDate.rate}
-            available={ratePlanDate.available}
-          />
-        );
-      })}
+      {nameIds.map((nameId) => (
+        <AccommodationCard
+          key={nameId}
+          nameId={nameId}
+          rates={allRates[nameId]}
+        />
+      ))}
     </_AccommodationCards>
   );
 };
@@ -276,36 +269,31 @@ const _AccommodationCards = styled.div<IsMobileProps>`
 
 type AccommodationCardProps = {
   nameId: AccommodationNameId;
-  price: number;
-  available: number;
+  rates: Rates;
 };
 
-const AccommodationCard = ({
-  nameId,
-  price,
-  available,
-}: AccommodationCardProps) => {
+const AccommodationCard = ({ nameId, rates }: AccommodationCardProps) => {
   const isMobile = useContext(IsMobileContext);
-
   const name = NAMES[nameId];
-  const url = BOOKING_URLS[nameId];
-  const imagePaths = ALL_IMAGE_PATHS[nameId];
 
   return (
     <_Card $isMobile={isMobile} id={nameId}>
       <CustomCarousel
-        imagePaths={imagePaths}
+        imagePaths={ALL_IMAGE_PATHS[nameId]}
         description={name}
         widthPercentage={isMobile ? 100 : 48}
       />
 
       <Text>
-        <Name>{name}</Name>
-        <Price>Tonight: ${price}</Price>
+        <Name text={name} />
+        <Price price={rates.price} minStay={rates.overallMinStay} />
         <Features nameId={nameId} />
         <br />
-        <Availability>{available} available tonight</Availability>
-        <BookButton price={price} url={url} />
+        <Availability
+          available={rates.overallAvailable}
+          isForSale={rates.isForSale}
+        />
+        <BookButton price={rates.price} url={BOOKING_URLS[nameId]} />
       </Text>
     </_Card>
   );
@@ -342,20 +330,35 @@ const _Text = styled.div<IsMobileProps>`
   margin: ${(props) => (props.$isMobile ? "0px" : "8px 0px")};
 `;
 
-const Name = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => {
+type NameProps = {
+  text: string;
+};
+
+const Name = ({ text }: NameProps) => {
   const isMobile = useContext(IsMobileContext);
-  return <_Name $isMobile={isMobile}>{children}</_Name>;
+  return <_Name $isMobile={isMobile}>{text}</_Name>;
 };
 
 const _Name = styled.h2<IsMobileProps>`
   font-size: ${(props) => (props.$isMobile ? "larger" : "x-large")};
 `;
 
-const Price = styled.p`
+type PriceProps = {
+  price: number;
+  minStay: number | null;
+};
+
+const Price = ({ price, minStay }: PriceProps) => {
+  const priceText = `Price: $${price}`;
+  const text =
+    minStay === null
+      ? `${priceText}`
+      : `${priceText} (min stay: ${minStay} night${minStay === 1 ? "" : "s"})`;
+
+  return <_Price>{text}</_Price>;
+};
+
+const _Price = styled.p`
   color: var(--secondary-color);
   font-size: large;
   font-weight: 500;
@@ -403,13 +406,24 @@ const _Features = styled.div`
   margin: 8px 0px;
 `;
 
-const Availability = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => {
+type AvailabilityProps = {
+  available: number | null;
+  isForSale: boolean;
+};
+
+const Availability = ({ available, isForSale }: AvailabilityProps) => {
   const isMobile = useContext(IsMobileContext);
-  return <_Availability $isMobile={isMobile}>{children}</_Availability>;
+  const text = isForSale ? getAvailableOrSoldOutText(available) : "Unavailable";
+
+  return available === null ? (
+    <></>
+  ) : (
+    <_Availability $isMobile={isMobile}>{text}</_Availability>
+  );
+};
+
+const getAvailableOrSoldOutText = (available: number | null) => {
+  return available === 0 ? "Sold out" : `${available} available`;
 };
 
 const _Availability = styled.p<IsMobileProps>`

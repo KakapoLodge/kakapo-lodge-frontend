@@ -1,8 +1,10 @@
-export const mapResponse = (rates: Rate[]): RatePlansMap => {
+import { AccommodationNameId, AllRates, LHRate, LHRatePlanDate } from "./types";
+
+export const mapResponse = (rates: LHRate[]): AllRates => {
   const rate = rates[0];
   const ratePlans = rate["rate_plans"];
 
-  const ratePlansMap = DEFAULT_RATE_PLANS_MAP;
+  const allRates = structuredClone(DEFAULT_RATES);
 
   for (const ratePlan of ratePlans) {
     if (!(ratePlan.name in ACCOMMODATION_NAME_ID_MAP)) {
@@ -10,182 +12,123 @@ export const mapResponse = (rates: Rate[]): RatePlansMap => {
     }
 
     const nameId = ACCOMMODATION_NAME_ID_MAP[ratePlan.name];
-    ratePlansMap[nameId] = ratePlan;
+    const rates = allRates[nameId];
+
+    const ratePlanDates = ratePlan["rate_plan_dates"];
+    rates.price = calculateTotalPrice(ratePlanDates);
+
+    const maxAvailable = MAX_AVAILABLE[nameId];
+    rates.overallAvailable = calculateOverallAvailable(
+      ratePlanDates,
+      maxAvailable,
+    );
+
+    rates.overallMinStay = calculateOverallMinStay(ratePlanDates);
+    rates.isForSale = checkIsForSale(ratePlanDates);
   }
 
-  return ratePlansMap;
+  return allRates;
 };
 
-type Rate = {
-  name: string;
-  rate_plans: RatePlan[];
+const calculateTotalPrice = (ratePlanDates: LHRatePlanDate[]) => {
+  return ratePlanDates
+    .map((ratePlanDate) => ratePlanDate.rate)
+    .reduce((total, rate) => total + rate, 0);
 };
 
-type RatePlan = {
-  id: number;
-  name: string;
-  rate_plan_dates: RatePlanDate[];
+const calculateOverallAvailable = (
+  ratePlanDates: LHRatePlanDate[],
+  maxAvailable: number,
+) => {
+  return ratePlanDates
+    .map((ratePlanDate) => ratePlanDate.available)
+    .reduce(
+      (overallAvailable, available) => Math.min(overallAvailable, available),
+      maxAvailable,
+    );
 };
 
-type RatePlanDate = {
-  available: number;
-  close_to_arrival: boolean;
-  close_to_departure: boolean;
-  date: string;
-  id: number | null;
-  max_stay: number | null;
-  min_stay: number;
-  rate: number;
-  stop_online_sell: boolean;
+const calculateOverallMinStay = (ratePlanDates: LHRatePlanDate[]) => {
+  return ratePlanDates
+    .map((ratePlanDate) => ratePlanDate["min_stay"])
+    .reduce((overallMinStay, minStay) => Math.max(overallMinStay, minStay), 1);
 };
 
-const ACCOMMODATION_NAME_ID_MAP: { [name: string]: string } = {
+const checkIsForSale = (ratePlanDates: LHRatePlanDate[]) => {
+  return !ratePlanDates
+    .map((ratePlanDate) => ratePlanDate["stop_online_sell"])
+    .reduce((overallStop, stopNight) => overallStop || stopNight, false);
+};
+
+const DEFAULT_RATES: AllRates = {
+  "5-bed-dorm": {
+    price: 45,
+    overallAvailable: null,
+    overallMinStay: null,
+    isForSale: true,
+  },
+  "4-bed-dorm": {
+    price: 50,
+    overallAvailable: null,
+    overallMinStay: null,
+    isForSale: true,
+  },
+  "private-double": {
+    price: 90,
+    overallAvailable: null,
+    overallMinStay: null,
+    isForSale: true,
+  },
+  "private-twin": {
+    price: 96,
+    overallAvailable: null,
+    overallMinStay: null,
+    isForSale: true,
+  },
+  "family-room": {
+    price: 120,
+    overallAvailable: null,
+    overallMinStay: null,
+    isForSale: true,
+  },
+  "double-ensuite": {
+    price: 110,
+    overallAvailable: null,
+    overallMinStay: null,
+    isForSale: true,
+  },
+  "deluxe-double-ensuite": {
+    price: 120,
+    overallAvailable: null,
+    overallMinStay: null,
+    isForSale: true,
+  },
+  "motel-unit": {
+    price: 140,
+    overallAvailable: null,
+    overallMinStay: null,
+    isForSale: true,
+  },
+};
+
+const MAX_AVAILABLE = {
+  "5-bed-dorm": 10,
+  "4-bed-dorm": 4,
+  "private-double": 5,
+  "private-twin": 3,
+  "family-room": 1,
+  "double-ensuite": 2,
+  "deluxe-double-ensuite": 1,
+  "motel-unit": 1,
+};
+
+const ACCOMMODATION_NAME_ID_MAP: { [name: string]: AccommodationNameId } = {
   "5 Bed Dorm": "5-bed-dorm",
+  "4 Bed Female Dorm": "4-bed-dorm",
   "Private Double": "private-double",
   "Private Twin": "private-twin",
   "Family Room": "family-room",
   "Double Ensuite": "double-ensuite",
   "Deluxe Double Ensuite": "deluxe-double-ensuite",
   Motel: "motel-unit",
-};
-
-export type RatePlansMap = { [nameId: string]: RatePlan };
-
-const DEFAULT_RATE_PLANS_MAP: RatePlansMap = {
-  "5-bed-dorm": {
-    id: 9239,
-    name: "5 Bed Dorm",
-    rate_plan_dates: [
-      {
-        available: 5,
-        close_to_arrival: false,
-        close_to_departure: false,
-        date: "",
-        id: null,
-        max_stay: null,
-        min_stay: 1,
-        rate: 45,
-        stop_online_sell: false,
-      },
-    ],
-  },
-  "4-bed-dorm": {
-    id: 9238,
-    name: "4 Bed Female Dorm",
-    rate_plan_dates: [
-      {
-        available: 4,
-        close_to_arrival: false,
-        close_to_departure: false,
-        date: "",
-        id: null,
-        max_stay: null,
-        min_stay: 1,
-        rate: 50,
-        stop_online_sell: false,
-      },
-    ],
-  },
-  "private-double": {
-    id: 9243,
-    name: "Private Double",
-    rate_plan_dates: [
-      {
-        available: 5,
-        close_to_arrival: false,
-        close_to_departure: false,
-        date: "2024-08-15",
-        id: null,
-        max_stay: null,
-        min_stay: 1,
-        rate: 90,
-        stop_online_sell: false,
-      },
-    ],
-  },
-  "private-twin": {
-    id: 9244,
-    name: "Private Twin",
-    rate_plan_dates: [
-      {
-        available: 3,
-        close_to_arrival: false,
-        close_to_departure: false,
-        date: "2024-08-15",
-        id: null,
-        max_stay: null,
-        min_stay: 1,
-        rate: 96,
-        stop_online_sell: false,
-      },
-    ],
-  },
-  "family-room": {
-    id: 9245,
-    name: "Family Room",
-    rate_plan_dates: [
-      {
-        available: 1,
-        close_to_arrival: false,
-        close_to_departure: false,
-        date: "2024-08-15",
-        id: null,
-        max_stay: null,
-        min_stay: 1,
-        rate: 120,
-        stop_online_sell: false,
-      },
-    ],
-  },
-  "double-ensuite": {
-    id: 9242,
-    name: "Double Ensuite",
-    rate_plan_dates: [
-      {
-        available: 1,
-        close_to_arrival: false,
-        close_to_departure: false,
-        date: "2024-08-15",
-        id: null,
-        max_stay: null,
-        min_stay: 1,
-        rate: 110,
-        stop_online_sell: false,
-      },
-    ],
-  },
-  "deluxe-double-ensuite": {
-    id: 73051,
-    name: "Deluxe Double Ensuite",
-    rate_plan_dates: [
-      {
-        available: 1,
-        close_to_arrival: false,
-        close_to_departure: false,
-        date: "2024-08-15",
-        id: null,
-        max_stay: null,
-        min_stay: 1,
-        rate: 120,
-        stop_online_sell: false,
-      },
-    ],
-  },
-  "motel-unit": {
-    id: 9240,
-    name: "Motel",
-    rate_plan_dates: [
-      {
-        available: 1,
-        close_to_arrival: false,
-        close_to_departure: false,
-        date: "2024-08-15",
-        id: null,
-        max_stay: null,
-        min_stay: 1,
-        rate: 140,
-        stop_online_sell: false,
-      },
-    ],
-  },
 };
