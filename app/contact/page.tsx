@@ -20,7 +20,7 @@ const ContactPage = () => {
 
         <ContactInformation>
           <ContactDetails>
-            <Header text="Reach us via" />
+            <Header text="Reach us via" center={true} />
             <p>
               Phone:&nbsp;
               <CustomLink href="tel:03 315 7472" target="_blank">
@@ -36,7 +36,7 @@ const ContactPage = () => {
           </ContactDetails>
 
           <ContactDetails>
-            <Header text="Our Location" />
+            <Header text="Our Location" center={true} />
             <p>Just a 5 minutes walk away from the Hot Pools!</p>
 
             <GoogleMaps />
