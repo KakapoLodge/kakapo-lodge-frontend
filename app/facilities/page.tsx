@@ -18,7 +18,7 @@ import styled from "styled-components";
 import { IsMobileContext } from "../lib/context";
 import { useIsMobile } from "../lib/hooks";
 import { IsMobileProps } from "../lib/types";
-import CustomCarousel from "../ui/CustomCarousel";
+import ImageCarousel from "../ui/ImageCarousel";
 import CustomIcon from "../ui/CustomIcon";
 import PageContent, { PageTitle } from "../ui/PageContent";
 import { FACILITIES, PURCHASEABLES, SERVICES } from "./content";
@@ -33,7 +33,7 @@ library.add(
   faBicycle,
   faJugDetergent,
   faBowlFood,
-  faClock
+  faClock,
 );
 
 const FacilitiesPage = () => {
@@ -108,7 +108,7 @@ const Facility = ({ name, description, imagePaths }: FacilityProps) => {
       <FacilityName>{name}</FacilityName>
       <p>{description}</p>
 
-      <CustomCarousel imagePaths={imagePaths} description={description} />
+      <ImageCarousel imagePaths={imagePaths} description={description} />
     </FacilitySection>
   );
 };

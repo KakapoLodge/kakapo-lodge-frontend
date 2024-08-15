@@ -5,17 +5,17 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import styled from "styled-components";
 
-type CustomCarouselProps = {
+type ImageCarouselProps = {
   description: string;
   imagePaths: string[];
   widthPercentage?: number;
 };
 
-const CustomCarousel = ({
+const ImageCarousel = ({
   description,
   imagePaths,
   widthPercentage = 100,
-}: CustomCarouselProps) => {
+}: ImageCarouselProps) => {
   return (
     <_Carousel
       showDots={true}
@@ -37,7 +37,7 @@ const CustomCarousel = ({
   );
 };
 
-export default CustomCarousel;
+export default ImageCarousel;
 
 type _CarouselProps = {
   $widthPercentage: number;

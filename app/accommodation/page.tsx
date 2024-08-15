@@ -33,7 +33,7 @@ import styled from "styled-components";
 import { IsMobileContext } from "../lib/context";
 import { useAppDispatch, useAppSelector, useIsMobile } from "../lib/hooks";
 import { IsMobileProps } from "../lib/types";
-import CustomCarousel from "../ui/CustomCarousel";
+import ImageCarousel from "../ui/ImageCarousel";
 import CustomIcon from "../ui/CustomIcon";
 import LoadingAnimation from "../ui/LoadingAnimation";
 import PageContent, { PageTitle } from "../ui/PageContent";
@@ -279,7 +279,7 @@ const AccommodationCard = ({ nameId, rates }: AccommodationCardProps) => {
 
   return (
     <_Card $isMobile={isMobile} id={nameId}>
-      <CustomCarousel
+      <ImageCarousel
         imagePaths={ALL_IMAGE_PATHS[nameId]}
         description={name}
         widthPercentage={isMobile ? 100 : 48}
