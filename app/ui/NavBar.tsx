@@ -7,14 +7,14 @@ import { usePathname } from "next/navigation";
 import { MouseEventHandler, useContext, useState } from "react";
 import styled from "styled-components";
 import { IsMobileContext } from "../lib/context";
-import { useIsMobile } from "../lib/hooks";
+import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import { IsMobileProps } from "../lib/types";
 import BookDirectButton from "./BookDirectButton";
 import CustomLink from "./CustomLink";
 
 const NavBar = () => {
   const pathname = usePathname();
-  const isMobile = useIsMobile();
+  const isMobile = useMobileDetection();
 
   const [showMenu, setShowMenu] = useState(!isMobile);
   const closeMenu = isMobile ? () => setShowMenu(false) : undefined;

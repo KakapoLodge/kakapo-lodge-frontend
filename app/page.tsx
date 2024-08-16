@@ -12,10 +12,12 @@ import {
   ACCOMMODATION_NAMES,
   ACCOMMODATION_NAME_IDS,
 } from "./accommodation/content";
+import { getTodaysDateRfc3339 } from "./accommodation/date";
 import { AccommodationNameId } from "./accommodation/types";
 import { INTRODUCTION } from "./content";
 import { IsMobileContext } from "./lib/context";
-import { useIsMobile } from "./lib/hooks";
+import { useImmediatePrefetch } from "./lib/hooks/useImmediatePrefetch";
+import { useMobileDetection } from "./lib/hooks/useMobileDetection";
 import { IsMobileProps } from "./lib/types";
 import Card from "./ui/Card";
 import CarouselImage from "./ui/CarouselImage";
@@ -29,7 +31,13 @@ import Sections from "./ui/Sections";
 import Subheader from "./ui/Subheader";
 
 const LandingPage = () => {
-  const isMobile = useIsMobile();
+  const isMobile = useMobileDetection();
+  const todaysDateRfc3339 = getTodaysDateRfc3339();
+
+  useImmediatePrefetch("getRates", {
+    start_date: todaysDateRfc3339,
+    end_date: todaysDateRfc3339,
+  });
 
   const { title, paragraphs } = INTRODUCTION;
 

@@ -6,11 +6,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styled from "styled-components";
 import { IsMobileContext } from "../lib/context";
-import { useIsMobile } from "../lib/hooks";
+import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import BookDirectButton from "./BookDirectButton";
 
 const Footer = () => {
-  const isMobile = useIsMobile();
+  const isMobile = useMobileDetection();
 
   const pathname = usePathname();
   const isAccommodationPage = pathname.includes("accommodation");

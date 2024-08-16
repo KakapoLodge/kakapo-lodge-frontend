@@ -16,7 +16,7 @@ import {
 import { Fragment, useContext } from "react";
 import styled from "styled-components";
 import { IsMobileContext } from "../lib/context";
-import { useIsMobile } from "../lib/hooks";
+import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import { IsMobileProps } from "../lib/types";
 import CustomIcon from "../ui/CustomIcon";
 import Header from "../ui/Header";
@@ -41,7 +41,7 @@ library.add(
 );
 
 const FacilitiesPage = () => {
-  const isMobile = useIsMobile();
+  const isMobile = useMobileDetection();
 
   return (
     <IsMobileContext.Provider value={isMobile}>

@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { filterSlice } from "../accommodation/filterSlice";
-import { ratesApi } from "../accommodation/rates";
+import { ratesApi } from "./api/ratesApi";
 
 export const makeStore = () => {
   return configureStore({

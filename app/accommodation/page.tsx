@@ -25,13 +25,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import {
   ChangeEventHandler,
+  Fragment,
   MouseEventHandler,
   useContext,
   useState,
 } from "react";
 import styled from "styled-components";
 import { IsMobileContext } from "../lib/context";
-import { useAppDispatch, useAppSelector, useIsMobile } from "../lib/hooks";
+import { useAppDispatch, useAppSelector } from "../lib/hooks/useStore";
 import { IsMobileProps } from "../lib/types";
 import CustomIcon from "../ui/CustomIcon";
 import ImageCarousel from "../ui/ImageCarousel";
@@ -49,9 +50,10 @@ import {
 } from "./content";
 import { getTodaysDateRfc3339 } from "./date";
 import { filterSlice } from "./filterSlice";
-import { useGetRatesQuery } from "./rates";
+import { useGetRatesQuery } from "../lib/api/ratesApi";
 import { AccommodationNameId, AllRates, Rates } from "./types";
 import Card from "../ui/Card";
+import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 
 library.add(
   faBed,
@@ -68,10 +70,8 @@ library.add(
   faUtensils,
 );
 
-// TODO: refactor
 const AccommodationPage = () => {
-  const isMobile = useIsMobile();
-
+  const isMobile = useMobileDetection();
   const todaysDateRfc3339 = getTodaysDateRfc3339();
 
   const { data, error, isLoading } = useGetRatesQuery({
@@ -255,11 +255,14 @@ const AccommodationCards = ({ allRates }: AccommodationCardsProps) => {
   return (
     <_AccommodationCards $isMobile={isMobile}>
       {nameIds.map((nameId) => (
-        <AccommodationCard
-          key={nameId}
-          nameId={nameId}
-          rates={allRates[nameId]}
-        />
+        <Fragment key={nameId}>
+          <ShortcutLandingPoint id={nameId} $isMobile={isMobile} />
+          <AccommodationCard
+            key={nameId}
+            nameId={nameId}
+            rates={allRates[nameId]}
+          />
+        </Fragment>
       ))}
     </_AccommodationCards>
   );
@@ -268,9 +271,14 @@ const AccommodationCards = ({ allRates }: AccommodationCardsProps) => {
 const _AccommodationCards = styled.div<IsMobileProps>`
   display: flex;
   flex-direction: column;
-  gap: ${(props) => (props.$isMobile ? "16px" : "24px")};
+  gap: ${(props) => (props.$isMobile ? "6px" : "8px")};
 
   margin: 16px 0px;
+`;
+
+const ShortcutLandingPoint = styled.div<IsMobileProps>`
+  position: relative;
+  bottom: ${(props) => (props.$isMobile ? "100px" : "130px")};
 `;
 
 type AccommodationCardProps = {
@@ -283,7 +291,7 @@ const AccommodationCard = ({ nameId, rates }: AccommodationCardProps) => {
   const name = ACCOMMODATION_NAMES[nameId];
 
   return (
-    <_Card $isMobile={isMobile} id={nameId}>
+    <_Card $isMobile={isMobile}>
       <ImageCarousel
         imagePaths={ACCOMMODATION_IMAGE_PATHS[nameId]}
         description={name}
