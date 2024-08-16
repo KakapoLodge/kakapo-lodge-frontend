@@ -24,6 +24,7 @@ import ImageCarousel from "../ui/ImageCarousel";
 import PageContent from "../ui/PageContent";
 import PageTitle from "../ui/PageTitle";
 import Section from "../ui/Section";
+import Sections from "../ui/Sections";
 import { FACILITIES, PURCHASEABLES, SERVICES } from "./content";
 
 library.add(
@@ -47,7 +48,7 @@ const FacilitiesPage = () => {
       <PageContent>
         <PageTitle text="Facilities" />
 
-        <FacilitySections>
+        <Sections>
           {FACILITIES.map((facility) => (
             <Fragment key={facility.name}>
               <Facility {...facility} />
@@ -74,28 +75,13 @@ const FacilitiesPage = () => {
               ))}
             </div>
           </Section>
-        </FacilitySections>
+        </Sections>
       </PageContent>
     </IsMobileContext.Provider>
   );
 };
 
 export default FacilitiesPage;
-
-const FacilitySections = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => {
-  const isMobile = useContext(IsMobileContext);
-  return <_FacilitySections $isMobile={isMobile}>{children}</_FacilitySections>;
-};
-
-const _FacilitySections = styled.div<IsMobileProps>`
-  display: flex;
-  flex-direction: column;
-  gap: ${(props) => (props.$isMobile ? "12px" : "16px")};
-`;
 
 type FacilityProps = {
   name: string;

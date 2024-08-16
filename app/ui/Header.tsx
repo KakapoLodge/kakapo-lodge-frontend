@@ -20,6 +20,7 @@ const Header = ({ text, center = false }: HeaderProps) => {
 export default Header;
 
 const _Header = styled.h2<IsMobileProps & { $center: boolean }>`
+  font-weight: 500;
   font-size: ${(props) => (props.$isMobile ? "larger" : "x-large")};
   text-align: ${(props) => (props.$center ? "center" : "start")};
 `;

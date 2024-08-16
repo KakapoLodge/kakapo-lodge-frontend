@@ -51,6 +51,7 @@ import { getTodaysDateRfc3339 } from "./date";
 import { filterSlice } from "./filterSlice";
 import { useGetRatesQuery } from "./rates";
 import { AccommodationNameId, AllRates, Rates } from "./types";
+import Card from "../ui/Card";
 
 library.add(
   faBed,
@@ -304,17 +305,9 @@ const AccommodationCard = ({ nameId, rates }: AccommodationCardProps) => {
   );
 };
 
-const _Card = styled.div<IsMobileProps>`
-  display: flex;
+const _Card = styled(Card)<IsMobileProps>`
   flex-direction: ${(props) => (props.$isMobile ? "column" : "row")};
   gap: ${(props) => (props.$isMobile ? "16px" : "32px")};
-
-  width: 80%;
-  margin: 0px auto;
-  padding: 16px;
-
-  border: 2px solid var(--secondary-color);
-  border-radius: 16px;
 `;
 
 const Text = ({
