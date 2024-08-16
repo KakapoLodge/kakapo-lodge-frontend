@@ -19,28 +19,8 @@ const ContactPage = () => {
         <PageTitle text="Contact Us" />
 
         <ContactInformation>
-          <ContactDetails>
-            <Header text="Reach us via" center={true} />
-            <p>
-              Phone:&nbsp;
-              <CustomLink href="tel:03 315 7472" target="_blank">
-                (03) 315 7472
-              </CustomLink>
-            </p>
-            <p>
-              Email:&nbsp;
-              <CustomLink href="mailto:staykakapo@xtra.co.nz" target="_blank">
-                staykakapo@xtra.co.nz
-              </CustomLink>
-            </p>
-          </ContactDetails>
-
-          <ContactDetails>
-            <Header text="Our Location" center={true} />
-            <p>Just a 5 minutes walk away from the Hot Pools!</p>
-
-            <GoogleMaps />
-          </ContactDetails>
+          <ContactMethods />
+          <Location />
         </ContactInformation>
       </PageContent>
     </IsMobileContext.Provider>
@@ -65,6 +45,36 @@ const _ContactInformation = styled.div<IsMobileProps>`
   flex-direction: column;
   gap: ${(props) => (props.$isMobile ? "24px" : "32px")};
 `;
+
+const ContactMethods = () => {
+  return (
+    <ContactDetails>
+      <Header text="Reach us via" center={true} />
+      <p>
+        Phone:&nbsp;
+        <CustomLink href="tel:03 315 7472" target="_blank">
+          (03) 315 7472
+        </CustomLink>
+      </p>
+      <p>
+        Email:&nbsp;
+        <CustomLink href="mailto:staykakapo@xtra.co.nz" target="_blank">
+          staykakapo@xtra.co.nz
+        </CustomLink>
+      </p>
+    </ContactDetails>
+  );
+};
+
+const Location = () => {
+  return (
+    <ContactDetails>
+      <Header text="Our Location" center={true} />
+      <p>Just a 5 minutes walk away from the Hot Pools!</p>
+      <GoogleMaps />
+    </ContactDetails>
+  );
+};
 
 const ContactDetails = styled.div`
   text-align: center;
