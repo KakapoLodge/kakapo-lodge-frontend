@@ -90,7 +90,7 @@ const AccommodationPage = () => {
         {error ? (
           <AccommodationCards allRates={DEFAULT_RATES} />
         ) : isLoading ? (
-          <LoadingAnimation />
+          <LoadingAnimation text="Finding your next accommodation..." />
         ) : data ? (
           <AccommodationCards allRates={data} />
         ) : (
@@ -334,7 +334,6 @@ const _Text = styled.div<IsMobileProps>`
   flex-direction: column;
   gap: 8px;
 
-  /* TODO: change to accommodation card padding? */
   margin: ${(props) => (props.$isMobile ? "0px" : "8px 0px")};
 `;
 
@@ -410,7 +409,6 @@ const _Features = styled.div`
   flex-direction: column;
   gap: 4px;
 
-  /* TODO: change to gap / parent padding? */
   margin: 8px 0px;
 `;
 

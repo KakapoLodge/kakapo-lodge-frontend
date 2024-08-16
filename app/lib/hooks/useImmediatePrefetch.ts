@@ -5,6 +5,7 @@ import { useAppDispatch } from "./useStore";
 
 type EndpointNames = keyof typeof ratesApi.endpoints;
 
+// so that shortcuts can jump to accommodation without loading
 export function useImmediatePrefetch<T extends EndpointNames>(
   endpoint: T,
   arg: Parameters<(typeof ratesApi.endpoints)[T]["initiate"]>[0],
