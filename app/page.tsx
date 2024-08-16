@@ -12,7 +12,7 @@ import {
   ACCOMMODATION_NAMES,
   ACCOMMODATION_NAME_IDS,
 } from "./accommodation/content";
-import { getTodaysDateRfc3339 } from "./accommodation/date";
+import { getTodaysDateRfc3339 } from "./lib/dates";
 import { AccommodationNameId } from "./accommodation/types";
 import { INTRODUCTION } from "./content";
 import { IsMobileContext } from "./lib/context";

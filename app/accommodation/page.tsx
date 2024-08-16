@@ -48,7 +48,7 @@ import {
   DEFAULT_RATES,
   ACCOMMODATION_NAMES,
 } from "./content";
-import { getTodaysDateRfc3339 } from "./date";
+import { getTodaysDateRfc3339 } from "../lib/dates";
 import { filterSlice } from "./filterSlice";
 import { useGetRatesQuery } from "../lib/api/ratesApi";
 import { AccommodationNameId, AllRates, Rates } from "./types";
