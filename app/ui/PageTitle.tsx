@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { IsMobileContext } from "../lib/context";
+import { MobileDetectionContext } from "../lib/context";
 import { IsMobileProps } from "../lib/types";
 
 type PageTitleProps = {
@@ -8,7 +8,7 @@ type PageTitleProps = {
 };
 
 const PageTitle = ({ text }: PageTitleProps) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
   return <_PageTitle $isMobile={isMobile}>{text}</_PageTitle>;
 };
 

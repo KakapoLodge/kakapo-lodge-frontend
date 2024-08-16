@@ -1,16 +1,14 @@
-"use client";
-
 import { usePathname } from "next/navigation";
 import { useContext } from "react";
 import styled from "styled-components";
-import { IsMobileContext } from "../lib/context";
+import { MobileDetectionContext } from "../lib/context";
 
 const PageContent = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
 
   const pathname = usePathname();
   const isAccommodationPage = pathname.includes("accommodation");

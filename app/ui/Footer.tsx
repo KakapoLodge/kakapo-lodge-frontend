@@ -1,27 +1,21 @@
-"use client";
-
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useContext } from "react";
 import styled from "styled-components";
-import { IsMobileContext } from "../lib/context";
-import { useMobileDetection } from "../lib/hooks/useMobileDetection";
+import { MobileDetectionContext } from "../lib/context";
 import BookDirectButton from "./BookDirectButton";
 
 const Footer = () => {
-  const isMobile = useMobileDetection();
+  const isMobile = useContext(MobileDetectionContext);
 
-  const pathname = usePathname();
-  const isAccommodationPage = pathname.includes("accommodation");
-
-  return isMobile && !isAccommodationPage ? (
-    <IsMobileContext.Provider value={isMobile}>
+  return isMobile ? (
+    <MobileDetectionContext.Provider value={isMobile}>
       <BottomBar>
         <CallButton />
         <BookDirectButton isFooter />
       </BottomBar>
-    </IsMobileContext.Provider>
+    </MobileDetectionContext.Provider>
   ) : (
     <></>
   );

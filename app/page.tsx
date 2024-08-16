@@ -12,10 +12,10 @@ import {
   ACCOMMODATION_NAMES,
   ACCOMMODATION_NAME_IDS,
 } from "./accommodation/content";
-import { getTodaysDateRfc3339 } from "./lib/dates";
 import { AccommodationNameId } from "./accommodation/types";
 import { INTRODUCTION } from "./content";
-import { IsMobileContext } from "./lib/context";
+import { MobileDetectionContext } from "./lib/context";
+import { getTodaysDateRfc3339 } from "./lib/dates";
 import { useImmediatePrefetch } from "./lib/hooks/useImmediatePrefetch";
 import { useMobileDetection } from "./lib/hooks/useMobileDetection";
 import { IsMobileProps } from "./lib/types";
@@ -23,7 +23,9 @@ import Card from "./ui/Card";
 import CarouselImage from "./ui/CarouselImage";
 import CustomCarousel from "./ui/CustomCarousel";
 import CustomLink from "./ui/CustomLink";
+import Footer from "./ui/Footer";
 import Header from "./ui/Header";
+import NavBar from "./ui/NavBar";
 import PageContent from "./ui/PageContent";
 import PageTitle from "./ui/PageTitle";
 import Section from "./ui/Section";
@@ -42,7 +44,8 @@ const LandingPage = () => {
   const { title, paragraphs } = INTRODUCTION;
 
   return (
-    <IsMobileContext.Provider value={isMobile}>
+    <MobileDetectionContext.Provider value={isMobile}>
+      <NavBar />
       <LandingPageContent>
         <MainBanner />
 
@@ -58,7 +61,8 @@ const LandingPage = () => {
           <GoogleReviews />
         </Sections>
       </LandingPageContent>
-    </IsMobileContext.Provider>
+      <Footer />
+    </MobileDetectionContext.Provider>
   );
 };
 
@@ -69,7 +73,7 @@ const LandingPageContent = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
 
   return (
     <_LandingPageContent $isMobile={isMobile}>{children}</_LandingPageContent>
@@ -104,7 +108,7 @@ const Introduction = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
   return <_Introduction $isMobile={isMobile}>{children}</_Introduction>;
 };
 
@@ -181,7 +185,7 @@ type ReviewsProps = {
 };
 
 const Reviews = ({ reviews }: ReviewsProps) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
   return (
     <Section>
       <ReviewsSummary reviews={reviews} />
@@ -242,7 +246,7 @@ const getAverageRating = (reviews: ReactGoogleReview[]) => {
 };
 
 const GoogleLogo = () => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
   return isMobile ? (
     <_GoogleLogo
       src="/landing_page/google_g_logo.png"

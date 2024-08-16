@@ -1,9 +1,7 @@
-"use client";
-
 import Link from "next/link";
 import { useContext } from "react";
 import styled from "styled-components";
-import { IsMobileContext } from "../lib/context";
+import { MobileDetectionContext } from "../lib/context";
 import { IsMobileProps } from "../lib/types";
 
 type BookDirectButtonProps = {
@@ -11,7 +9,7 @@ type BookDirectButtonProps = {
 };
 
 const BookDirectButton = ({ isFooter = false }: BookDirectButtonProps) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
 
   return isFooter === isMobile ? (
     <Button

@@ -1,3 +1,3 @@
 import { createContext } from "react";
 
-export const IsMobileContext = createContext(false);
+export const MobileDetectionContext = createContext(false);

@@ -1,5 +1,3 @@
-"use client";
-
 import CarouselImage from "./CarouselImage";
 import CustomCarousel from "./CustomCarousel";
 

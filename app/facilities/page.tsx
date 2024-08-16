@@ -15,12 +15,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Fragment, useContext } from "react";
 import styled from "styled-components";
-import { IsMobileContext } from "../lib/context";
+import { MobileDetectionContext } from "../lib/context";
 import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import { IsMobileProps } from "../lib/types";
 import CustomIcon from "../ui/CustomIcon";
+import Footer from "../ui/Footer";
 import Header from "../ui/Header";
 import ImageCarousel from "../ui/ImageCarousel";
+import NavBar from "../ui/NavBar";
 import PageContent from "../ui/PageContent";
 import PageTitle from "../ui/PageTitle";
 import Section from "../ui/Section";
@@ -44,7 +46,8 @@ const FacilitiesPage = () => {
   const isMobile = useMobileDetection();
 
   return (
-    <IsMobileContext.Provider value={isMobile}>
+    <MobileDetectionContext.Provider value={isMobile}>
+      <NavBar />
       <PageContent>
         <PageTitle text="Facilities" />
 
@@ -77,7 +80,8 @@ const FacilitiesPage = () => {
           </Section>
         </Sections>
       </PageContent>
-    </IsMobileContext.Provider>
+      <Footer />
+    </MobileDetectionContext.Provider>
   );
 };
 
@@ -113,7 +117,7 @@ const Service = ({ iconName, description }: ServiceProps) => {
 };
 
 const Divider = () => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
   return <_Divider $isMobile={isMobile} />;
 };
 

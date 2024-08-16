@@ -31,29 +31,30 @@ import {
   useState,
 } from "react";
 import styled from "styled-components";
-import { IsMobileContext } from "../lib/context";
+import { useGetRatesQuery } from "../lib/api/ratesApi";
+import { MobileDetectionContext } from "../lib/context";
+import { getTodaysDateRfc3339 } from "../lib/dates";
+import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import { useAppDispatch, useAppSelector } from "../lib/hooks/useStore";
 import { IsMobileProps } from "../lib/types";
+import Card from "../ui/Card";
 import CustomIcon from "../ui/CustomIcon";
 import ImageCarousel from "../ui/ImageCarousel";
 import LoadingAnimation from "../ui/LoadingAnimation";
+import NavBar from "../ui/NavBar";
 import PageContent from "../ui/PageContent";
 import PageTitle from "../ui/PageTitle";
 import {
-  ALL_ADDITIONAL_FEATURES,
   ACCOMMODATION_IMAGE_PATHS,
   ACCOMMODATION_NAME_IDS,
+  ACCOMMODATION_NAMES,
+  ALL_ADDITIONAL_FEATURES,
   BASE_FEATURES,
   BOOKING_URLS,
   DEFAULT_RATES,
-  ACCOMMODATION_NAMES,
 } from "./content";
-import { getTodaysDateRfc3339 } from "../lib/dates";
 import { filterSlice } from "./filterSlice";
-import { useGetRatesQuery } from "../lib/api/ratesApi";
 import { AccommodationNameId, AllRates, Rates } from "./types";
-import Card from "../ui/Card";
-import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 
 library.add(
   faBed,
@@ -80,7 +81,8 @@ const AccommodationPage = () => {
   });
 
   return (
-    <IsMobileContext.Provider value={isMobile}>
+    <MobileDetectionContext.Provider value={isMobile}>
+      <NavBar />
       <PageContent>
         <PageTitle text="Accommodation" />
         <AccommodationCriteria />
@@ -95,14 +97,14 @@ const AccommodationPage = () => {
           <></>
         )}
       </PageContent>
-    </IsMobileContext.Provider>
+    </MobileDetectionContext.Provider>
   );
 };
 
 export default AccommodationPage;
 
 const AccommodationCriteria = () => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
 
   const [showFilters, setShowFilters] = useState(!isMobile);
   const [disableFilterButton, setDisableFilterButton] = useState(false);
@@ -145,7 +147,7 @@ type FilterButtonProps = {
 };
 
 const FilterButton = ({ disabled, onClick }: FilterButtonProps) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
   return (
     <_FilterButton $isMobile={isMobile} $disabled={disabled} onClick={onClick}>
       Filter <FontAwesomeIcon icon={faArrowDownWideShort} />
@@ -170,7 +172,7 @@ const _FilterButton = styled.div<IsMobileProps & _FilterButtonProps>`
 `;
 
 const Filters = () => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
   const dispatch = useAppDispatch();
 
   const {
@@ -213,7 +215,7 @@ type FilterProps = {
 };
 
 const Filter = ({ label, onChange }: FilterProps) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
 
   // last character should be question mark
   const filterId = label.slice(0, -1).toLowerCase().replaceAll(" ", "-");
@@ -243,7 +245,7 @@ type AccommodationCardsProps = {
 };
 
 const AccommodationCards = ({ allRates }: AccommodationCardsProps) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
 
   const matchingNameIds = new Set(
     useAppSelector((state) => state.filter.matchingNameIds),
@@ -287,7 +289,7 @@ type AccommodationCardProps = {
 };
 
 const AccommodationCard = ({ nameId, rates }: AccommodationCardProps) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
   const name = ACCOMMODATION_NAMES[nameId];
 
   return (
@@ -323,7 +325,7 @@ const Text = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
   return <_Text $isMobile={isMobile}>{children}</_Text>;
 };
 
@@ -341,7 +343,7 @@ type NameProps = {
 };
 
 const Name = ({ text }: NameProps) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
   return <_Name $isMobile={isMobile}>{text}</_Name>;
 };
 
@@ -418,7 +420,7 @@ type AvailabilityProps = {
 };
 
 const Availability = ({ available, isForSale }: AvailabilityProps) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
   const text = isForSale ? getAvailableOrSoldOutText(available) : "Unavailable";
 
   return available === null ? (
@@ -445,7 +447,7 @@ type BookButtonProps = {
 };
 
 const BookButton = ({ price, url }: BookButtonProps) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
   const discountedPrice = (price * 0.95).toFixed(2);
 
   return (

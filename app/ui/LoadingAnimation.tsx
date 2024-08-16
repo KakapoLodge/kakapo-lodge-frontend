@@ -1,5 +1,3 @@
-"use client";
-
 import { DotLoader } from "react-spinners";
 import styled from "styled-components";
 

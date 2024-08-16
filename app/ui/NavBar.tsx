@@ -1,20 +1,17 @@
-"use client";
-
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { MouseEventHandler, useContext, useState } from "react";
 import styled from "styled-components";
-import { IsMobileContext } from "../lib/context";
-import { useMobileDetection } from "../lib/hooks/useMobileDetection";
+import { MobileDetectionContext } from "../lib/context";
 import { IsMobileProps } from "../lib/types";
 import BookDirectButton from "./BookDirectButton";
 import CustomLink from "./CustomLink";
 
 const NavBar = () => {
   const pathname = usePathname();
-  const isMobile = useMobileDetection();
+  const isMobile = useContext(MobileDetectionContext);
 
   const [showMenu, setShowMenu] = useState(!isMobile);
   const closeMenu = isMobile ? () => setShowMenu(false) : undefined;
@@ -28,16 +25,14 @@ const NavBar = () => {
   };
 
   return (
-    <IsMobileContext.Provider value={isMobile}>
-      <TopBar>
-        <PreMenu>
-          <Logo pathname={pathname} onClick={closeMenu} />
-          <MenuButton disabled={disableMenuButton} onClick={toggleMenu} />
-        </PreMenu>
+    <TopBar>
+      <PreMenu>
+        <Logo pathname={pathname} onClick={closeMenu} />
+        <MenuButton disabled={disableMenuButton} onClick={toggleMenu} />
+      </PreMenu>
 
-        <MainNav pathname={pathname} showMenu={showMenu} onClick={closeMenu} />
-      </TopBar>
-    </IsMobileContext.Provider>
+      <MainNav pathname={pathname} showMenu={showMenu} onClick={closeMenu} />
+    </TopBar>
   );
 };
 
@@ -48,7 +43,7 @@ const TopBar = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
   return <_TopBar $isMobile={isMobile}>{children}</_TopBar>;
 };
 
@@ -71,7 +66,7 @@ const PreMenu = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
   return <_PreMenu $isMobile={isMobile}>{children}</_PreMenu>;
 };
 
@@ -87,7 +82,7 @@ type LogoProps = {
 };
 
 const Logo = ({ pathname, onClick }: LogoProps) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
   return (
     <CustomLink href="/" $isSelected={pathname === "/"} onClick={onClick}>
       <_Logo
@@ -113,7 +108,7 @@ type MenuButtonProps = {
 };
 
 const MenuButton = ({ disabled, onClick }: MenuButtonProps) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
 
   return isMobile ? (
     <MenuIcon icon={faBars} disabled={disabled} onClick={onClick} />
@@ -185,7 +180,7 @@ const Nav = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
   return <_Nav $isMobile={isMobile}>{children}</_Nav>;
 };
 
@@ -200,7 +195,7 @@ const MainMenu = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
   return <_MainMenu $isMobile={isMobile}>{children}</_MainMenu>;
 };
 

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { IsMobileContext } from "../lib/context";
+import { MobileDetectionContext } from "../lib/context";
 import { IsMobileProps } from "../lib/types";
 
 const Section = ({
@@ -8,7 +8,7 @@ const Section = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
   return <_Section $isMobile={isMobile}>{children}</_Section>;
 };
 

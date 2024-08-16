@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { IsMobileContext } from "../lib/context";
+import { MobileDetectionContext } from "../lib/context";
 import { IsMobileProps } from "../lib/types";
 
 type HeaderProps = {
@@ -9,7 +9,7 @@ type HeaderProps = {
 };
 
 const Header = ({ text, center = false }: HeaderProps) => {
-  const isMobile = useContext(IsMobileContext);
+  const isMobile = useContext(MobileDetectionContext);
   return (
     <_Header $isMobile={isMobile} $center={center}>
       {text}
