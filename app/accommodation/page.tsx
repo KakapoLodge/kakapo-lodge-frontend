@@ -139,7 +139,7 @@ const DatePicker = ({ getRates }: DatePickerProps) => {
       <_Filter $isMobile={isMobile}>
         <label>Check In/Out:</label>
         <RangePicker
-          css="width: 170px"
+          css="width: 180px; text-align: center;"
           format="DD MMM YYYY"
           minDate={todaysDateRfc3339}
           startDate={todaysDateRfc3339}
