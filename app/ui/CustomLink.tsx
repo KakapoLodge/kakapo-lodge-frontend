@@ -6,6 +6,9 @@ type CustomLinkProps = {
 };
 
 const CustomLink = styled(Link)<CustomLinkProps>`
+  display: flex;
+  justify-content: center;
+
   color: ${(props) =>
     props.$isSelected ? "var(--secondary-color)" : "var(--primary-color)"};
 

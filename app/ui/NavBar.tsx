@@ -123,11 +123,17 @@ type _MenuButtonProps = {
 };
 
 const _MenuButton = styled.button<_MenuButtonProps>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   background-color: white;
   border: 0px;
 
-  font-size: 32px;
-  padding: 16px 24px;
+  width: 64px;
+  height: 64px;
+  font-size: 24px;
+
   pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
 `;
 
