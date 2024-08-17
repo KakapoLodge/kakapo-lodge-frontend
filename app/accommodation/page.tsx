@@ -1,27 +1,5 @@
 "use client";
 
-import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faArrowDownWideShort,
-  faBath,
-  faBed,
-  faBedPulse,
-  faBreadSlice,
-  faChevronRight,
-  faFan,
-  faFireBurner,
-  faMugHot,
-  faRug,
-  faRuler,
-  faShower,
-  faTemperatureArrowUp,
-  faTv,
-  faUser,
-  faUtensils,
-  faVenus,
-  faVenusMars,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import {
   ChangeEventHandler,
@@ -55,21 +33,6 @@ import {
 } from "./content";
 import { filterSlice } from "./filterSlice";
 import { AccommodationNameId, AllRates, Rates } from "./types";
-
-library.add(
-  faBed,
-  faShower,
-  faBath,
-  faVenusMars,
-  faVenus,
-  faTv,
-  faBedPulse,
-  faRug,
-  faMugHot,
-  faBreadSlice,
-  faFireBurner,
-  faUtensils,
-);
 
 const AccommodationPage = () => {
   const isMobile = useMobileDetection();
@@ -150,7 +113,7 @@ const FilterButton = ({ disabled, onClick }: FilterButtonProps) => {
   const isMobile = useContext(MobileDetectionContext);
   return (
     <_FilterButton $isMobile={isMobile} $disabled={disabled} onClick={onClick}>
-      Filter <FontAwesomeIcon icon={faArrowDownWideShort} />
+      Filter <CustomIcon icon="fa-arrow-down-wide-short" />
     </_FilterButton>
   );
 };
@@ -382,17 +345,17 @@ const Features = ({ nameId }: FeaturesProps) => {
   return (
     <_Features>
       <div>
-        <CustomIcon icon={faUser} /> Sleeps: {sleeps}
+        <CustomIcon icon="fa-user" /> Sleeps: {sleeps}
       </div>
       <div>
-        <CustomIcon icon={faRuler} /> Room size: {size} m<sup>2</sup>
+        <CustomIcon icon="fa-ruler" /> Room size: {size} m<sup>2</sup>
       </div>
       <div>
-        <CustomIcon icon={faBed} /> {roomConfiguration}
+        <CustomIcon icon="fa-bed" /> {roomConfiguration}
       </div>
       <div>
-        <CustomIcon icon={faTemperatureArrowUp} /> Heater (
-        <FontAwesomeIcon icon={faFan} /> Fan in summer)
+        <CustomIcon icon="fa-temperature-arrow-up" /> Heater (
+        <CustomIcon icon="fa-fan" /> Fan in summer)
       </div>
 
       {...additionalFeatures.map(({ icon, description }) => (
@@ -451,7 +414,7 @@ const BookButton = ({ price, url }: BookButtonProps) => {
   return (
     <_BookButton target="_blank" href={url} $isMobile={isMobile}>
       Book with us @ ${discountedPrice}
-      <FontAwesomeIcon icon={faChevronRight} />
+      <CustomIcon icon="fa-chevren-right" />
     </_BookButton>
   );
 };

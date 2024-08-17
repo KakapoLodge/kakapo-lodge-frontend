@@ -1,5 +1,3 @@
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { MouseEventHandler, useContext, useState } from "react";
@@ -7,6 +5,7 @@ import styled from "styled-components";
 import { MobileDetectionContext } from "../lib/context";
 import { IsMobileProps } from "../lib/types";
 import BookDirectButton from "./BookDirectButton";
+import CustomIcon from "./CustomIcon";
 import CustomLink from "./CustomLink";
 
 const NavBar = () => {
@@ -111,17 +110,22 @@ const MenuButton = ({ disabled, onClick }: MenuButtonProps) => {
   const isMobile = useContext(MobileDetectionContext);
 
   return isMobile ? (
-    <MenuIcon icon={faBars} disabled={disabled} onClick={onClick} />
+    <_MenuButton disabled={disabled} onClick={onClick}>
+      <CustomIcon icon="fa-bars" />
+    </_MenuButton>
   ) : (
     <></>
   );
 };
 
-type MenuIconProps = {
+type _MenuButtonProps = {
   disabled: boolean;
 };
 
-const MenuIcon = styled(FontAwesomeIcon)<MenuIconProps>`
+const _MenuButton = styled.button<_MenuButtonProps>`
+  background-color: white;
+  border: 0px;
+
   font-size: 32px;
   padding: 16px 24px;
   pointer-events: ${(props) => (props.disabled ? "none" : "auto")};

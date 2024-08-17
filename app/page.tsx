@@ -1,7 +1,5 @@
 "use client";
 
-import { faArrowRight, faStar } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useContext } from "react";
 import { ReactGoogleReview, ReactGoogleReviews } from "react-google-reviews";
@@ -15,13 +13,12 @@ import {
 import { AccommodationNameId } from "./accommodation/types";
 import { INTRODUCTION } from "./content";
 import { MobileDetectionContext } from "./lib/context";
-import { getTodaysDateRfc3339 } from "./lib/dates";
-import { useImmediatePrefetch } from "./lib/hooks/useImmediatePrefetch";
 import { useMobileDetection } from "./lib/hooks/useMobileDetection";
 import { IsMobileProps } from "./lib/types";
 import Card from "./ui/Card";
 import CarouselImage from "./ui/CarouselImage";
 import CustomCarousel from "./ui/CustomCarousel";
+import CustomIcon from "./ui/CustomIcon";
 import CustomLink from "./ui/CustomLink";
 import Footer from "./ui/Footer";
 import Header from "./ui/Header";
@@ -34,12 +31,6 @@ import Subheader from "./ui/Subheader";
 
 const LandingPage = () => {
   const isMobile = useMobileDetection();
-  const todaysDateRfc3339 = getTodaysDateRfc3339();
-
-  useImmediatePrefetch("getRates", {
-    start_date: todaysDateRfc3339,
-    end_date: todaysDateRfc3339,
-  });
 
   const { title, paragraphs } = INTRODUCTION;
 
@@ -149,7 +140,7 @@ const AccommodationShortcut = ({ nameId }: AccommodationShortcutProps) => {
       <Subheader>{accommodationName}</Subheader>
       <ShortcutLink href={url}>
         Find out more&nbsp;
-        <FontAwesomeIcon icon={faArrowRight} />
+        <CustomIcon icon="fa-arrow-right" />
       </ShortcutLink>
     </ShortcutCard>
   );
@@ -375,7 +366,7 @@ const Rating = ({ starRating }: RatingProps) => {
   return (
     <_Rating>
       {[...Array(starRating).keys()].map((index) => (
-        <FontAwesomeIcon key={`star-${index}`} icon={faStar} />
+        <CustomIcon key={`star-${index}`} icon="fa-star" />
       ))}
     </_Rating>
   );

@@ -1,18 +1,5 @@
 "use client";
 
-import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faBicycle,
-  faBook,
-  faBowlFood,
-  faBox,
-  faClock,
-  faJugDetergent,
-  faRug,
-  faSuitcaseRolling,
-  faTicket,
-  faWifi,
-} from "@fortawesome/free-solid-svg-icons";
 import { Fragment, useContext } from "react";
 import styled from "styled-components";
 import { MobileDetectionContext } from "../lib/context";
@@ -28,19 +15,6 @@ import PageTitle from "../ui/PageTitle";
 import Section from "../ui/Section";
 import Sections from "../ui/Sections";
 import { FACILITIES, PURCHASEABLES, SERVICES } from "./content";
-
-library.add(
-  faBook,
-  faBox,
-  faSuitcaseRolling,
-  faWifi,
-  faTicket,
-  faRug,
-  faBicycle,
-  faJugDetergent,
-  faBowlFood,
-  faClock,
-);
 
 const FacilitiesPage = () => {
   const isMobile = useMobileDetection();

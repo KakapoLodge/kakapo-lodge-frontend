@@ -1,10 +1,9 @@
-import { faPhone } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useContext } from "react";
 import styled from "styled-components";
 import { MobileDetectionContext } from "../lib/context";
 import BookDirectButton from "./BookDirectButton";
+import CustomIcon from "./CustomIcon";
 
 const Footer = () => {
   const isMobile = useContext(MobileDetectionContext);
@@ -46,7 +45,7 @@ const BottomBar = styled.footer`
 const CallButton = () => {
   return (
     <Button target="_blank" href="tel:03 315 7472">
-      <FontAwesomeIcon icon={faPhone} />
+      <CustomIcon icon="fa-phone" />
       Call Us
     </Button>
   );
