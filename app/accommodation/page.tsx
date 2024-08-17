@@ -124,6 +124,7 @@ type DatePickerProps = {
 
 const DatePicker = ({ getRates }: DatePickerProps) => {
   const isMobile = useContext(MobileDetectionContext);
+  const id = "date-picker";
 
   const todaysDateRfc3339 = getTodaysDateRfc3339();
   const tomorrowsDateRfc3339 = getNextDaysDateRfc3339(todaysDateRfc3339);
@@ -137,8 +138,9 @@ const DatePicker = ({ getRates }: DatePickerProps) => {
   return (
     <_Filters $isMobile={isMobile}>
       <_Filter $isMobile={isMobile}>
-        <label>Check In/Out:</label>
+        <Label htmlFor={id}>Check In/Out:&nbsp;&nbsp;</Label>
         <RangePicker
+          id={id}
           css="width: 180px; text-align: center;"
           format="DD MMM YYYY"
           minDate={todaysDateRfc3339}
@@ -197,7 +199,7 @@ const _FilterButton = styled.div<IsMobileProps & _FilterButtonProps>`
   display: ${(props) => (props.$isMobile ? "block" : "none")};
 
   text-align: center;
-  padding: 6px;
+  padding: 4px;
 
   pointer-events: ${(props) => (props.$disabled ? "none" : "auto")};
 
@@ -239,7 +241,7 @@ const _Filters = styled.div<IsMobileProps>`
   flex-direction: ${(props) => (props.$isMobile ? "column" : "row")};
   gap: ${(props) => (props.$isMobile ? "4px" : "20px")};
 
-  padding: 8px;
+  padding: ${(props) => (props.$isMobile ? "4px 16px" : "8px")};
   justify-content: center;
 `;
 
@@ -256,7 +258,7 @@ const Filter = ({ label, onChange }: FilterProps) => {
 
   return (
     <_Filter $isMobile={isMobile}>
-      <label htmlFor={filterId}>{label}</label>
+      <Label htmlFor={filterId}>{label}</Label>
       <Checkbox id={filterId} type="checkbox" onChange={onChange} />
     </_Filter>
   );
@@ -267,6 +269,11 @@ const _Filter = styled.div<IsMobileProps>`
   align-items: center;
   justify-content: ${(props) => (props.$isMobile ? "space-between" : "normal")};
   gap: 4px;
+`;
+
+const Label = styled.label`
+  width: 100%;
+  height: 100%;
 `;
 
 const Checkbox = styled.input`
