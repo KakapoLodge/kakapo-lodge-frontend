@@ -2,6 +2,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { mapResponse } from "../../accommodation/mapping";
 import { AllRates } from "../../accommodation/types";
+import { RatesApiDates } from "../types";
 
 const BASE_URL =
   "https://faas-syd1-c274eac6.doserverless.co/api/v1/web/fn-f128daea-976b-402e-9f78-17eac28ae887/default/kakapo-lodge-rates";
@@ -11,7 +12,7 @@ export const ratesApi = createApi({
   reducerPath: "ratesApi",
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   endpoints: (builder) => ({
-    getRates: builder.query<AllRates, Dates>({
+    getRates: builder.query<AllRates, RatesApiDates>({
       query: ({ start_date, end_date }) => {
         return {
           url: "/",
@@ -25,9 +26,4 @@ export const ratesApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetRatesQuery } = ratesApi;
-
-type Dates = {
-  start_date: string;
-  end_date: string;
-};
+export const { useGetRatesQuery, useLazyGetRatesQuery } = ratesApi;

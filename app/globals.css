@@ -2,6 +2,12 @@
   --primary-color: #4b5320;
   --secondary-color: #8c9b3e;
   --tertiary-color: #6e5546;
+
+  --ease-color-bg-default: white;
+  --ease-color-fg-primary: #4b5320; /* range start and end background color */
+  --ease-color-fg-default: #4b5320; /* color for rest of text */
+  --ease-color-fg-accent: #6e5546; /* today's date color */
+  --ease-color-bg-inrange: #8c9b3e; /* range in-between background color */
 }
 
 body,

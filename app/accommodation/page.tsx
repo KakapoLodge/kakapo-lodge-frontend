@@ -6,15 +6,21 @@ import {
   Fragment,
   MouseEventHandler,
   useContext,
+  useEffect,
   useState,
 } from "react";
+import { RangePicker } from "react-ease-picker";
 import styled from "styled-components";
-import { useGetRatesQuery } from "../lib/api/ratesApi";
+import { useLazyGetRatesQuery } from "../lib/api/ratesApi";
 import { MobileDetectionContext } from "../lib/context";
-import { getTodaysDateRfc3339 } from "../lib/dates";
+import {
+  getNextDaysDateRfc3339,
+  getPreviousDaysDateRfc3339,
+  getTodaysDateRfc3339,
+} from "../lib/dates";
 import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import { useAppDispatch, useAppSelector } from "../lib/hooks/useStore";
-import { IsMobileProps } from "../lib/types";
+import { IsMobileProps, RatesApiDates } from "../lib/types";
 import Card from "../ui/Card";
 import CustomIcon from "../ui/CustomIcon";
 import ImageCarousel from "../ui/ImageCarousel";
@@ -38,21 +44,25 @@ const AccommodationPage = () => {
   const isMobile = useMobileDetection();
   const todaysDateRfc3339 = getTodaysDateRfc3339();
 
-  const { data, error, isLoading } = useGetRatesQuery({
-    start_date: todaysDateRfc3339,
-    end_date: todaysDateRfc3339,
-  });
+  const [getRates, { data, error, isLoading, isFetching, isUninitialized }] =
+    useLazyGetRatesQuery();
+
+  useEffect(() => {
+    if (isUninitialized) {
+      getRates({ start_date: todaysDateRfc3339, end_date: todaysDateRfc3339 });
+    }
+  }, []);
 
   return (
     <MobileDetectionContext.Provider value={isMobile}>
       <NavBar />
       <PageContent>
         <PageTitle text="Accommodation" />
-        <AccommodationCriteria />
+        <AccommodationCriteria getRates={getRates} />
 
         {error ? (
           <AccommodationCards allRates={DEFAULT_RATES} />
-        ) : isLoading ? (
+        ) : isLoading || isFetching ? (
           <LoadingAnimation text="Finding your next accommodation..." />
         ) : data ? (
           <AccommodationCards allRates={data} />
@@ -66,7 +76,11 @@ const AccommodationPage = () => {
 
 export default AccommodationPage;
 
-const AccommodationCriteria = () => {
+type AccommodationCriteriaProps = {
+  getRates: (arg: RatesApiDates, preferCacheValue?: boolean) => {};
+};
+
+const AccommodationCriteria = ({ getRates }: AccommodationCriteriaProps) => {
   const isMobile = useContext(MobileDetectionContext);
 
   const [showFilters, setShowFilters] = useState(!isMobile);
@@ -80,6 +94,7 @@ const AccommodationCriteria = () => {
 
   return (
     <_AccommodationCriteria $isMobile={isMobile}>
+      <DatePicker getRates={getRates} />
       <FilterButton
         disabled={disableFilterButton}
         onClick={toggleShowFilters}
@@ -103,6 +118,63 @@ const _AccommodationCriteria = styled.div<IsMobileProps>`
   gap: 16px;
   justify-content: center;
 `;
+
+type DatePickerProps = {
+  getRates: (arg: RatesApiDates, preferCacheValue?: boolean) => {};
+};
+
+const DatePicker = ({ getRates }: DatePickerProps) => {
+  const isMobile = useContext(MobileDetectionContext);
+
+  const todaysDateRfc3339 = getTodaysDateRfc3339();
+  const tomorrowsDateRfc3339 = getNextDaysDateRfc3339(todaysDateRfc3339);
+
+  const onSelectDates = (rangeStart: string, rangeEnd: string) => {
+    const startDate = rangeStart;
+    const endDate = getPreviousDaysDateRfc3339(rangeEnd);
+    getRates({ start_date: startDate, end_date: endDate });
+  };
+
+  return (
+    <_Filters $isMobile={isMobile}>
+      <_Filter $isMobile={isMobile}>
+        <label>Check In/Out:</label>
+        <RangePicker
+          css="width: 170px"
+          format="DD MMM YYYY"
+          minDate={todaysDateRfc3339}
+          startDate={todaysDateRfc3339}
+          endDate={tomorrowsDateRfc3339}
+          daysLocale={EASE_PICK_DAYS_LOCALE}
+          onSelect={onSelectDates}
+          // @ts-ignore
+          options={EASE_PICK_OPTIONS}
+        />
+      </_Filter>
+    </_Filters>
+  );
+};
+
+const EASE_PICK_DAYS_LOCALE = {
+  one: "night",
+  two: "nights",
+  few: "nights",
+  many: "nights",
+  other: "nights",
+};
+
+const EASE_PICK_OPTIONS = {
+  RangePlugin: {
+    tooltipNumber: (numberOfNights: number) => numberOfNights - 1,
+  },
+  LockPlugin: {
+    // check-in (1 day), check-out (1 day)
+    minDays: 2,
+    // Little Hotelier API max is 28 days
+    // https://helpcentre.littlehotelier.com/en/articles/8674041-implement-the-rates-api
+    maxDays: 28,
+  },
+};
 
 type FilterButtonProps = {
   disabled: boolean;
@@ -414,7 +486,7 @@ const BookButton = ({ price, url }: BookButtonProps) => {
   return (
     <_BookButton target="_blank" href={url} $isMobile={isMobile}>
       Book with us @ ${discountedPrice}
-      <CustomIcon icon="fa-chevren-right" />
+      <CustomIcon icon="fa-chevron-right" />
     </_BookButton>
   );
 };
