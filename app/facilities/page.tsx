@@ -3,13 +3,13 @@
 import { Fragment, useContext } from "react";
 import styled from "styled-components";
 import { MobileDetectionContext } from "../lib/context";
-import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import { IsMobileProps } from "../lib/types";
 import CustomIcon from "../ui/CustomIcon";
 import Footer from "../ui/Footer";
 import Header from "../ui/Header";
 import ImageCarousel from "../ui/ImageCarousel";
 import NavBar from "../ui/NavBar";
+import Page from "../ui/Page";
 import PageContent from "../ui/PageContent";
 import PageTitle from "../ui/PageTitle";
 import Section from "../ui/Section";
@@ -17,10 +17,8 @@ import Sections from "../ui/Sections";
 import { FACILITIES, PURCHASEABLES, SERVICES } from "./content";
 
 const FacilitiesPage = () => {
-  const isMobile = useMobileDetection();
-
   return (
-    <MobileDetectionContext.Provider value={isMobile}>
+    <Page>
       <NavBar />
       <PageContent>
         <PageTitle text="Facilities" />
@@ -55,7 +53,7 @@ const FacilitiesPage = () => {
         </Sections>
       </PageContent>
       <Footer />
-    </MobileDetectionContext.Provider>
+    </Page>
   );
 };
 

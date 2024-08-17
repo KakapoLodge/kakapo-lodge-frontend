@@ -18,7 +18,6 @@ import {
   getPreviousDaysDateRfc3339,
   getTodaysDateRfc3339,
 } from "../lib/dates";
-import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import { useAppDispatch, useAppSelector } from "../lib/hooks/useStore";
 import { IsMobileProps, RatesApiDates } from "../lib/types";
 import Card from "../ui/Card";
@@ -26,6 +25,7 @@ import CustomIcon from "../ui/CustomIcon";
 import ImageCarousel from "../ui/ImageCarousel";
 import LoadingAnimation from "../ui/LoadingAnimation";
 import NavBar from "../ui/NavBar";
+import Page from "../ui/Page";
 import PageContent from "../ui/PageContent";
 import PageTitle from "../ui/PageTitle";
 import {
@@ -41,7 +41,6 @@ import { filterSlice } from "./filterSlice";
 import { AccommodationNameId, AllRates, Rates } from "./types";
 
 const AccommodationPage = () => {
-  const isMobile = useMobileDetection();
   const todaysDateRfc3339 = getTodaysDateRfc3339();
 
   const [getRates, { data, error, isLoading, isFetching, isUninitialized }] =
@@ -54,7 +53,7 @@ const AccommodationPage = () => {
   }, []);
 
   return (
-    <MobileDetectionContext.Provider value={isMobile}>
+    <Page>
       <NavBar />
       <PageContent>
         <PageTitle text="Accommodation" />
@@ -70,7 +69,7 @@ const AccommodationPage = () => {
           <></>
         )}
       </PageContent>
-    </MobileDetectionContext.Provider>
+    </Page>
   );
 };
 

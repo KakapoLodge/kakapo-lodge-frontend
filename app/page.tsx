@@ -28,14 +28,13 @@ import PageTitle from "./ui/PageTitle";
 import Section from "./ui/Section";
 import Sections from "./ui/Sections";
 import Subheader from "./ui/Subheader";
+import Page from "./ui/Page";
 
 const LandingPage = () => {
-  const isMobile = useMobileDetection();
-
   const { title, paragraphs } = INTRODUCTION;
 
   return (
-    <MobileDetectionContext.Provider value={isMobile}>
+    <Page>
       <NavBar />
       <LandingPageContent>
         <MainBanner />
@@ -53,7 +52,7 @@ const LandingPage = () => {
         </Sections>
       </LandingPageContent>
       <Footer />
-    </MobileDetectionContext.Provider>
+    </Page>
   );
 };
 

@@ -3,20 +3,18 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { MobileDetectionContext } from "../lib/context";
-import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import { IsMobileProps } from "../lib/types";
 import CustomLink from "../ui/CustomLink";
 import Footer from "../ui/Footer";
 import Header from "../ui/Header";
 import NavBar from "../ui/NavBar";
+import Page from "../ui/Page";
 import PageContent from "../ui/PageContent";
 import PageTitle from "../ui/PageTitle";
 
 const ContactPage = () => {
-  const isMobile = useMobileDetection();
-
   return (
-    <MobileDetectionContext.Provider value={isMobile}>
+    <Page>
       <NavBar />
       <PageContent>
         <PageTitle text="Contact Us" />
@@ -27,7 +25,7 @@ const ContactPage = () => {
         </ContactInformation>
       </PageContent>
       <Footer />
-    </MobileDetectionContext.Provider>
+    </Page>
   );
 };
 
