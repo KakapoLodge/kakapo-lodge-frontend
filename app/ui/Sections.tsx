@@ -17,5 +17,5 @@ export default Sections;
 const _Sections = styled.div<IsMobileProps>`
   display: flex;
   flex-direction: column;
-  gap: ${(props) => (props.$isMobile ? "12px" : "16px")};
+  gap: ${(props) => (props.$isMobile ? "16px" : "24px")};
 `;

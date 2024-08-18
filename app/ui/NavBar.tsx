@@ -152,6 +152,7 @@ const SUB_PAGES: Page[] = [
     target: "_blank",
   },
   { name: "Contact", path: "/contact" },
+  { name: "Policies", path: "/policies" },
 ];
 
 type MainNavProps = {

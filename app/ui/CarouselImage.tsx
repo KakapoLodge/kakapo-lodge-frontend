@@ -11,7 +11,6 @@ const CarouselImage = ({ imagePath, description }: CarouselImageProps) => {
     <_CarouselImage
       src={imagePath}
       alt={description}
-      loading="lazy"
       width={1600}
       height={900}
     />
