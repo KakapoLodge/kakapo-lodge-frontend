@@ -26,4 +26,4 @@ export const ratesApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetRatesQuery, useLazyGetRatesQuery } = ratesApi;
+export const { useGetRatesQuery } = ratesApi;

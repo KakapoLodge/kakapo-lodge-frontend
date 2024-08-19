@@ -6,12 +6,11 @@ import {
   Fragment,
   MouseEventHandler,
   useContext,
-  useEffect,
   useState,
 } from "react";
 import { RangePicker } from "react-ease-picker";
 import styled from "styled-components";
-import { useLazyGetRatesQuery } from "../lib/api/ratesApi";
+import { useGetRatesQuery } from "../lib/api/ratesApi";
 import { MobileDetectionContext } from "../lib/context";
 import {
   getNextDaysDateRfc3339,
@@ -43,21 +42,17 @@ import { AccommodationNameId, AllRates, Rates } from "./types";
 const AccommodationPage = () => {
   const todaysDateRfc3339 = getTodaysDateRfc3339();
 
-  const [getRates, { data, error, isLoading, isFetching, isUninitialized }] =
-    useLazyGetRatesQuery();
-
-  useEffect(() => {
-    if (isUninitialized) {
-      getRates({ start_date: todaysDateRfc3339, end_date: todaysDateRfc3339 });
-    }
-  }, []);
+  const { data, error, isLoading, isFetching, refetch } = useGetRatesQuery({
+    start_date: todaysDateRfc3339,
+    end_date: todaysDateRfc3339,
+  });
 
   return (
     <Page>
       <NavBar />
       <PageContent>
         <PageTitle text="Accommodation" />
-        <AccommodationCriteria getRates={getRates} />
+        <AccommodationCriteria getRates={refetch} />
 
         {error ? (
           <AccommodationCards allRates={DEFAULT_RATES} />
@@ -460,7 +455,8 @@ type AvailabilityProps = {
 
 const Availability = ({ available, isForSale }: AvailabilityProps) => {
   const isMobile = useContext(MobileDetectionContext);
-  const text = isForSale ? getAvailableOrSoldOutText(available) : "Unavailable";
+  const availabilityText = getAvailabilityText(isForSale, available);
+  const text = `${availabilityText} for the chosen dates`;
 
   return available === null ? (
     <></>
@@ -469,8 +465,16 @@ const Availability = ({ available, isForSale }: AvailabilityProps) => {
   );
 };
 
-const getAvailableOrSoldOutText = (available: number | null) => {
-  return available === 0 ? "Sold out" : `${available} available`;
+const getAvailabilityText = (isForSale: boolean, available: number | null) => {
+  if (!isForSale) {
+    return "Unavailable";
+  } else if (available === 0) {
+    return "Sold out";
+  } else if (available === 1) {
+    return "Only 1 left";
+  } else {
+    return `${available} available`;
+  }
 };
 
 const _Availability = styled.p<IsMobileProps>`

@@ -1,8 +1,7 @@
 import { MobileDetectionContext } from "../lib/context";
-import { getTodaysDateRfc3339 } from "../lib/dates";
 import { useIconLibrary } from "../lib/hooks/useIconLibrary";
-import { useImmediatePrefetch } from "../lib/hooks/useImmediatePrefetch";
 import { useMobileDetection } from "../lib/hooks/useMobileDetection";
+import { usePrefetchTonightsRates } from "../lib/hooks/usePrefetchTonightsRates";
 
 const Page = ({
   children,
@@ -10,15 +9,9 @@ const Page = ({
   children: React.ReactNode;
 }>) => {
   useIconLibrary();
-
-  const todaysDateRfc3339 = getTodaysDateRfc3339();
-  useImmediatePrefetch("getRates", {
-    start_date: todaysDateRfc3339,
-    end_date: todaysDateRfc3339,
-  });
+  usePrefetchTonightsRates();
 
   const isMobile = useMobileDetection();
-
   return (
     <MobileDetectionContext.Provider value={isMobile}>
       {children}

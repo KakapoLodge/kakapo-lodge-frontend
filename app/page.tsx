@@ -13,7 +13,6 @@ import {
 import { AccommodationNameId } from "./accommodation/types";
 import { INTRODUCTION } from "./content";
 import { MobileDetectionContext } from "./lib/context";
-import { useMobileDetection } from "./lib/hooks/useMobileDetection";
 import { IsMobileProps } from "./lib/types";
 import Card from "./ui/Card";
 import CarouselImage from "./ui/CarouselImage";
@@ -23,12 +22,12 @@ import CustomLink from "./ui/CustomLink";
 import Footer from "./ui/Footer";
 import Header from "./ui/Header";
 import NavBar from "./ui/NavBar";
+import Page from "./ui/Page";
 import PageContent from "./ui/PageContent";
 import PageTitle from "./ui/PageTitle";
 import Section from "./ui/Section";
 import Sections from "./ui/Sections";
 import Subheader from "./ui/Subheader";
-import Page from "./ui/Page";
 
 const LandingPage = () => {
   const { title, paragraphs } = INTRODUCTION;
