@@ -29,8 +29,10 @@ import PageContent from "../ui/PageContent";
 import PageTitle from "../ui/PageTitle";
 import {
   ACCOMMODATION_IMAGE_PATHS,
+  ACCOMMODATION_LOADING_TEXT,
   ACCOMMODATION_NAME_IDS,
   ACCOMMODATION_NAMES,
+  ACCOMMODATION_PAGE_TITLE,
   ALL_ADDITIONAL_FEATURES,
   BASE_FEATURES,
   BOOKING_URLS,
@@ -51,13 +53,13 @@ const AccommodationPage = () => {
     <Page>
       <NavBar />
       <PageContent>
-        <PageTitle text="Accommodation" />
+        <PageTitle text={ACCOMMODATION_PAGE_TITLE} />
         <AccommodationCriteria getRates={refetch} />
 
         {error ? (
           <AccommodationCards allRates={DEFAULT_RATES} />
         ) : isLoading || isFetching ? (
-          <LoadingAnimation text="Finding your next accommodation..." />
+          <LoadingAnimation text={ACCOMMODATION_LOADING_TEXT} />
         ) : data ? (
           <AccommodationCards allRates={data} />
         ) : (
