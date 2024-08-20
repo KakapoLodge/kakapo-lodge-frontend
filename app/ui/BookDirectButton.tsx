@@ -2,19 +2,25 @@ import Link from "next/link";
 import { useContext } from "react";
 import styled from "styled-components";
 import { MobileDetectionContext } from "../lib/context";
+import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
 import { IsMobileProps } from "../lib/types";
 
 type BookDirectButtonProps = {
   isFooter?: boolean;
 };
 
+const BOOK_DIRECT_URL =
+  "https://apac.littlehotelier.com/properties/kakapolodgedirect?promotion_code=5OFF";
+
 const BookDirectButton = ({ isFooter = false }: BookDirectButtonProps) => {
   const isMobile = useContext(MobileDetectionContext);
+  const { sendLinkClickedEvent } = useGoogleAnalyticsEvents();
 
   return isFooter === isMobile ? (
     <Button
       target="_blank"
-      href="https://apac.littlehotelier.com/properties/kakapolodgedirect?promotion_code=5OFF"
+      href={BOOK_DIRECT_URL}
+      onClick={() => sendLinkClickedEvent(BOOK_DIRECT_URL)}
       $isMobile={isMobile}
     >
       <DiscountSymbol />

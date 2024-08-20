@@ -17,6 +17,7 @@ import {
   getPreviousDaysDateRfc3339,
   getTodaysDateRfc3339,
 } from "../lib/dates";
+import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
 import { useAppDispatch, useAppSelector } from "../lib/hooks/useStore";
 import { IsMobileProps, RatesApiDates } from "../lib/types";
 import Card from "../ui/Card";
@@ -35,6 +36,7 @@ import {
   ACCOMMODATION_PAGE_TITLE,
   ALL_ADDITIONAL_FEATURES,
   BASE_FEATURES,
+  BOOK_BUTTON_TEXT,
   BOOKING_URLS,
   DEFAULT_RATES,
 } from "./content";
@@ -120,8 +122,9 @@ type DatePickerProps = {
 };
 
 const DatePicker = ({ getRates }: DatePickerProps) => {
-  const isMobile = useContext(MobileDetectionContext);
   const id = "date-picker";
+  const isMobile = useContext(MobileDetectionContext);
+  const { sendDatesPickedEvent } = useGoogleAnalyticsEvents();
 
   const todaysDateRfc3339 = getTodaysDateRfc3339();
   const tomorrowsDateRfc3339 = getNextDaysDateRfc3339(todaysDateRfc3339);
@@ -129,7 +132,9 @@ const DatePicker = ({ getRates }: DatePickerProps) => {
   const onSelectDates = (rangeStart: string, rangeEnd: string) => {
     const startDate = rangeStart;
     const endDate = getPreviousDaysDateRfc3339(rangeEnd);
+
     getRates({ start_date: startDate, end_date: endDate });
+    sendDatesPickedEvent(rangeStart, rangeEnd);
   };
 
   return (
@@ -249,6 +254,7 @@ type FilterProps = {
 
 const Filter = ({ label, onChange }: FilterProps) => {
   const isMobile = useContext(MobileDetectionContext);
+  const { sendAccommodationFilteredEvent } = useGoogleAnalyticsEvents();
 
   // last character should be question mark
   const filterId = label.slice(0, -1).toLowerCase().replaceAll(" ", "-");
@@ -256,7 +262,12 @@ const Filter = ({ label, onChange }: FilterProps) => {
   return (
     <_Filter $isMobile={isMobile}>
       <Label htmlFor={filterId}>{label}</Label>
-      <Checkbox id={filterId} type="checkbox" onChange={onChange} />
+      <Checkbox
+        id={filterId}
+        type="checkbox"
+        onChange={onChange}
+        onClick={() => sendAccommodationFilteredEvent(filterId)}
+      />
     </_Filter>
   );
 };
@@ -493,11 +504,17 @@ type BookButtonProps = {
 
 const BookButton = ({ price, url }: BookButtonProps) => {
   const isMobile = useContext(MobileDetectionContext);
+  const { sendLinkClickedEvent } = useGoogleAnalyticsEvents();
   const discountedPrice = (price * 0.95).toFixed(2);
 
   return (
-    <_BookButton target="_blank" href={url} $isMobile={isMobile}>
-      Book with us @ ${discountedPrice}
+    <_BookButton
+      target="_blank"
+      href={url}
+      onClick={() => sendLinkClickedEvent(url)}
+      $isMobile={isMobile}
+    >
+      {`${BOOK_BUTTON_TEXT}${discountedPrice}`}
       <CustomIcon icon="fa-chevron-right" />
     </_BookButton>
   );

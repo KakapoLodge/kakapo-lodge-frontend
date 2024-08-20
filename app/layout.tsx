@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "./lib/StoreProvider";
 import StyledComponentsRegistry from "./lib/StyledComponentsRegistry";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
           <StoreProvider>{children}</StoreProvider>
         </StyledComponentsRegistry>
       </body>
+      <GoogleAnalytics gaId="G-Q6FH3J5ZQM" />
     </html>
   );
 }

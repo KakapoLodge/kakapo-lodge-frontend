@@ -4,6 +4,8 @@ export const ACCOMMODATION_PAGE_TITLE = "Accommodation";
 
 export const ACCOMMODATION_LOADING_TEXT = "Finding your next accommodation...";
 
+export const BOOK_BUTTON_TEXT = "Book with us @ $";
+
 export const ACCOMMODATION_NAME_IDS: AccommodationNameId[] = [
   "5-bed-dorm",
   "4-bed-dorm",

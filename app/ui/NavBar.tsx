@@ -3,6 +3,7 @@ import { usePathname } from "next/navigation";
 import { MouseEventHandler, useContext, useState } from "react";
 import styled from "styled-components";
 import { MobileDetectionContext } from "../lib/context";
+import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
 import { IsMobileProps } from "../lib/types";
 import BookDirectButton from "./BookDirectButton";
 import CustomIcon from "./CustomIcon";
@@ -26,11 +27,11 @@ const NavBar = () => {
   return (
     <TopBar>
       <PreMenu>
-        <Logo pathname={pathname} onClick={closeMenu} />
+        <Logo pathname={pathname} closeMenu={closeMenu} />
         <MenuButton disabled={disableMenuButton} onClick={toggleMenu} />
       </PreMenu>
 
-      <MainNav pathname={pathname} showMenu={showMenu} onClick={closeMenu} />
+      <MainNav pathname={pathname} closeMenu={closeMenu} showMenu={showMenu} />
     </TopBar>
   );
 };
@@ -77,15 +78,28 @@ const _PreMenu = styled.div<IsMobileProps>`
 
 type LogoProps = {
   pathname: string;
-  onClick?: MouseEventHandler<Element>;
+  closeMenu?: (() => void) | undefined;
 };
 
-const Logo = ({ pathname, onClick }: LogoProps) => {
+const Logo = ({ pathname, closeMenu }: LogoProps) => {
+  const landingPagePath = "/";
+
   const isMobile = useContext(MobileDetectionContext);
+  const { sendLinkClickedEvent } = useGoogleAnalyticsEvents();
+
+  const handleClick = (url: string) => {
+    closeMenu && closeMenu();
+    sendLinkClickedEvent(url);
+  };
+
   return (
-    <CustomLink href="/" $isSelected={pathname === "/"} onClick={onClick}>
+    <CustomLink
+      href={landingPagePath}
+      $isSelected={pathname === landingPagePath}
+      onClick={() => handleClick(landingPagePath)}
+    >
       <_Logo
-        src={"/kakapo_logo_with_text.png"}
+        src="/kakapo_logo_with_text.png"
         alt="Kakapo logo with text"
         width={371}
         height={160}
@@ -158,10 +172,17 @@ const SUB_PAGES: Page[] = [
 type MainNavProps = {
   pathname: string;
   showMenu: boolean;
-  onClick?: MouseEventHandler<Element>;
+  closeMenu?: (() => void) | undefined;
 };
 
-const MainNav = ({ pathname, showMenu, onClick }: MainNavProps) => {
+const MainNav = ({ pathname, showMenu, closeMenu }: MainNavProps) => {
+  const { sendLinkClickedEvent } = useGoogleAnalyticsEvents();
+
+  const handleClick = (url: string) => {
+    closeMenu && closeMenu();
+    sendLinkClickedEvent(url);
+  };
+
   return showMenu ? (
     <Nav>
       <MainMenu>
@@ -171,7 +192,7 @@ const MainNav = ({ pathname, showMenu, onClick }: MainNavProps) => {
               href={path}
               target={target}
               $isSelected={pathname.includes(path)}
-              onClick={onClick}
+              onClick={() => handleClick(path)}
             >
               {name}
             </CustomLink>

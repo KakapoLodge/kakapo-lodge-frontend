@@ -25,6 +25,7 @@ import {
   SHORTCUT_LINK_TEXT,
 } from "./content";
 import { MobileDetectionContext } from "./lib/context";
+import { useGoogleAnalyticsEvents } from "./lib/hooks/useGoogleAnalyticsEvents";
 import { IsMobileProps } from "./lib/types";
 import Card from "./ui/Card";
 import CarouselImage from "./ui/CarouselImage";
@@ -138,13 +139,15 @@ type AccommodationShortcutProps = {
 const AccommodationShortcut = ({ nameId }: AccommodationShortcutProps) => {
   const imagePath = ACCOMMODATION_IMAGE_PATHS[nameId][0];
   const accommodationName = ACCOMMODATION_NAMES[nameId];
+
+  const { sendLinkClickedEvent } = useGoogleAnalyticsEvents();
   const url = `/accommodation/#${nameId}`;
 
   return (
     <ShortcutCard>
       <CarouselImage imagePath={imagePath} description={accommodationName} />
       <Subheader>{accommodationName}</Subheader>
-      <ShortcutLink href={url}>
+      <ShortcutLink href={url} onClick={() => sendLinkClickedEvent(url)}>
         {SHORTCUT_LINK_TEXT}&nbsp;
         <CustomIcon icon="fa-arrow-right" />
       </ShortcutLink>
@@ -200,6 +203,10 @@ type ReviewsSummaryProps = {
 
 const ReviewsSummary = ({ reviews }: ReviewsSummaryProps) => {
   const averageRating = getAverageRating(reviews);
+  const { sendLinkClickedEvent } = useGoogleAnalyticsEvents();
+
+  const googleReviewsUrl =
+    "https://www.google.com/maps/place/Hanmer+Springs+Kakapo+Lodge/@-42.5258994,172.8285116,17z/data=!4m11!3m10!1s0x6d306383a372bc73:0x7424d96525465fe0!5m2!4m1!1i2!8m2!3d-42.5258994!4d172.8285116!9m1!1b1!16s%2Fg%2F1td6b1h1?entry=ttu";
 
   return (
     <_ReviewsSummary>
@@ -208,7 +215,8 @@ const ReviewsSummary = ({ reviews }: ReviewsSummaryProps) => {
         <AverageRating>Rating: {averageRating.toFixed(1)} / 5</AverageRating>
         <ReviewsLink
           target="_blank"
-          href="https://www.google.com/maps/place/Hanmer+Springs+Kakapo+Lodge/@-42.5258994,172.8285116,17z/data=!4m11!3m10!1s0x6d306383a372bc73:0x7424d96525465fe0!5m2!4m1!1i2!8m2!3d-42.5258994!4d172.8285116!9m1!1b1!16s%2Fg%2F1td6b1h1?entry=ttu"
+          href={googleReviewsUrl}
+          onClick={() => sendLinkClickedEvent(googleReviewsUrl)}
         >
           View all {reviews.length} reviews
         </ReviewsLink>

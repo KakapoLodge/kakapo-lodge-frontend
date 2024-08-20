@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useContext } from "react";
 import styled from "styled-components";
 import { MobileDetectionContext } from "../lib/context";
+import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
 import BookDirectButton from "./BookDirectButton";
 import CustomIcon from "./CustomIcon";
 
@@ -43,8 +44,15 @@ const BottomBar = styled.footer`
 `;
 
 const CallButton = () => {
+  const { sendLinkClickedEvent } = useGoogleAnalyticsEvents();
+  const url = "tel:+64 03 315 7472";
+
   return (
-    <Button target="_blank" href="tel:03 315 7472">
+    <Button
+      target="_blank"
+      href={url}
+      onClick={() => sendLinkClickedEvent(url)}
+    >
       <CustomIcon icon="fa-phone" />
       Call Us
     </Button>

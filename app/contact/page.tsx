@@ -3,6 +3,7 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { MobileDetectionContext } from "../lib/context";
+import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
 import { IsMobileProps } from "../lib/types";
 import CustomLink from "../ui/CustomLink";
 import Footer from "../ui/Footer";
@@ -59,18 +60,30 @@ const _ContactInformation = styled.div<IsMobileProps>`
 `;
 
 const ContactMethods = () => {
+  const { sendLinkClickedEvent } = useGoogleAnalyticsEvents();
+  const phoneUrl = `tel:${PHONE_NUMBER}`;
+  const emailUrl = `mailto:${EMAIL_ADDRESS}`;
+
   return (
     <ContactDetails>
       <Header text={CONTACT_DETAILS_HEADER} center={true} />
       <p>
         {PHONE_LABEL}&nbsp;
-        <CustomLink target="_blank" href={`tel:${PHONE_NUMBER}`}>
+        <CustomLink
+          target="_blank"
+          href={phoneUrl}
+          onClick={() => sendLinkClickedEvent(phoneUrl)}
+        >
           {PHONE_NUMBER}
         </CustomLink>
       </p>
       <p>
         {EMAIL_LABEL}&nbsp;
-        <CustomLink target="_blank" href={`mailto:${EMAIL_ADDRESS}`}>
+        <CustomLink
+          target="_blank"
+          href={emailUrl}
+          onClick={() => sendLinkClickedEvent(emailUrl)}
+        >
           {EMAIL_ADDRESS}
         </CustomLink>
       </p>
