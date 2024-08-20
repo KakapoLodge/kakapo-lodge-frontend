@@ -11,13 +11,23 @@ import NavBar from "../ui/NavBar";
 import Page from "../ui/Page";
 import PageContent from "../ui/PageContent";
 import PageTitle from "../ui/PageTitle";
+import {
+  CONTACT_DETAILS_HEADER,
+  CONTACT_PAGE_TITLE,
+  EMAIL_ADDRESS,
+  EMAIL_LABEL,
+  LOCATION_DESCRIPTION,
+  LOCATION_HEADER,
+  PHONE_LABEL,
+  PHONE_NUMBER,
+} from "./content";
 
 const ContactPage = () => {
   return (
     <Page>
       <NavBar />
       <PageContent>
-        <PageTitle text="Contact Us" />
+        <PageTitle text={CONTACT_PAGE_TITLE} />
 
         <ContactInformation>
           <ContactMethods />
@@ -51,17 +61,17 @@ const _ContactInformation = styled.div<IsMobileProps>`
 const ContactMethods = () => {
   return (
     <ContactDetails>
-      <Header text="Reach us via" center={true} />
+      <Header text={CONTACT_DETAILS_HEADER} center={true} />
       <p>
-        Phone:&nbsp;
-        <CustomLink href="tel:03 315 7472" target="_blank">
-          (03) 315 7472
+        {PHONE_LABEL}&nbsp;
+        <CustomLink target="_blank" href={`tel:${PHONE_NUMBER}`}>
+          {PHONE_NUMBER}
         </CustomLink>
       </p>
       <p>
-        Email:&nbsp;
-        <CustomLink href="mailto:staykakapo@xtra.co.nz" target="_blank">
-          staykakapo@xtra.co.nz
+        {EMAIL_LABEL}&nbsp;
+        <CustomLink target="_blank" href={`mailto:${EMAIL_ADDRESS}`}>
+          {EMAIL_ADDRESS}
         </CustomLink>
       </p>
     </ContactDetails>
@@ -71,8 +81,8 @@ const ContactMethods = () => {
 const Location = () => {
   return (
     <ContactDetails>
-      <Header text="Our Location" center={true} />
-      <p>Just a 5 minutes walk away from the Hot Pools!</p>
+      <Header text={LOCATION_HEADER} center={true} />
+      <p>{LOCATION_DESCRIPTION}</p>
       <GoogleMaps />
     </ContactDetails>
   );
