@@ -142,6 +142,7 @@ const _MenuButton = styled.button<_MenuButtonProps>`
   justify-content: center;
 
   background-color: white;
+  color: var(--primary-color);
   border: 0px;
 
   width: 64px;
