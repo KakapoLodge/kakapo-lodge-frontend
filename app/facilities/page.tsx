@@ -14,42 +14,33 @@ import PageContent from "../ui/PageContent";
 import PageTitle from "../ui/PageTitle";
 import Section from "../ui/Section";
 import Sections from "../ui/Sections";
-import { FACILITIES, PURCHASEABLES, SERVICES } from "./content";
+import {
+  FACILITIES,
+  FACILITIES_PAGE_TITLE,
+  PURCHASEABLE_HEADER,
+  PURCHASEABLES,
+  SERVICES,
+  SERVICES_HEADER,
+} from "./content";
 
 const FacilitiesPage = () => {
   return (
     <Page>
       <NavBar />
       <PageContent>
-        <PageTitle text="Facilities" />
+        <PageTitle text={FACILITIES_PAGE_TITLE} />
 
         <Sections>
           {FACILITIES.map((facility) => (
             <Fragment key={facility.name}>
-              <Facility {...facility} />
+              <FacilitySection {...facility} />
               <Divider />
             </Fragment>
           ))}
 
-          <Section>
-            <Header text="Our Services" />
-            <div>
-              {SERVICES.map((service) => (
-                <Service key={service.description} {...service} />
-              ))}
-            </div>
-          </Section>
-
+          <ServiceSection />
           <Divider />
-
-          <Section>
-            <Header text="Purchaseable" />
-            <div>
-              {PURCHASEABLES.map((purchaseable) => (
-                <Service key={purchaseable.description} {...purchaseable} />
-              ))}
-            </div>
-          </Section>
+          <PurchaseableSection />
         </Sections>
       </PageContent>
       <Footer />
@@ -59,18 +50,48 @@ const FacilitiesPage = () => {
 
 export default FacilitiesPage;
 
-type FacilityProps = {
+type FacilitySectionProps = {
   name: string;
   description: string;
   imagePaths: string[];
 };
 
-const Facility = ({ name, description, imagePaths }: FacilityProps) => {
+const FacilitySection = ({
+  name,
+  description,
+  imagePaths,
+}: FacilitySectionProps) => {
   return (
     <Section>
       <Header text={name} />
       <p>{description}</p>
       <ImageCarousel imagePaths={imagePaths} description={description} />
+    </Section>
+  );
+};
+
+const ServiceSection = () => {
+  return (
+    <Section>
+      <Header text={SERVICES_HEADER} />
+      <div>
+        {SERVICES.map((service) => (
+          <Service key={service.description} {...service} />
+        ))}
+      </div>
+    </Section>
+  );
+};
+
+const PurchaseableSection = () => {
+  return (
+    <Section>
+      <Header text={PURCHASEABLE_HEADER} />
+      <div>
+        {PURCHASEABLES.map((purchaseable) => (
+          <Service key={purchaseable.description} {...purchaseable} />
+        ))}
+      </div>
     </Section>
   );
 };

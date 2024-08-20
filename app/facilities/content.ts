@@ -1,3 +1,5 @@
+export const FACILITIES_PAGE_TITLE = "Facilities";
+
 export const FACILITIES = [
   {
     name: "Fireplace",
@@ -93,12 +95,16 @@ export const FACILITIES = [
   },
 ];
 
+export const SERVICES_HEADER = "Our Services";
+
 export const SERVICES = [
   { iconName: "fa-wifi", description: "Free wifi" },
   { iconName: "fa-suitcase-rolling", description: "Luggage storage" },
   { iconName: "fa-box", description: "Parcel drop-off" },
   { iconName: "fa-book", description: "Book exchange" },
 ];
+
+export const PURCHASEABLE_HEADER = "Purchaseable";
 
 export const PURCHASEABLES = [
   {
