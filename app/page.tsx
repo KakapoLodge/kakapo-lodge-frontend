@@ -11,7 +11,19 @@ import {
   ACCOMMODATION_NAME_IDS,
 } from "./accommodation/content";
 import { AccommodationNameId } from "./accommodation/types";
-import { INTRODUCTION } from "./content";
+import {
+  ACCOMMODATION_SHORTCUTS_HEADER,
+  BANNER_IMAGE_ALT_TEXT,
+  BANNER_IMAGE_PATH,
+  DESKTOP_GOOGLE_LOGO_PATH,
+  FEATUREABLE_WIDGET_ID,
+  GOOGLE_LOGO_ALT_TEXT,
+  INTRODUCTION_PARAGRAPHS,
+  LANDING_PAGE_TITLE,
+  MOBILE_GOOGLE_LOGO_PATH,
+  REVIEWS_HEADER,
+  SHORTCUT_LINK_TEXT,
+} from "./content";
 import { MobileDetectionContext } from "./lib/context";
 import { IsMobileProps } from "./lib/types";
 import Card from "./ui/Card";
@@ -30,22 +42,16 @@ import Sections from "./ui/Sections";
 import Subheader from "./ui/Subheader";
 
 const LandingPage = () => {
-  const { title, paragraphs } = INTRODUCTION;
-
   return (
     <Page>
       <NavBar />
       <LandingPageContent>
         <MainBanner />
 
-        <PageTitle text={title} />
+        <PageTitle text={LANDING_PAGE_TITLE} />
 
         <Sections>
-          <Introduction>
-            {paragraphs.map((paragraph, index) => (
-              <p key={`introduction-paragraph-${index}`}>{paragraph}</p>
-            ))}
-          </Introduction>
+          <Introduction />
           <AccommodationShortcuts />
           <GoogleReviews />
         </Sections>
@@ -78,8 +84,8 @@ const _LandingPageContent = styled(PageContent)<IsMobileProps>`
 const MainBanner = () => {
   return (
     <BannerImage
-      src="/landing_page/banner.png"
-      alt="Main Banner"
+      src={BANNER_IMAGE_PATH}
+      alt={BANNER_IMAGE_ALT_TEXT}
       width={1621}
       height={855}
       priority
@@ -92,13 +98,15 @@ const BannerImage = styled(Image)`
   height: auto;
 `;
 
-const Introduction = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => {
+const Introduction = () => {
   const isMobile = useContext(MobileDetectionContext);
-  return <_Introduction $isMobile={isMobile}>{children}</_Introduction>;
+  return (
+    <_Introduction $isMobile={isMobile}>
+      {INTRODUCTION_PARAGRAPHS.map((paragraph, index) => (
+        <p key={`introduction-paragraph-${index}`}>{paragraph}</p>
+      ))}
+    </_Introduction>
+  );
 };
 
 const _Introduction = styled.div<IsMobileProps>`
@@ -112,7 +120,7 @@ const _Introduction = styled.div<IsMobileProps>`
 const AccommodationShortcuts = () => {
   return (
     <Section>
-      <Header text="Our Accommodation" center={true} />
+      <Header text={ACCOMMODATION_SHORTCUTS_HEADER} center={true} />
 
       <CustomCarousel>
         {ACCOMMODATION_NAME_IDS.map((nameId) => (
@@ -137,7 +145,7 @@ const AccommodationShortcut = ({ nameId }: AccommodationShortcutProps) => {
       <CarouselImage imagePath={imagePath} description={accommodationName} />
       <Subheader>{accommodationName}</Subheader>
       <ShortcutLink href={url}>
-        Find out more&nbsp;
+        {SHORTCUT_LINK_TEXT}&nbsp;
         <CustomIcon icon="fa-arrow-right" />
       </ShortcutLink>
     </ShortcutCard>
@@ -153,16 +161,12 @@ const ShortcutLink = styled(CustomLink)`
 `;
 
 const GoogleReviews = () => {
-  // Create a free Featurable account at https://featurable.com
-  // Then create a new Featurable widget and copy the widget ID
-  const featurableWidgetId = "c2948fbe-ce17-425b-917a-1f0d787229df";
-
   return (
     <Section>
-      <Header text="What our guests say" center={true} />
+      <Header text={REVIEWS_HEADER} center={true} />
       <ReactGoogleReviews
         layout="custom"
-        featurableId={featurableWidgetId}
+        featurableId={FEATUREABLE_WIDGET_ID}
         renderer={(reviews) => <Reviews reviews={reviews} />}
       />
     </Section>
@@ -238,8 +242,8 @@ const GoogleLogo = () => {
   const isMobile = useContext(MobileDetectionContext);
   return isMobile ? (
     <_GoogleLogo
-      src="/landing_page/google_g_logo.png"
-      alt="Google G"
+      src={MOBILE_GOOGLE_LOGO_PATH}
+      alt={GOOGLE_LOGO_ALT_TEXT}
       loading="lazy"
       width={512}
       height={512}
@@ -247,8 +251,8 @@ const GoogleLogo = () => {
     />
   ) : (
     <_GoogleLogo
-      src="/landing_page/google_logo.png"
-      alt="Google"
+      src={DESKTOP_GOOGLE_LOGO_PATH}
+      alt={GOOGLE_LOGO_ALT_TEXT}
       loading="lazy"
       width={512}
       height={300}
