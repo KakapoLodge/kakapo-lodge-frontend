@@ -3,8 +3,10 @@
 import Link from "next/link";
 import {
   ChangeEventHandler,
+  Dispatch,
   Fragment,
   MouseEventHandler,
+  SetStateAction,
   useContext,
   useState,
 } from "react";
@@ -19,7 +21,7 @@ import {
 } from "../lib/dates";
 import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
 import { useAppDispatch, useAppSelector } from "../lib/hooks/useStore";
-import { IsMobileProps, RatesApiDates } from "../lib/types";
+import { IsMobileProps } from "../lib/types";
 import Card from "../ui/Card";
 import CustomIcon from "../ui/CustomIcon";
 import ImageCarousel from "../ui/ImageCarousel";
@@ -46,9 +48,12 @@ import { AccommodationNameId, AllRates, Rates } from "./types";
 const AccommodationPage = () => {
   const todaysDateRfc3339 = getTodaysDateRfc3339();
 
-  const { data, error, isLoading, isFetching, refetch } = useGetRatesQuery({
-    start_date: todaysDateRfc3339,
-    end_date: todaysDateRfc3339,
+  const [startDateRfc3339, setStartDateRfc3339] = useState(todaysDateRfc3339);
+  const [endDateRfc3339, setEndDateRfc3339] = useState(todaysDateRfc3339);
+
+  const { data, error, isLoading, isFetching } = useGetRatesQuery({
+    start_date: startDateRfc3339,
+    end_date: endDateRfc3339,
   });
 
   return (
@@ -56,7 +61,10 @@ const AccommodationPage = () => {
       <NavBar />
       <PageContent>
         <PageTitle text={ACCOMMODATION_PAGE_TITLE} />
-        <AccommodationCriteria getRates={refetch} />
+        <AccommodationCriteria
+          setStartDateRfc3339={setStartDateRfc3339}
+          setEndDateRfc3339={setEndDateRfc3339}
+        />
 
         {error ? (
           <AccommodationCards allRates={DEFAULT_RATES} />
@@ -75,10 +83,11 @@ const AccommodationPage = () => {
 export default AccommodationPage;
 
 type AccommodationCriteriaProps = {
-  getRates: (arg: RatesApiDates, preferCacheValue?: boolean) => {};
+  setStartDateRfc3339: Dispatch<SetStateAction<string>>;
+  setEndDateRfc3339: Dispatch<SetStateAction<string>>;
 };
 
-const AccommodationCriteria = ({ getRates }: AccommodationCriteriaProps) => {
+const AccommodationCriteria = (props: AccommodationCriteriaProps) => {
   const isMobile = useContext(MobileDetectionContext);
 
   const [showFilters, setShowFilters] = useState(!isMobile);
@@ -92,7 +101,7 @@ const AccommodationCriteria = ({ getRates }: AccommodationCriteriaProps) => {
 
   return (
     <_AccommodationCriteria $isMobile={isMobile}>
-      <DatePicker getRates={getRates} />
+      <DatePicker {...props} />
       <FilterButton
         disabled={disableFilterButton}
         onClick={toggleShowFilters}
@@ -118,10 +127,14 @@ const _AccommodationCriteria = styled.div<IsMobileProps>`
 `;
 
 type DatePickerProps = {
-  getRates: (arg: RatesApiDates, preferCacheValue?: boolean) => {};
+  setStartDateRfc3339: Dispatch<SetStateAction<string>>;
+  setEndDateRfc3339: Dispatch<SetStateAction<string>>;
 };
 
-const DatePicker = ({ getRates }: DatePickerProps) => {
+const DatePicker = ({
+  setStartDateRfc3339,
+  setEndDateRfc3339,
+}: DatePickerProps) => {
   const id = "date-picker";
   const isMobile = useContext(MobileDetectionContext);
   const { sendDatesPickedEvent } = useGoogleAnalyticsEvents();
@@ -129,11 +142,15 @@ const DatePicker = ({ getRates }: DatePickerProps) => {
   const todaysDateRfc3339 = getTodaysDateRfc3339();
   const tomorrowsDateRfc3339 = getNextDaysDateRfc3339(todaysDateRfc3339);
 
+  const dispatch = useAppDispatch();
+
   const onSelectDates = (rangeStart: string, rangeEnd: string) => {
     const startDate = rangeStart;
     const endDate = getPreviousDaysDateRfc3339(rangeEnd);
 
-    getRates({ start_date: startDate, end_date: endDate });
+    setStartDateRfc3339(startDate);
+    setEndDateRfc3339(endDate);
+
     sendDatesPickedEvent(rangeStart, rangeEnd);
   };
 
