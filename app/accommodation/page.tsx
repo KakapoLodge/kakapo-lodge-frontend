@@ -346,7 +346,7 @@ const _AccommodationCards = styled.div<IsMobileProps>`
 
 const ShortcutLandingPoint = styled.div<IsMobileProps>`
   position: relative;
-  bottom: ${(props) => (props.$isMobile ? "100px" : "130px")};
+  bottom: ${(props) => (props.$isMobile ? "0px" : "130px")};
 `;
 
 type AccommodationCardProps = {
