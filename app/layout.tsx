@@ -1,11 +1,11 @@
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "./lib/StoreProvider";
 import StyledComponentsRegistry from "./lib/StyledComponentsRegistry";
-import { GoogleAnalytics } from "@next/third-parties/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const nunito = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Kakapo Lodge",
@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={nunito.className}>
         <StyledComponentsRegistry>
           <StoreProvider>{children}</StoreProvider>
         </StyledComponentsRegistry>
