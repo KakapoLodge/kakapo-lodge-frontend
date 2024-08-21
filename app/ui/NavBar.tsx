@@ -223,7 +223,7 @@ const _Nav = styled.nav<IsMobileProps>`
   flex-direction: ${(props) => (props.$isMobile ? "column" : "row")};
   gap: 8px;
 
-  height: ${(props) => (props.$isMobile ? "180px" : "auto")};
+  height: ${(props) => (props.$isMobile ? "200px" : "auto")};
 `;
 
 const MainMenu = ({
