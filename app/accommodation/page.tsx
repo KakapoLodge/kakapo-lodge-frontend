@@ -234,6 +234,7 @@ const Filters = () => {
     toggleFilterPrivateRoom,
     toggleFilterPrivateBathroom,
     toggleFilterSeparateBeds,
+    toggleFilterGroundFloor,
   } = filterSlice.actions;
 
   return (
@@ -249,6 +250,10 @@ const Filters = () => {
       <Filter
         label="Separate Beds?"
         onChange={() => dispatch(toggleFilterSeparateBeds())}
+      />
+      <Filter
+        label="Ground Floor?"
+        onChange={() => dispatch(toggleFilterGroundFloor())}
       />
     </_Filters>
   );

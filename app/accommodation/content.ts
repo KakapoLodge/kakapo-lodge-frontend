@@ -40,6 +40,10 @@ export const SEPARATE_BEDS_NAME_IDS: Set<AccommodationNameId> = new Set([
   "motel-unit",
 ]);
 
+export const GROUND_FLOOR_NAME_IDS: Set<AccommodationNameId> = new Set([
+  "motel-unit",
+]);
+
 export const ACCOMMODATION_NAMES = {
   "5-bed-dorm": "Bed in 5-Bed Dorm",
   "4-bed-dorm": "Bed in 4-Bed Female Dorm",
@@ -97,6 +101,10 @@ export const BASE_FEATURES = {
 export const ALL_ADDITIONAL_FEATURES = {
   "5-bed-dorm": [
     {
+      icon: "fa-stairs",
+      description: "Second floor",
+    },
+    {
       icon: "fa-shower",
       description: "Shared bathroom",
     },
@@ -106,6 +114,10 @@ export const ALL_ADDITIONAL_FEATURES = {
     },
   ],
   "4-bed-dorm": [
+    {
+      icon: "fa-stairs",
+      description: "Second floor",
+    },
     {
       icon: "fa-shower",
       description: "Shared bathroom",
@@ -117,17 +129,29 @@ export const ALL_ADDITIONAL_FEATURES = {
   ],
   "private-double": [
     {
+      icon: "fa-stairs",
+      description: "Second floor",
+    },
+    {
       icon: "fa-shower",
       description: "Shared bathroom",
     },
   ],
   "private-twin": [
     {
+      icon: "fa-stairs",
+      description: "Second floor",
+    },
+    {
       icon: "fa-shower",
       description: "Shared bathroom",
     },
   ],
   "family-room": [
+    {
+      icon: "fa-stairs",
+      description: "Second floor",
+    },
     {
       icon: "fa-shower",
       description: "Shared bathroom",
@@ -138,6 +162,10 @@ export const ALL_ADDITIONAL_FEATURES = {
     },
   ],
   "double-ensuite": [
+    {
+      icon: "fa-stairs",
+      description: "Second floor",
+    },
     {
       icon: "fa-bed-pulse",
       description: "Electric blanket",
@@ -160,6 +188,10 @@ export const ALL_ADDITIONAL_FEATURES = {
     },
   ],
   "deluxe-double-ensuite": [
+    {
+      icon: "fa-stairs",
+      description: "Second floor",
+    },
     {
       icon: "fa-bed-pulse",
       description: "Electric blanket",
@@ -186,6 +218,10 @@ export const ALL_ADDITIONAL_FEATURES = {
     },
   ],
   "motel-unit": [
+    {
+      icon: "fa-g",
+      description: "Ground floor",
+    },
     {
       icon: "fa-bed-pulse",
       description: "Electric blanket",
