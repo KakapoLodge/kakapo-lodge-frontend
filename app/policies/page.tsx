@@ -11,8 +11,8 @@ import Sections from "../ui/Sections";
 import {
   CANCELLATION_POLICY,
   HOUSE_RULES,
-  PAGE_TITLE,
   PAYMENT_POLICY,
+  POLICIES_PAGE_TITLE,
 } from "./content";
 import { Policy, RulesGrouping } from "./types";
 
@@ -21,7 +21,7 @@ const PoliciesPage = () => {
     <Page>
       <NavBar />
       <PageContent>
-        <PageTitle text={PAGE_TITLE} />
+        <PageTitle text={POLICIES_PAGE_TITLE} />
 
         <Sections>
           <PolicySection policy={PAYMENT_POLICY} />

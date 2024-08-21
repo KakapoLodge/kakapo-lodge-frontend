@@ -1,6 +1,6 @@
 import { HouseRules, Policy } from "./types";
 
-export const PAGE_TITLE = "Policies";
+export const POLICIES_PAGE_TITLE = "Policies";
 
 export const PAYMENT_POLICY: Policy = {
   nameId: "payment-policy",

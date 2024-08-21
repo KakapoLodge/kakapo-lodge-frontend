@@ -9,6 +9,19 @@ import BookDirectButton from "./BookDirectButton";
 import CustomIcon from "./CustomIcon";
 import CustomLink from "./CustomLink";
 
+const SUB_PAGES: Page[] = [
+  { name: "Accommodation", path: "/accommodation" },
+  { name: "Facilities", path: "/facilities" },
+  {
+    name: "Attractions",
+    path: "https://visithanmersprings.co.nz/things-to-do/",
+    target: "_blank",
+  },
+  { name: "Contact", path: "/contact" },
+  { name: "Policies", path: "/policies" },
+  { name: "FAQs", path: "/faq" },
+];
+
 const NavBar = () => {
   const pathname = usePathname();
   const isMobile = useContext(MobileDetectionContext);
@@ -157,18 +170,6 @@ type Page = {
   path: string;
   target?: string;
 };
-
-const SUB_PAGES: Page[] = [
-  { name: "Accommodation", path: "/accommodation" },
-  { name: "Facilities", path: "/facilities" },
-  {
-    name: "Attractions",
-    path: "https://visithanmersprings.co.nz/things-to-do/",
-    target: "_blank",
-  },
-  { name: "Contact", path: "/contact" },
-  { name: "Policies", path: "/policies" },
-];
 
 type MainNavProps = {
   pathname: string;
