@@ -117,7 +117,7 @@ const _AccommodationCriteria = styled.div<IsMobileProps>`
   color: white;
 
   position: sticky;
-  top: ${(props) => (props.$isMobile ? "64px" : "80px")};
+  top: ${(props) => (props.$isMobile ? "70px" : "86px")};
 
   z-index: 1001;
 
