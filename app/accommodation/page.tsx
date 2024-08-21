@@ -160,7 +160,7 @@ const DatePicker = ({
         <Label htmlFor={id}>Check In/Out:&nbsp;&nbsp;</Label>
         <RangePicker
           id={id}
-          css="width: 180px; text-align: center;"
+          css="width: 200px; text-align: center;"
           format="DD MMM YYYY"
           minDate={todaysDateRfc3339}
           startDate={todaysDateRfc3339}
