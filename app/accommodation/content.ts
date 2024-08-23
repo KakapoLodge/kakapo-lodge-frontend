@@ -136,6 +136,10 @@ export const ALL_ADDITIONAL_FEATURES = {
       icon: "fa-shower",
       description: "Shared bathroom",
     },
+    {
+      icon: "fa-rug",
+      description: "Towels supplied",
+    },
   ],
   "private-twin": [
     {
@@ -146,6 +150,10 @@ export const ALL_ADDITIONAL_FEATURES = {
       icon: "fa-shower",
       description: "Shared bathroom",
     },
+    {
+      icon: "fa-rug",
+      description: "Towels supplied",
+    },
   ],
   "family-room": [
     {
@@ -155,6 +163,10 @@ export const ALL_ADDITIONAL_FEATURES = {
     {
       icon: "fa-shower",
       description: "Shared bathroom",
+    },
+    {
+      icon: "fa-rug",
+      description: "Towels supplied",
     },
     {
       icon: "fa-tv",
