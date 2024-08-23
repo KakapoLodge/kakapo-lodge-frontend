@@ -4,6 +4,8 @@ import { MouseEventHandler, useContext, useState } from "react";
 import styled from "styled-components";
 import { MobileDetectionContext } from "../lib/context";
 import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
+import { useScrollPosition } from "../lib/hooks/useScrollPosition";
+import { linearInterpolate } from "../lib/math";
 import { IsMobileProps } from "../lib/types";
 import BookDirectButton from "./BookDirectButton";
 import CustomIcon from "./CustomIcon";
@@ -97,13 +99,18 @@ type LogoProps = {
 const Logo = ({ pathname, closeMenu }: LogoProps) => {
   const landingPagePath = "/";
 
-  const isMobile = useContext(MobileDetectionContext);
   const { sendLinkClickedEvent } = useGoogleAnalyticsEvents();
 
   const handleClick = (url: string) => {
     closeMenu && closeMenu();
     sendLinkClickedEvent(url);
   };
+
+  const isMobile = useContext(MobileDetectionContext);
+  const scrollPosition = useScrollPosition();
+
+  const heightRange = isMobile ? [40, 64] : [64, 80];
+  const height = linearInterpolate(scrollPosition, [0, 50], heightRange);
 
   return (
     <CustomLink
@@ -116,16 +123,16 @@ const Logo = ({ pathname, closeMenu }: LogoProps) => {
         alt="Kakapo logo with text"
         width={371}
         height={160}
-        $isMobile={isMobile}
+        $height={height}
         priority
       />
     </CustomLink>
   );
 };
 
-const _Logo = styled(Image)<IsMobileProps>`
+const _Logo = styled(Image)<{ $height: number }>`
   width: auto;
-  height: ${(props) => (props.$isMobile ? "64px" : "80px")};
+  height: ${(props) => props.$height}px;
 `;
 
 type MenuButtonProps = {
@@ -159,7 +166,6 @@ const _MenuButton = styled.button<_MenuButtonProps>`
   border: 0px;
 
   width: 64px;
-  height: 64px;
   font-size: 24px;
 
   pointer-events: ${(props) => (props.disabled ? "none" : "auto")};

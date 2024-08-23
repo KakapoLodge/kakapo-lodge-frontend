@@ -20,7 +20,9 @@ import {
   getTodaysDateRfc3339,
 } from "../lib/dates";
 import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
+import { useScrollPosition } from "../lib/hooks/useScrollPosition";
 import { useAppDispatch, useAppSelector } from "../lib/hooks/useStore";
+import { linearInterpolate } from "../lib/math";
 import { IsMobileProps } from "../lib/types";
 import Card from "../ui/Card";
 import CustomIcon from "../ui/CustomIcon";
@@ -89,6 +91,10 @@ type AccommodationCriteriaProps = {
 
 const AccommodationCriteria = (props: AccommodationCriteriaProps) => {
   const isMobile = useContext(MobileDetectionContext);
+  const scrollPosition = useScrollPosition();
+
+  const topRange = isMobile ? [46, 70] : [70, 86];
+  const top = linearInterpolate(scrollPosition, [0, 50], topRange);
 
   const [showFilters, setShowFilters] = useState(!isMobile);
   const [disableFilterButton, setDisableFilterButton] = useState(false);
@@ -100,7 +106,7 @@ const AccommodationCriteria = (props: AccommodationCriteriaProps) => {
   };
 
   return (
-    <_AccommodationCriteria $isMobile={isMobile}>
+    <_AccommodationCriteria $isMobile={isMobile} $top={top}>
       <DatePicker {...props} />
       <FilterButton
         disabled={disableFilterButton}
@@ -111,13 +117,13 @@ const AccommodationCriteria = (props: AccommodationCriteriaProps) => {
   );
 };
 
-const _AccommodationCriteria = styled.div<IsMobileProps>`
+const _AccommodationCriteria = styled.div<IsMobileProps & { $top: number }>`
   box-shadow: 0px 2px 32px 2px rgba(0, 64, 0, 0.1);
   background-color: var(--secondary-color);
   color: white;
 
   position: sticky;
-  top: ${(props) => (props.$isMobile ? "70px" : "86px")};
+  top: ${(props) => props.$top}px;
 
   z-index: 1001;
 
