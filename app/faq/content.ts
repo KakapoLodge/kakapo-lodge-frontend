@@ -59,13 +59,28 @@ export const FREQUENTLY_ASKED_QUESTIONS: FrequentlyAskedQuestion[] = [
   },
   {
     question: "Are towels supplied?",
-    answerParagraphs: ["All rooms except for dorm rooms include towels."],
+    answerParagraphs: [
+      "All rooms except for dorm rooms include towels.",
+      "Additional towels can be hired at $2 per towel.",
+    ],
   },
   {
     question: "Is breakfast provided?",
     answerParagraphs: [
       "Breakfast is not provided.",
       "However, there is a snack bar if you want some quick snacks. There are also multiple eateries within walking distance.",
+    ],
+  },
+  {
+    question: "Are we hire out the entire lodge?",
+    answerParagraphs: [
+      "Kakapo Lodge sleeps up to 43 people.",
+      "If you are seeking accommodation for 30 people or above, we recommend hiring the whole lodge. (We can give you a discount of up to 8%)",
+      "To make a group booking, please contact us directly via our contact page.",
+    ],
+    imagePaths: [
+      "/sub_pages/faq/group_booking_1.png",
+      "/sub_pages/faq/group_booking_2.png",
     ],
   },
 ];

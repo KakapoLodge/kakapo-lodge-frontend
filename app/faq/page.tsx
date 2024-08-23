@@ -1,6 +1,7 @@
 "use client";
 
 import Footer from "../ui/Footer";
+import ImageCarousel from "../ui/ImageCarousel";
 import NavBar from "../ui/NavBar";
 import Page from "../ui/Page";
 import PageContent from "../ui/PageContent";
@@ -21,7 +22,14 @@ const FAQPage = () => {
       <NavBar />
       <PageContent>
         <PageTitle text={FAQ_PAGE_TITLE} />
-        <FrequentlyAskedQuestions />
+        <Sections>
+          <FrequentlyAskedQuestions />
+
+          <Section>
+            <Subheader>{NO_ANSWER_SUBHEADER}</Subheader>
+            <p>{NO_ANSWER_TEXT}</p>
+          </Section>
+        </Sections>
       </PageContent>
       <Footer />
     </Page>
@@ -32,19 +40,22 @@ export default FAQPage;
 
 const FrequentlyAskedQuestions = () => {
   return (
-    <Sections>
+    <>
       {FREQUENTLY_ASKED_QUESTIONS.map((faq, index) => (
         <Section key={`faq-${index}`}>
           <Subheader>{faq.question}</Subheader>
           <AnswerParagraphs paragraphs={faq.answerParagraphs} />
+          {faq.imagePaths ? (
+            <ImageCarousel
+              description={faq.question}
+              imagePaths={faq.imagePaths}
+            />
+          ) : (
+            <></>
+          )}
         </Section>
       ))}
-
-      <Section>
-        <Subheader>{NO_ANSWER_SUBHEADER}</Subheader>
-        <p>{NO_ANSWER_TEXT}</p>
-      </Section>
-    </Sections>
+    </>
   );
 };
 
