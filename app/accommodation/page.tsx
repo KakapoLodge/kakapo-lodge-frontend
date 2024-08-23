@@ -157,7 +157,7 @@ const DatePicker = ({
   return (
     <_Filters $isMobile={isMobile}>
       <_Filter $isMobile={isMobile}>
-        <Label htmlFor={id}>Check In/Out:&nbsp;&nbsp;</Label>
+        <Label htmlFor={id}>Check In/Out:</Label>
         <RangePicker
           id={id}
           css="width: 200px; text-align: center;"
