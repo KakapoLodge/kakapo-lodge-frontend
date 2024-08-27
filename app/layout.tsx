@@ -1,25 +1,26 @@
 import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
+import { WEBSITE_DESCRIPTION, WEBSITE_TITLE } from "./content";
 import "./globals.css";
 import StoreProvider from "./lib/StoreProvider";
 import StyledComponentsRegistry from "./lib/StyledComponentsRegistry";
 
-const nunito = Nunito({ subsets: ["latin"] });
+const font = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Kakapo Lodge",
-  description: "Hanmer Springs Backpacker Accommodation",
+  title: WEBSITE_TITLE,
+  description: WEBSITE_DESCRIPTION,
 };
 
-export default function RootLayout({
+const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) => {
   return (
     <html lang="en">
-      <body className={nunito.className}>
+      <body className={font.className}>
         <StyledComponentsRegistry>
           <StoreProvider>{children}</StoreProvider>
         </StyledComponentsRegistry>
@@ -27,4 +28,6 @@ export default function RootLayout({
       <GoogleAnalytics gaId="G-Q6FH3J5ZQM" />
     </html>
   );
-}
+};
+
+export default RootLayout;

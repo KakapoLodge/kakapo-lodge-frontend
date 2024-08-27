@@ -6,7 +6,7 @@ export const PHONE_LABEL = "Phone:";
 export const PHONE_NUMBER = "+64 03 315 7472";
 
 export const EMAIL_LABEL = "Email:";
-export const EMAIL_ADDRESS = "staykakapo@xtra.co.nz";
+export const EMAIL_ADDRESS = "stay@kakapolodge.co.nz";
 
 export const LOCATION_HEADER = "Our Location";
 export const LOCATION_DESCRIPTION =

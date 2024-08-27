@@ -1,3 +1,6 @@
+export const WEBSITE_TITLE = "Kakapo Lodge";
+export const WEBSITE_DESCRIPTION = "Hanmer Springs Backpacker Accommodation";
+
 export const BANNER_IMAGE_PATH = "/landing_page/banner.png";
 export const BANNER_IMAGE_ALT_TEXT = "Kakapo Lodge";
 
