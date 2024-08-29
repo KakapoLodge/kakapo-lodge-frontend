@@ -1,22 +1,15 @@
-import { MobileDetectionContext } from "../lib/context";
 import { useIconLibrary } from "../lib/hooks/useIconLibrary";
-import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import { usePrefetchTonightsRates } from "../lib/hooks/usePrefetchTonightsRates";
 
-const Page = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => {
+type PageProps = {
+  children?: React.ReactNode;
+};
+
+const Page = ({ children }: PageProps) => {
   useIconLibrary();
   usePrefetchTonightsRates();
 
-  const isMobile = useMobileDetection();
-  return (
-    <MobileDetectionContext.Provider value={isMobile}>
-      {children}
-    </MobileDetectionContext.Provider>
-  );
+  return <>{children}</>;
 };
 
 export default Page;

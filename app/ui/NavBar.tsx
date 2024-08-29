@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { MouseEventHandler, useContext, useState } from "react";
+import { MouseEventHandler, useState } from "react";
 import styled from "styled-components";
-import { MobileDetectionContext } from "../lib/context";
 import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
+import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import { useScrollPosition } from "../lib/hooks/useScrollPosition";
 import { linearInterpolate } from "../lib/math";
 import { IsMobileProps } from "../lib/types";
@@ -26,7 +26,7 @@ const SUB_PAGES: Page[] = [
 
 const NavBar = () => {
   const pathname = usePathname();
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
 
   const [showMenu, setShowMenu] = useState(!isMobile);
   const closeMenu = isMobile ? () => setShowMenu(false) : undefined;
@@ -58,7 +58,7 @@ const TopBar = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   return <_TopBar $isMobile={isMobile}>{children}</_TopBar>;
 };
 
@@ -81,7 +81,7 @@ const PreMenu = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   return <_PreMenu $isMobile={isMobile}>{children}</_PreMenu>;
 };
 
@@ -106,7 +106,7 @@ const Logo = ({ pathname, closeMenu }: LogoProps) => {
     sendLinkClickedEvent(url);
   };
 
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   const scrollPosition = useScrollPosition();
 
   const heightRange = isMobile ? [40, 64] : [64, 80];
@@ -141,7 +141,7 @@ type MenuButtonProps = {
 };
 
 const MenuButton = ({ disabled, onClick }: MenuButtonProps) => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
 
   return isMobile ? (
     <_MenuButton disabled={disabled} onClick={onClick}>
@@ -220,7 +220,7 @@ const Nav = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   return <_Nav $isMobile={isMobile}>{children}</_Nav>;
 };
 
@@ -237,7 +237,7 @@ const MainMenu = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   return <_MainMenu $isMobile={isMobile}>{children}</_MainMenu>;
 };
 

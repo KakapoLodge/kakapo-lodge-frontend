@@ -1,6 +1,6 @@
 export const CONTACT_PAGE_TITLE = "Contact Us";
 
-export const CONTACT_DETAILS_HEADER = "Reach us via";
+export const CONTACT_DETAILS_HEADER = "You can also reach us via";
 
 export const PHONE_LABEL = "Phone:";
 export const PHONE_NUMBER = "+64 03 315 7472";

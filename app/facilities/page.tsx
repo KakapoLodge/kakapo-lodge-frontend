@@ -1,8 +1,8 @@
 "use client";
 
-import { Fragment, useContext } from "react";
+import { Fragment } from "react";
 import styled from "styled-components";
-import { MobileDetectionContext } from "../lib/context";
+import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import { IsMobileProps } from "../lib/types";
 import CustomIcon from "../ui/CustomIcon";
 import Footer from "../ui/Footer";
@@ -110,7 +110,7 @@ const Service = ({ iconName, description }: ServiceProps) => {
 };
 
 const Divider = () => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   return <_Divider $isMobile={isMobile} />;
 };
 

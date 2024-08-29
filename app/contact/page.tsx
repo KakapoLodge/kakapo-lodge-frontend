@@ -1,10 +1,8 @@
 "use client";
 
-import { useContext } from "react";
 import styled from "styled-components";
-import { MobileDetectionContext } from "../lib/context";
 import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
-import { IsMobileProps } from "../lib/types";
+import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import CustomLink from "../ui/CustomLink";
 import Footer from "../ui/Footer";
 import Header from "../ui/Header";
@@ -12,6 +10,8 @@ import NavBar from "../ui/NavBar";
 import Page from "../ui/Page";
 import PageContent from "../ui/PageContent";
 import PageTitle from "../ui/PageTitle";
+import Section from "../ui/Section";
+import Sections from "../ui/Sections";
 import {
   CONTACT_DETAILS_HEADER,
   CONTACT_PAGE_TITLE,
@@ -30,10 +30,11 @@ const ContactPage = () => {
       <PageContent>
         <PageTitle text={CONTACT_PAGE_TITLE} />
 
-        <ContactInformation>
+        <Sections>
+          {/* <ContactForm /> */}
           <ContactMethods />
           <Location />
-        </ContactInformation>
+        </Sections>
       </PageContent>
       <Footer />
     </Page>
@@ -42,22 +43,9 @@ const ContactPage = () => {
 
 export default ContactPage;
 
-const ContactInformation = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => {
-  const isMobile = useContext(MobileDetectionContext);
-  return (
-    <_ContactInformation $isMobile={isMobile}>{children}</_ContactInformation>
-  );
-};
-
-const _ContactInformation = styled.div<IsMobileProps>`
-  display: flex;
-  flex-direction: column;
-  gap: ${(props) => (props.$isMobile ? "24px" : "32px")};
-`;
+// const ContactForm = () => {
+//   return <Section>TODO</Section>;
+// };
 
 const ContactMethods = () => {
   const { sendLinkClickedEvent } = useGoogleAnalyticsEvents();
@@ -106,7 +94,7 @@ const ContactDetails = styled.div`
 `;
 
 const GoogleMaps = () => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   return (
     <iframe
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4456.815025684654!2d172.82703775066332!3d-42.525528299956015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6d306383a372bc73%3A0x7424d96525465fe0!2sHanmer%20Springs%20Kakapo%20Lodge!5e0!3m2!1sen!2snz!4v1721621297292!5m2!1sen!2snz"

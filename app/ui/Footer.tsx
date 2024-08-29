@@ -1,21 +1,18 @@
 import Link from "next/link";
-import { useContext } from "react";
 import styled from "styled-components";
-import { MobileDetectionContext } from "../lib/context";
 import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
+import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import BookDirectButton from "./BookDirectButton";
 import CustomIcon from "./CustomIcon";
 
 const Footer = () => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
 
   return isMobile ? (
-    <MobileDetectionContext.Provider value={isMobile}>
-      <BottomBar>
-        <CallButton />
-        <BookDirectButton isFooter />
-      </BottomBar>
-    </MobileDetectionContext.Provider>
+    <BottomBar>
+      <CallButton />
+      <BookDirectButton isFooter />
+    </BottomBar>
   ) : (
     <></>
   );

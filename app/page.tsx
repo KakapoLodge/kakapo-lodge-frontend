@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useContext } from "react";
 import { ReactGoogleReview, ReactGoogleReviews } from "react-google-reviews";
 import "react-google-reviews/dist/index.css";
 import styled from "styled-components";
@@ -24,8 +23,8 @@ import {
   REVIEWS_HEADER,
   SHORTCUT_LINK_TEXT,
 } from "./content";
-import { MobileDetectionContext } from "./lib/context";
 import { useGoogleAnalyticsEvents } from "./lib/hooks/useGoogleAnalyticsEvents";
+import { useMobileDetection } from "./lib/hooks/useMobileDetection";
 import { IsMobileProps } from "./lib/types";
 import Card from "./ui/Card";
 import CarouselImage from "./ui/CarouselImage";
@@ -69,7 +68,7 @@ const LandingPageContent = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
 
   return (
     <_LandingPageContent $isMobile={isMobile}>{children}</_LandingPageContent>
@@ -100,7 +99,7 @@ const BannerImage = styled(Image)`
 `;
 
 const Introduction = () => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   return (
     <_Introduction $isMobile={isMobile}>
       {INTRODUCTION_PARAGRAPHS.map((paragraph, index) => (
@@ -181,7 +180,7 @@ type ReviewsProps = {
 };
 
 const Reviews = ({ reviews }: ReviewsProps) => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   return (
     <Section>
       <ReviewsSummary reviews={reviews} />
@@ -247,7 +246,7 @@ const getAverageRating = (reviews: ReactGoogleReview[]) => {
 };
 
 const GoogleLogo = () => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   return isMobile ? (
     <_GoogleLogo
       src={MOBILE_GOOGLE_LOGO_PATH}

@@ -7,19 +7,18 @@ import {
   Fragment,
   MouseEventHandler,
   SetStateAction,
-  useContext,
   useState,
 } from "react";
 import { RangePicker } from "react-ease-picker";
 import styled from "styled-components";
 import { useGetRatesQuery } from "../lib/api/ratesApi";
-import { MobileDetectionContext } from "../lib/context";
 import {
   getNextDaysDateRfc3339,
   getPreviousDaysDateRfc3339,
   getTodaysDateRfc3339,
 } from "../lib/dates";
 import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
+import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import { useScrollPosition } from "../lib/hooks/useScrollPosition";
 import { useAppDispatch, useAppSelector } from "../lib/hooks/useStore";
 import { linearInterpolate } from "../lib/math";
@@ -90,7 +89,7 @@ type AccommodationCriteriaProps = {
 };
 
 const AccommodationCriteria = (props: AccommodationCriteriaProps) => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   const scrollPosition = useScrollPosition();
 
   const topRange = isMobile ? [46, 70] : [70, 86];
@@ -142,7 +141,7 @@ const DatePicker = ({
   setEndDateRfc3339,
 }: DatePickerProps) => {
   const id = "date-picker";
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   const { sendDatesPickedEvent } = useGoogleAnalyticsEvents();
 
   const todaysDateRfc3339 = getTodaysDateRfc3339();
@@ -208,7 +207,7 @@ type FilterButtonProps = {
 };
 
 const FilterButton = ({ disabled, onClick }: FilterButtonProps) => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   return (
     <_FilterButton $isMobile={isMobile} $disabled={disabled} onClick={onClick}>
       Filter <CustomIcon icon="fa-arrow-down-wide-short" />
@@ -233,7 +232,7 @@ const _FilterButton = styled.div<IsMobileProps & _FilterButtonProps>`
 `;
 
 const Filters = () => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   const dispatch = useAppDispatch();
 
   const {
@@ -281,7 +280,7 @@ type FilterProps = {
 };
 
 const Filter = ({ label, onChange }: FilterProps) => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   const { sendAccommodationFilteredEvent } = useGoogleAnalyticsEvents();
 
   // last character should be question mark
@@ -325,7 +324,7 @@ type AccommodationCardsProps = {
 };
 
 const AccommodationCards = ({ allRates }: AccommodationCardsProps) => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
 
   const matchingNameIds = new Set(
     useAppSelector((state) => state.filter.matchingNameIds),
@@ -369,7 +368,7 @@ type AccommodationCardProps = {
 };
 
 const AccommodationCard = ({ nameId, rates }: AccommodationCardProps) => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   const name = ACCOMMODATION_NAMES[nameId];
 
   return (
@@ -405,7 +404,7 @@ const Text = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   return <_Text $isMobile={isMobile}>{children}</_Text>;
 };
 
@@ -422,7 +421,7 @@ type NameProps = {
 };
 
 const Name = ({ text }: NameProps) => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   return <_Name $isMobile={isMobile}>{text}</_Name>;
 };
 
@@ -498,7 +497,7 @@ type AvailabilityProps = {
 };
 
 const Availability = ({ available, isForSale }: AvailabilityProps) => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   const availabilityText = getAvailabilityText(isForSale, available);
   const text = `${availabilityText} for the chosen dates`;
 
@@ -534,7 +533,7 @@ type BookButtonProps = {
 };
 
 const BookButton = ({ price, url }: BookButtonProps) => {
-  const isMobile = useContext(MobileDetectionContext);
+  const isMobile = useMobileDetection();
   const { sendLinkClickedEvent } = useGoogleAnalyticsEvents();
   const discountedPrice = (price * 0.95).toFixed(2);
 

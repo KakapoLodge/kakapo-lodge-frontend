@@ -1,14 +1,13 @@
-import { useContext } from "react";
 import styled from "styled-components";
-import { MobileDetectionContext } from "../lib/context";
+import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import { IsMobileProps } from "../lib/types";
 
-const Sections = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => {
-  const isMobile = useContext(MobileDetectionContext);
+type SectionsProps = {
+  children?: React.ReactNode;
+};
+
+const Sections = ({ children }: SectionsProps) => {
+  const isMobile = useMobileDetection();
   return <_Sections $isMobile={isMobile}>{children}</_Sections>;
 };
 
