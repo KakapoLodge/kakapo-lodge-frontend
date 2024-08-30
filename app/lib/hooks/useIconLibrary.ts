@@ -11,6 +11,7 @@ import {
   faBowlFood,
   faBox,
   faBreadSlice,
+  faCheck,
   faChevronRight,
   faClock,
   faFan,
@@ -33,6 +34,7 @@ import {
   faVenus,
   faVenusMars,
   faWifi,
+  faX,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const useIconLibrary = () => {
@@ -48,6 +50,7 @@ export const useIconLibrary = () => {
     faBowlFood,
     faBox,
     faBreadSlice,
+    faCheck,
     faChevronRight,
     faClock,
     faFan,
@@ -70,5 +73,6 @@ export const useIconLibrary = () => {
     faVenus,
     faVenusMars,
     faWifi,
+    faX,
   );
 };

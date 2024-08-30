@@ -1,15 +1,19 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { filterSlice } from "../accommodation/filterSlice";
+import { formApi } from "./api/formApi";
 import { ratesApi } from "./api/ratesApi";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
+      [formApi.reducerPath]: formApi.reducer,
       [ratesApi.reducerPath]: ratesApi.reducer,
       [filterSlice.reducerPath]: filterSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(ratesApi.middleware),
+      getDefaultMiddleware()
+        .concat(formApi.middleware)
+        .concat(ratesApi.middleware),
   });
 };
 
