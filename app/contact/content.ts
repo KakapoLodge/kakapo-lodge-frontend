@@ -16,6 +16,7 @@ export const FORM_PHONE_LABEL = "Phone";
 export const FORM_NAME_LABEL = "Name";
 export const FORM_MESSAGE_LABEL = "Message";
 export const FORM_MESSAGE_MINIMUM_LENGTH = 10;
+export const FORM_SEND_COPY_LABEL = "Send me a copy of the email";
 export const FORM_SUBMIT_BUTTON_LABEL = "Submit";
 
 export const CONTACT_DETAILS_HEADER = "You can also reach us via";

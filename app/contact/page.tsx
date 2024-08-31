@@ -27,6 +27,7 @@ import {
   FORM_MESSAGE_MINIMUM_LENGTH,
   FORM_NAME_LABEL,
   FORM_PHONE_LABEL,
+  FORM_SEND_COPY_LABEL,
   FORM_SUBMIT_BUTTON_LABEL,
   GOOGLE_RECAPTCHA_KEY,
   LOCATION_DESCRIPTION,
@@ -185,6 +186,7 @@ const ContactForm = ({ submitForm, openModal }: ContactFormProps) => {
       />
       <SenderDetails />
       <Message />
+      <SendCopy />
       <SubmitButton />
     </_ContactForm>
   );
@@ -318,6 +320,20 @@ const MessageTextArea = styled.textarea`
   }
 `;
 
+const SendCopy = () => {
+  const inputId = "copy";
+  return (
+    <_SendCopy>
+      <label htmlFor={inputId}>{FORM_SEND_COPY_LABEL}</label>
+      <input id={inputId} name={inputId} type="checkbox" />
+    </_SendCopy>
+  );
+};
+
+const _SendCopy = styled.div`
+  text-align: center;
+`;
+
 const SubmitButton = () => {
   return (
     <SubmitButtonContainer>
@@ -356,16 +372,6 @@ const ContactMethods = () => {
     <ContactDetails>
       <Header text={CONTACT_DETAILS_HEADER} center={true} />
       <p>
-        {PHONE_LABEL}&nbsp;
-        <CustomLink
-          target="_blank"
-          href={phoneUrl}
-          onClick={() => sendLinkClickedEvent(phoneUrl)}
-        >
-          {PHONE_NUMBER}
-        </CustomLink>
-      </p>
-      <p>
         {EMAIL_LABEL}&nbsp;
         <CustomLink
           target="_blank"
@@ -373,6 +379,16 @@ const ContactMethods = () => {
           onClick={() => sendLinkClickedEvent(emailUrl)}
         >
           {EMAIL_ADDRESS}
+        </CustomLink>
+      </p>
+      <p>
+        {PHONE_LABEL}&nbsp;
+        <CustomLink
+          target="_blank"
+          href={phoneUrl}
+          onClick={() => sendLinkClickedEvent(phoneUrl)}
+        >
+          {PHONE_NUMBER}
         </CustomLink>
       </p>
     </ContactDetails>
