@@ -12,11 +12,14 @@ import {
 import { AccommodationNameId } from "./accommodation/types";
 import {
   ACCOMMODATION_SHORTCUTS_HEADER,
+  ACCOMMODATION_URL,
   BANNER_IMAGE_ALT_TEXT,
   BANNER_IMAGE_PATH,
   DESKTOP_GOOGLE_LOGO_PATH,
   FEATUREABLE_WIDGET_ID,
+  getViewAllReviewsText,
   GOOGLE_LOGO_ALT_TEXT,
+  GOOGLE_REVIEWS_URL,
   INTRODUCTION_PARAGRAPHS,
   LANDING_PAGE_TITLE,
   MOBILE_GOOGLE_LOGO_PATH,
@@ -140,7 +143,7 @@ const AccommodationShortcut = ({ nameId }: AccommodationShortcutProps) => {
   const accommodationName = ACCOMMODATION_NAMES[nameId];
 
   const { sendLinkClickedEvent } = useGoogleAnalyticsEvents();
-  const url = `/accommodation/#${nameId}`;
+  const url = `${ACCOMMODATION_URL}/#${nameId}`;
 
   return (
     <ShortcutCard>
@@ -204,9 +207,6 @@ const ReviewsSummary = ({ reviews }: ReviewsSummaryProps) => {
   const averageRating = getAverageRating(reviews);
   const { sendLinkClickedEvent } = useGoogleAnalyticsEvents();
 
-  const googleReviewsUrl =
-    "https://www.google.com/maps/place/Hanmer+Springs+Kakapo+Lodge/@-42.5258994,172.8285116,17z/data=!4m11!3m10!1s0x6d306383a372bc73:0x7424d96525465fe0!5m2!4m1!1i2!8m2!3d-42.5258994!4d172.8285116!9m1!1b1!16s%2Fg%2F1td6b1h1?entry=ttu";
-
   return (
     <_ReviewsSummary>
       <GoogleLogo />
@@ -214,10 +214,10 @@ const ReviewsSummary = ({ reviews }: ReviewsSummaryProps) => {
         <AverageRating>Rating: {averageRating.toFixed(1)} / 5</AverageRating>
         <ReviewsLink
           target="_blank"
-          href={googleReviewsUrl}
-          onClick={() => sendLinkClickedEvent(googleReviewsUrl)}
+          href={GOOGLE_REVIEWS_URL}
+          onClick={() => sendLinkClickedEvent(GOOGLE_REVIEWS_URL)}
         >
-          View all {reviews.length} reviews
+          {getViewAllReviewsText(reviews.length)}
         </ReviewsLink>
       </ReviewsSummaryText>
     </_ReviewsSummary>
@@ -251,7 +251,6 @@ const GoogleLogo = () => {
     <_GoogleLogo
       src={MOBILE_GOOGLE_LOGO_PATH}
       alt={GOOGLE_LOGO_ALT_TEXT}
-      loading="lazy"
       width={512}
       height={512}
       $isMobile={isMobile}
@@ -260,7 +259,6 @@ const GoogleLogo = () => {
     <_GoogleLogo
       src={DESKTOP_GOOGLE_LOGO_PATH}
       alt={GOOGLE_LOGO_ALT_TEXT}
-      loading="lazy"
       width={512}
       height={300}
       $isMobile={isMobile}

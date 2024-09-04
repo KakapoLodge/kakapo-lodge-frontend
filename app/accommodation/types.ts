@@ -1,3 +1,10 @@
+import { ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
+
+export type FilterOption = {
+  label: string;
+  toggle: ActionCreatorWithoutPayload;
+};
+
 export type AccommodationNameId =
   | "5-bed-dorm"
   | "4-bed-dorm"

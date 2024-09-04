@@ -29,6 +29,7 @@ import {
   FORM_PHONE_LABEL,
   FORM_SEND_COPY_LABEL,
   FORM_SUBMIT_BUTTON_LABEL,
+  GOOGLE_MAPS_URL,
   GOOGLE_RECAPTCHA_KEY,
   LOCATION_DESCRIPTION,
   LOCATION_HEADER,
@@ -364,34 +365,44 @@ const Button = styled.button`
 `;
 
 const ContactMethods = () => {
-  const { sendLinkClickedEvent } = useGoogleAnalyticsEvents();
-  const phoneUrl = `tel:${PHONE_NUMBER}`;
-  const emailUrl = `mailto:${EMAIL_ADDRESS}`;
-
   return (
     <ContactDetails>
       <Header text={CONTACT_DETAILS_HEADER} center={true} />
-      <p>
-        {EMAIL_LABEL}&nbsp;
-        <CustomLink
-          target="_blank"
-          href={emailUrl}
-          onClick={() => sendLinkClickedEvent(emailUrl)}
-        >
-          {EMAIL_ADDRESS}
-        </CustomLink>
-      </p>
-      <p>
-        {PHONE_LABEL}&nbsp;
-        <CustomLink
-          target="_blank"
-          href={phoneUrl}
-          onClick={() => sendLinkClickedEvent(phoneUrl)}
-        >
-          {PHONE_NUMBER}
-        </CustomLink>
-      </p>
+
+      <ContactMethod
+        label={EMAIL_LABEL}
+        value={EMAIL_ADDRESS}
+        url={`mailto:${EMAIL_ADDRESS}`}
+      />
+      <ContactMethod
+        label={PHONE_LABEL}
+        value={PHONE_NUMBER}
+        url={`tel:${PHONE_NUMBER}`}
+      />
     </ContactDetails>
+  );
+};
+
+type ContactMethodProps = {
+  label: string;
+  value: string;
+  url: string;
+};
+
+const ContactMethod = ({ label, value, url }: ContactMethodProps) => {
+  const { sendLinkClickedEvent } = useGoogleAnalyticsEvents();
+
+  return (
+    <p>
+      {label}&nbsp;
+      <CustomLink
+        href={url}
+        target="_blank"
+        onClick={() => sendLinkClickedEvent(url)}
+      >
+        {value}
+      </CustomLink>
+    </p>
   );
 };
 
@@ -400,7 +411,7 @@ const Location = () => {
     <ContactDetails>
       <Header text={LOCATION_HEADER} center={true} />
       <p>{LOCATION_DESCRIPTION}</p>
-      <GoogleMaps />
+      <Map />
     </ContactDetails>
   );
 };
@@ -409,14 +420,14 @@ const ContactDetails = styled.div`
   text-align: center;
 `;
 
-const GoogleMaps = () => {
+const Map = () => {
   const isMobile = useMobileDetection();
   return (
     <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4456.815025684654!2d172.82703775066332!3d-42.525528299956015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6d306383a372bc73%3A0x7424d96525465fe0!2sHanmer%20Springs%20Kakapo%20Lodge!5e0!3m2!1sen!2snz!4v1721621297292!5m2!1sen!2snz"
+      src={GOOGLE_MAPS_URL}
       allowFullScreen={true}
-      loading="lazy"
       referrerPolicy="no-referrer-when-downgrade"
+      loading="lazy"
       style={{
         border: 0,
         width: isMobile ? "100%" : "64%",

@@ -1,10 +1,26 @@
-import { AccommodationNameId, AllRates } from "./types";
+import { filterSlice } from "./filterSlice";
+import { AccommodationNameId, AllRates, FilterOption } from "./types";
 
 export const ACCOMMODATION_PAGE_TITLE = "Accommodation";
 
 export const ACCOMMODATION_LOADING_TEXT = "Finding your next accommodation...";
 
 export const BOOK_BUTTON_TEXT = "Book with us @ $";
+
+export const CHECK_IN_OUT_LABEL = "Check In/Out:";
+
+export const DATE_PICKER_LOCALE = {
+  one: "night",
+  two: "nights",
+  few: "nights",
+  many: "nights",
+  other: "nights",
+};
+
+export const PRIVATE_ROOM_FILTER_LABEL = "Private Room";
+export const PRIVATE_BATHROOM_FILTER_LABEL = "Private Bathroom";
+export const SEPARATE_BEDS_FILTER_LABEL = "Separate Beds";
+export const GROUND_FLOOR_FILTER_LABEL = "Ground Floor";
 
 export const ACCOMMODATION_NAME_IDS: AccommodationNameId[] = [
   "5-bed-dorm",
@@ -54,6 +70,11 @@ export const ACCOMMODATION_NAMES = {
   "deluxe-double-ensuite": "Deluxe Double Ensuite",
   "motel-unit": "Motel Unit",
 };
+
+export const SLEEPS_TEXT = "Sleeps";
+export const ROOM_SIZE_TEXT = "Room size";
+export const HEATER_TEXT = "Heater";
+export const FAN_TEXT = "Fan in summer";
 
 export const BASE_FEATURES = {
   "5-bed-dorm": {
@@ -374,4 +395,28 @@ export const DEFAULT_RATES: AllRates = {
     overallMinStay: null,
     isForSale: true,
   },
+};
+
+export const DISCOUNT_RATE = 0.95;
+
+export const getDisplayPrice = (price: number, minStay: number | null) => {
+  const priceText = `Price: $${price}`;
+  return minStay === null
+    ? `${priceText}`
+    : `${priceText} (min stay: ${minStay} night${minStay === 1 ? "" : "s"})`;
+};
+
+export const getAvailabilityText = (
+  isForSale: boolean,
+  available: number | null,
+) => {
+  const availability = !isForSale
+    ? "Unavailable"
+    : available === 0
+      ? "Sold out"
+      : available === 1
+        ? "Only 1 left"
+        : `${available} available`;
+
+  return `${availability} for the chosen dates`;
 };

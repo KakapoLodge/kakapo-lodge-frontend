@@ -2,6 +2,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { MouseEventHandler, useState } from "react";
 import styled from "styled-components";
+import { HOME_URL, KAKAPO_LODGE_NAME, LOGO_PATH, SUB_PAGES } from "../content";
 import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
 import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import { useScrollPosition } from "../lib/hooks/useScrollPosition";
@@ -10,19 +11,6 @@ import { IsMobileProps } from "../lib/types";
 import BookDirectButton from "./BookDirectButton";
 import CustomIcon from "./CustomIcon";
 import CustomLink from "./CustomLink";
-
-const SUB_PAGES: Page[] = [
-  { name: "Accommodation", path: "/accommodation" },
-  { name: "Facilities", path: "/facilities" },
-  {
-    name: "Attractions",
-    path: "https://visithanmersprings.co.nz/things-to-do/",
-    target: "_blank",
-  },
-  { name: "Contact", path: "/contact" },
-  { name: "Policies", path: "/policies" },
-  { name: "FAQs", path: "/faq" },
-];
 
 const NavBar = () => {
   const pathname = usePathname();
@@ -97,8 +85,6 @@ type LogoProps = {
 };
 
 const Logo = ({ pathname, closeMenu }: LogoProps) => {
-  const landingPagePath = "/";
-
   const { sendLinkClickedEvent } = useGoogleAnalyticsEvents();
 
   const handleClick = (url: string) => {
@@ -114,13 +100,13 @@ const Logo = ({ pathname, closeMenu }: LogoProps) => {
 
   return (
     <CustomLink
-      href={landingPagePath}
-      $isSelected={pathname === landingPagePath}
-      onClick={() => handleClick(landingPagePath)}
+      href={HOME_URL}
+      $isSelected={pathname === HOME_URL}
+      onClick={() => handleClick(HOME_URL)}
     >
       <_Logo
-        src="/kakapo_logo_with_text.png"
-        alt="Kakapo logo with text"
+        src={LOGO_PATH}
+        alt={KAKAPO_LODGE_NAME}
         width={371}
         height={160}
         $height={height}
@@ -170,12 +156,6 @@ const _MenuButton = styled.button<_MenuButtonProps>`
 
   pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
 `;
-
-type Page = {
-  name: string;
-  path: string;
-  target?: string;
-};
 
 type MainNavProps = {
   pathname: string;

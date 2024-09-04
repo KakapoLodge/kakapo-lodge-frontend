@@ -30,3 +30,6 @@ export const EMAIL_ADDRESS = "stay@kakapolodge.co.nz";
 export const LOCATION_HEADER = "Our Location";
 export const LOCATION_DESCRIPTION =
   "Just a 5 minutes walk away from the Hot Pools!";
+
+export const GOOGLE_MAPS_URL =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4456.815025684654!2d172.82703775066332!3d-42.525528299956015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6d306383a372bc73%3A0x7424d96525465fe0!2sHanmer%20Springs%20Kakapo%20Lodge!5e0!3m2!1sen!2snz!4v1721621297292!5m2!1sen!2snz";

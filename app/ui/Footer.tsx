@@ -1,5 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
+import { PHONE_NUMBER } from "../contact/content";
+import { CALL_US_TEXT } from "../content";
 import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
 import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import BookDirectButton from "./BookDirectButton";
@@ -42,7 +44,7 @@ const BottomBar = styled.footer`
 
 const CallButton = () => {
   const { sendLinkClickedEvent } = useGoogleAnalyticsEvents();
-  const url = "tel:+64 03 315 7472";
+  const url = `tel:${PHONE_NUMBER}`;
 
   return (
     <Button
@@ -51,7 +53,7 @@ const CallButton = () => {
       onClick={() => sendLinkClickedEvent(url)}
     >
       <CustomIcon icon="fa-phone" />
-      Call Us
+      {CALL_US_TEXT}
     </Button>
   );
 };

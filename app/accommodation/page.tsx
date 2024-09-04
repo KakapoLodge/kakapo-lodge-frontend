@@ -41,10 +41,23 @@ import {
   BASE_FEATURES,
   BOOK_BUTTON_TEXT,
   BOOKING_URLS,
+  CHECK_IN_OUT_LABEL,
+  DATE_PICKER_LOCALE,
   DEFAULT_RATES,
+  DISCOUNT_RATE,
+  FAN_TEXT,
+  getAvailabilityText,
+  getDisplayPrice,
+  GROUND_FLOOR_FILTER_LABEL,
+  HEATER_TEXT,
+  PRIVATE_BATHROOM_FILTER_LABEL,
+  PRIVATE_ROOM_FILTER_LABEL,
+  ROOM_SIZE_TEXT,
+  SEPARATE_BEDS_FILTER_LABEL,
+  SLEEPS_TEXT,
 } from "./content";
 import { filterSlice } from "./filterSlice";
-import { AccommodationNameId, AllRates, Rates } from "./types";
+import { AccommodationNameId, AllRates, FilterOption, Rates } from "./types";
 
 const AccommodationPage = () => {
   const todaysDateRfc3339 = getTodaysDateRfc3339();
@@ -147,8 +160,6 @@ const DatePicker = ({
   const todaysDateRfc3339 = getTodaysDateRfc3339();
   const tomorrowsDateRfc3339 = getNextDaysDateRfc3339(todaysDateRfc3339);
 
-  const dispatch = useAppDispatch();
-
   const onSelectDates = (rangeStart: string, rangeEnd: string) => {
     const startDate = rangeStart;
     const endDate = getPreviousDaysDateRfc3339(rangeEnd);
@@ -162,7 +173,7 @@ const DatePicker = ({
   return (
     <_Filters $isMobile={isMobile}>
       <_Filter $isMobile={isMobile}>
-        <Label htmlFor={id}>Check In/Out:</Label>
+        <Label htmlFor={id}>{CHECK_IN_OUT_LABEL}</Label>
         <RangePicker
           id={id}
           css="width: 200px; text-align: center;"
@@ -170,7 +181,7 @@ const DatePicker = ({
           minDate={todaysDateRfc3339}
           startDate={todaysDateRfc3339}
           endDate={tomorrowsDateRfc3339}
-          daysLocale={EASE_PICK_DAYS_LOCALE}
+          daysLocale={DATE_PICKER_LOCALE}
           onSelect={onSelectDates}
           // @ts-ignore
           options={EASE_PICK_OPTIONS}
@@ -178,14 +189,6 @@ const DatePicker = ({
       </_Filter>
     </_Filters>
   );
-};
-
-const EASE_PICK_DAYS_LOCALE = {
-  one: "night",
-  two: "nights",
-  few: "nights",
-  many: "nights",
-  other: "nights",
 };
 
 const EASE_PICK_OPTIONS = {
@@ -231,35 +234,29 @@ const _FilterButton = styled.div<IsMobileProps & _FilterButtonProps>`
   box-shadow: 0px 2px 32px 2px rgba(0, 64, 0, 0.1);
 `;
 
+const {
+  toggleFilterPrivateRoom,
+  toggleFilterPrivateBathroom,
+  toggleFilterSeparateBeds,
+  toggleFilterGroundFloor,
+} = filterSlice.actions;
+
+const FILTER_OPTIONS: FilterOption[] = [
+  { label: PRIVATE_ROOM_FILTER_LABEL, toggle: toggleFilterPrivateRoom },
+  { label: PRIVATE_BATHROOM_FILTER_LABEL, toggle: toggleFilterPrivateBathroom },
+  { label: SEPARATE_BEDS_FILTER_LABEL, toggle: toggleFilterSeparateBeds },
+  { label: GROUND_FLOOR_FILTER_LABEL, toggle: toggleFilterGroundFloor },
+];
+
 const Filters = () => {
   const isMobile = useMobileDetection();
   const dispatch = useAppDispatch();
 
-  const {
-    toggleFilterPrivateRoom,
-    toggleFilterPrivateBathroom,
-    toggleFilterSeparateBeds,
-    toggleFilterGroundFloor,
-  } = filterSlice.actions;
-
   return (
     <_Filters $isMobile={isMobile}>
-      <Filter
-        label="Private Room?"
-        onChange={() => dispatch(toggleFilterPrivateRoom())}
-      />
-      <Filter
-        label="Private Bathroom?"
-        onChange={() => dispatch(toggleFilterPrivateBathroom())}
-      />
-      <Filter
-        label="Separate Beds?"
-        onChange={() => dispatch(toggleFilterSeparateBeds())}
-      />
-      <Filter
-        label="Ground Floor?"
-        onChange={() => dispatch(toggleFilterGroundFloor())}
-      />
+      {FILTER_OPTIONS.map(({ label, toggle }) => (
+        <Filter key={label} label={label} onChange={() => dispatch(toggle())} />
+      ))}
     </_Filters>
   );
 };
@@ -283,12 +280,11 @@ const Filter = ({ label, onChange }: FilterProps) => {
   const isMobile = useMobileDetection();
   const { sendAccommodationFilteredEvent } = useGoogleAnalyticsEvents();
 
-  // last character should be question mark
-  const filterId = label.slice(0, -1).toLowerCase().replaceAll(" ", "-");
+  const filterId = label.toLowerCase().replaceAll(" ", "-");
 
   return (
     <_Filter $isMobile={isMobile}>
-      <Label htmlFor={filterId}>{label}</Label>
+      <Label htmlFor={filterId}>{`${label}?`}</Label>
       <Checkbox
         id={filterId}
         type="checkbox"
@@ -370,6 +366,7 @@ type AccommodationCardProps = {
 const AccommodationCard = ({ nameId, rates }: AccommodationCardProps) => {
   const isMobile = useMobileDetection();
   const name = ACCOMMODATION_NAMES[nameId];
+  const displayPrice = getDisplayPrice(rates.price, rates.overallMinStay);
 
   return (
     <_Card $isMobile={isMobile}>
@@ -381,7 +378,7 @@ const AccommodationCard = ({ nameId, rates }: AccommodationCardProps) => {
 
       <Text>
         <Name text={name} />
-        <Price price={rates.price} minStay={rates.overallMinStay} />
+        <Price>{displayPrice}</Price>
         <Features nameId={nameId} />
         <br />
         <Availability
@@ -429,22 +426,7 @@ const _Name = styled.h2<IsMobileProps>`
   font-size: ${(props) => (props.$isMobile ? "larger" : "x-large")};
 `;
 
-type PriceProps = {
-  price: number;
-  minStay: number | null;
-};
-
-const Price = ({ price, minStay }: PriceProps) => {
-  const priceText = `Price: $${price}`;
-  const text =
-    minStay === null
-      ? `${priceText}`
-      : `${priceText} (min stay: ${minStay} night${minStay === 1 ? "" : "s"})`;
-
-  return <_Price>{text}</_Price>;
-};
-
-const _Price = styled.p`
+const Price = styled.p`
   color: var(--secondary-color);
   font-size: large;
   font-weight: 500;
@@ -461,17 +443,17 @@ const Features = ({ nameId }: FeaturesProps) => {
   return (
     <_Features>
       <div>
-        <CustomIcon icon="fa-user" /> Sleeps: {sleeps}
+        <CustomIcon icon="fa-user" /> {SLEEPS_TEXT}: {sleeps}
       </div>
       <div>
-        <CustomIcon icon="fa-ruler" /> Room size: {size} m<sup>2</sup>
+        <CustomIcon icon="fa-ruler" /> {ROOM_SIZE_TEXT}: {size} m<sup>2</sup>
       </div>
       <div>
         <CustomIcon icon="fa-bed" /> {roomConfiguration}
       </div>
       <div>
-        <CustomIcon icon="fa-temperature-arrow-up" /> Heater (
-        <CustomIcon icon="fa-fan" /> Fan in summer)
+        <CustomIcon icon="fa-temperature-arrow-up" /> {HEATER_TEXT} (
+        <CustomIcon icon="fa-fan" /> {FAN_TEXT})
       </div>
 
       {...additionalFeatures.map(({ icon, description }) => (
@@ -499,25 +481,12 @@ type AvailabilityProps = {
 const Availability = ({ available, isForSale }: AvailabilityProps) => {
   const isMobile = useMobileDetection();
   const availabilityText = getAvailabilityText(isForSale, available);
-  const text = `${availabilityText} for the chosen dates`;
 
   return available === null ? (
     <></>
   ) : (
-    <_Availability $isMobile={isMobile}>{text}</_Availability>
+    <_Availability $isMobile={isMobile}>{availabilityText}</_Availability>
   );
-};
-
-const getAvailabilityText = (isForSale: boolean, available: number | null) => {
-  if (!isForSale) {
-    return "Unavailable";
-  } else if (available === 0) {
-    return "Sold out";
-  } else if (available === 1) {
-    return "Only 1 left";
-  } else {
-    return `${available} available`;
-  }
 };
 
 const _Availability = styled.p<IsMobileProps>`
@@ -535,7 +504,9 @@ type BookButtonProps = {
 const BookButton = ({ price, url }: BookButtonProps) => {
   const isMobile = useMobileDetection();
   const { sendLinkClickedEvent } = useGoogleAnalyticsEvents();
-  const discountedPrice = (price * 0.95).toFixed(2);
+
+  // 2 decimal places for cents
+  const discountedPrice = (price * DISCOUNT_RATE).toFixed(2);
 
   return (
     <_BookButton

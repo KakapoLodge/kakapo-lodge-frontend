@@ -118,8 +118,6 @@ const _Divider = styled.div<IsMobileProps>`
   width: ${(props) => (props.$isMobile ? "100%" : "76%")};
   margin: 0px auto;
 
-  border-bottom: ${(props) =>
-    props.$isMobile
-      ? "1px solid var(--secondary-color)"
-      : "2px solid var(--secondary-color)"};
+  border-bottom: ${(props) => (props.$isMobile ? 1 : 2)}px solid
+    var(--secondary-color);
 `;
