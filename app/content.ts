@@ -64,3 +64,8 @@ export const DESKTOP_GOOGLE_LOGO_PATH = "/landing_page/google_logo.png";
 export const GOOGLE_LOGO_ALT_TEXT = "Google";
 
 export const CALL_US_TEXT = "Call Us";
+
+export const NOT_FOUND_PAGE_TITLE = "Page not found";
+export const NOT_FOUND_ERROR_TEXT =
+  "Error 404: We do not have the page you are looking for.";
+export const RETURN_HOME_TEXT = "Back to home";
