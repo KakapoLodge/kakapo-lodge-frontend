@@ -1,5 +1,4 @@
-import { filterSlice } from "./filterSlice";
-import { AccommodationNameId, AllRates, FilterOption } from "./types";
+import { AccommodationNameId, AllRates } from "./types";
 
 export const ACCOMMODATION_PAGE_TITLE = "Accommodation";
 

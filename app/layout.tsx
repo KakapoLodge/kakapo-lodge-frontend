@@ -13,7 +13,10 @@ import StyledComponentsRegistry from "./lib/StyledComponentsRegistry";
 const font = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: KAKAPO_LODGE_NAME,
+  title: {
+    template: `%s | ${KAKAPO_LODGE_NAME}`,
+    default: KAKAPO_LODGE_NAME,
+  },
   description: KAKAPO_LODGE_DESCRIPTION,
 };
 
