@@ -36,14 +36,18 @@ export const SUB_PAGES: Page[] = [
   { name: FAQ_TEXT, path: FAQ_URL },
 ];
 
-export const BANNER_IMAGE_PATH = "/landing_page/banner.png";
-export const BANNER_IMAGE_ALT_TEXT = "Kakapo Lodge";
+export const BANNER_IMAGE_PATHS = [
+  "/landing_page/banner/banner_1.png",
+  "/landing_page/banner/banner_2.png",
+];
 
 export const LANDING_PAGE_TITLE = "Welcome to Kakapo Lodge";
 
 export const INTRODUCTION_PARAGRAPHS = [
   "The two-story purpose-built backpacker hostel features modern rooms, an open lounge with warm fireplace, and a relaxed, friendly atmosphere. Enjoy our spacious, well-appointed backpacker accommodation, Netflix, fast unlimited WiFi, large kitchen, outdoor courtyard with views of the Southern Alps.",
+
   "Just three minutes' walk from the town's main attraction, Hanmer Springs Thermal Pools and Spa, and a pleasant stroll to numerous restaurants and stores, our hostel is a great base to enjoy your relaxing Hanmer getaway.",
+
   "All ensuite accommodation have free towels as well as free soap and shampoo.",
 ];
 
@@ -59,8 +63,8 @@ export const GOOGLE_REVIEWS_URL =
 export const getViewAllReviewsText = (totalReviews: number) =>
   `View all ${totalReviews} reviews`;
 
-export const MOBILE_GOOGLE_LOGO_PATH = "/landing_page/google_g_logo.png";
-export const DESKTOP_GOOGLE_LOGO_PATH = "/landing_page/google_logo.png";
+export const MOBILE_GOOGLE_LOGO_PATH = "/landing_page/reviews/g_logo.png";
+export const DESKTOP_GOOGLE_LOGO_PATH = "/landing_page/reviews/google_logo.png";
 export const GOOGLE_LOGO_ALT_TEXT = "Google";
 
 export const CALL_US_TEXT = "Call Us";

@@ -6,21 +6,21 @@ import "react-google-reviews/dist/index.css";
 import styled from "styled-components";
 import {
   ACCOMMODATION_IMAGE_PATHS,
-  ACCOMMODATION_NAMES,
   ACCOMMODATION_NAME_IDS,
+  ACCOMMODATION_NAMES,
 } from "./accommodation/content";
 import { AccommodationNameId } from "./accommodation/types";
 import {
   ACCOMMODATION_SHORTCUTS_HEADER,
   ACCOMMODATION_URL,
-  BANNER_IMAGE_ALT_TEXT,
-  BANNER_IMAGE_PATH,
+  BANNER_IMAGE_PATHS,
   DESKTOP_GOOGLE_LOGO_PATH,
   FEATUREABLE_WIDGET_ID,
   getViewAllReviewsText,
   GOOGLE_LOGO_ALT_TEXT,
   GOOGLE_REVIEWS_URL,
   INTRODUCTION_PARAGRAPHS,
+  KAKAPO_LODGE_NAME,
   LANDING_PAGE_TITLE,
   MOBILE_GOOGLE_LOGO_PATH,
   REVIEWS_HEADER,
@@ -36,6 +36,7 @@ import CustomIcon from "./ui/CustomIcon";
 import CustomLink from "./ui/CustomLink";
 import Footer from "./ui/Footer";
 import Header from "./ui/Header";
+import ImageCarousel from "./ui/ImageCarousel";
 import NavBar from "./ui/NavBar";
 import Page from "./ui/Page";
 import PageContent from "./ui/PageContent";
@@ -86,20 +87,12 @@ const _LandingPageContent = styled(PageContent)<IsMobileProps>`
 
 const MainBanner = () => {
   return (
-    <BannerImage
-      src={BANNER_IMAGE_PATH}
-      alt={BANNER_IMAGE_ALT_TEXT}
-      width={1621}
-      height={855}
-      priority
+    <ImageCarousel
+      imagePaths={BANNER_IMAGE_PATHS}
+      description={KAKAPO_LODGE_NAME}
     />
   );
 };
-
-const BannerImage = styled(Image)`
-  width: 100%;
-  height: auto;
-`;
 
 const Introduction = () => {
   const isMobile = useMobileDetection();
