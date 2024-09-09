@@ -119,6 +119,7 @@ const Logo = ({ pathname, closeMenu }: LogoProps) => {
 const _Logo = styled(Image)<{ $height: number }>`
   width: auto;
   height: ${(props) => props.$height}px;
+  padding-left: 12px;
 `;
 
 type MenuButtonProps = {
