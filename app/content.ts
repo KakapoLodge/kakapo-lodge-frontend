@@ -39,6 +39,8 @@ export const SUB_PAGES: Page[] = [
 export const BANNER_IMAGE_PATHS = [
   "/landing_page/banner/banner_1.png",
   "/landing_page/banner/banner_2.png",
+  "/landing_page/banner/banner_3.png",
+  "/landing_page/banner/banner_4.png",
 ];
 
 export const LANDING_PAGE_TITLE = "Welcome to Kakapo Lodge";
