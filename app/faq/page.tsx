@@ -2,6 +2,7 @@
 
 import Footer from "../ui/Footer";
 import ImageCarousel from "../ui/ImageCarousel";
+import MobileFooter from "../ui/MobileFooter";
 import NavBar from "../ui/NavBar";
 import Page from "../ui/Page";
 import PageContent from "../ui/PageContent";
@@ -20,6 +21,7 @@ const FAQPage = () => {
   return (
     <Page>
       <NavBar />
+
       <PageContent>
         <PageTitle text={FAQ_PAGE_TITLE} />
         <Sections>
@@ -30,8 +32,11 @@ const FAQPage = () => {
             <p>{NO_ANSWER_TEXT}</p>
           </Section>
         </Sections>
+
+        <Footer />
       </PageContent>
-      <Footer />
+
+      <MobileFooter />
     </Page>
   );
 };

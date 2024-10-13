@@ -11,6 +11,7 @@ import CustomLink from "../ui/CustomLink";
 import Footer from "../ui/Footer";
 import Header from "../ui/Header";
 import LoadingAnimation from "../ui/LoadingAnimation";
+import MobileFooter from "../ui/MobileFooter";
 import NavBar from "../ui/NavBar";
 import Page from "../ui/Page";
 import PageContent from "../ui/PageContent";
@@ -64,8 +65,11 @@ const ContactPage = () => {
           <ContactMethods />
           <Location />
         </Sections>
+
+        <Footer />
       </PageContent>
-      <Footer />
+
+      <MobileFooter />
     </Page>
   );
 };

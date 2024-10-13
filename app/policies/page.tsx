@@ -2,6 +2,7 @@
 
 import Footer from "../ui/Footer";
 import Header from "../ui/Header";
+import MobileFooter from "../ui/MobileFooter";
 import NavBar from "../ui/NavBar";
 import Page from "../ui/Page";
 import PageContent from "../ui/PageContent";
@@ -20,6 +21,7 @@ const PoliciesPage = () => {
   return (
     <Page>
       <NavBar />
+
       <PageContent>
         <PageTitle text={POLICIES_PAGE_TITLE} />
 
@@ -28,8 +30,11 @@ const PoliciesPage = () => {
           <PolicySection policy={CANCELLATION_POLICY} />
           <HouseRulesSection />
         </Sections>
+
+        <Footer />
       </PageContent>
-      <Footer />
+
+      <MobileFooter />
     </Page>
   );
 };

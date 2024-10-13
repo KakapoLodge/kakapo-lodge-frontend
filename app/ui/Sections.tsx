@@ -17,4 +17,6 @@ const _Sections = styled.div<IsMobileProps>`
   display: flex;
   flex-direction: column;
   gap: ${(props) => (props.$isMobile ? "16px" : "24px")};
+
+  margin-bottom: 16px;
 `;

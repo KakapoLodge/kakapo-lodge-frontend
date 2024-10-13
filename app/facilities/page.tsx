@@ -8,6 +8,7 @@ import CustomIcon from "../ui/CustomIcon";
 import Footer from "../ui/Footer";
 import Header from "../ui/Header";
 import ImageCarousel from "../ui/ImageCarousel";
+import MobileFooter from "../ui/MobileFooter";
 import NavBar from "../ui/NavBar";
 import Page from "../ui/Page";
 import PageContent from "../ui/PageContent";
@@ -27,6 +28,7 @@ const FacilitiesPage = () => {
   return (
     <Page>
       <NavBar />
+
       <PageContent>
         <PageTitle text={FACILITIES_PAGE_TITLE} />
 
@@ -42,8 +44,11 @@ const FacilitiesPage = () => {
           <Divider />
           <PurchaseableSection />
         </Sections>
+
+        <Footer />
       </PageContent>
-      <Footer />
+
+      <MobileFooter />
     </Page>
   );
 };

@@ -26,5 +26,5 @@ type _PageContentProps = {
 };
 
 const _PageContent = styled.main<_PageContentProps>`
-  margin-bottom: ${(props) => (props.$largerBottomMargin ? "72px" : "16px")};
+  margin-bottom: ${(props) => (props.$largerBottomMargin ? "60px" : "0px")};
 `;

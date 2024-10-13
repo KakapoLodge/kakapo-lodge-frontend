@@ -12,6 +12,7 @@ import { useGoogleAnalyticsEvents } from "./lib/hooks/useGoogleAnalyticsEvents";
 import { useMobileDetection } from "./lib/hooks/useMobileDetection";
 import { IsMobileProps } from "./lib/types";
 import Footer from "./ui/Footer";
+import MobileFooter from "./ui/MobileFooter";
 import NavBar from "./ui/NavBar";
 import Page from "./ui/Page";
 import PageContent from "./ui/PageContent";
@@ -21,14 +22,19 @@ const NotFoundPage = () => {
   return (
     <Page>
       <NavBar />
+
       <PageContent>
         <PageTitle text={NOT_FOUND_PAGE_TITLE} />
+
         <Container>
           <Text>{NOT_FOUND_ERROR_TEXT}</Text>
           <ReturnHomeButton />
         </Container>
+
+        <Footer />
       </PageContent>
-      <Footer />
+
+      <MobileFooter />
     </Page>
   );
 };

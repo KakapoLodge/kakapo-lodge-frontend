@@ -58,6 +58,7 @@ import {
 } from "./content";
 import { filterSlice } from "./filterSlice";
 import { AccommodationNameId, AllRates, FilterOption, Rates } from "./types";
+import Footer from "../ui/Footer";
 
 const AccommodationPage = () => {
   const todaysDateRfc3339 = getTodaysDateRfc3339();
@@ -89,6 +90,8 @@ const AccommodationPage = () => {
         ) : (
           <></>
         )}
+
+        <Footer />
       </PageContent>
     </Page>
   );

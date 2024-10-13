@@ -37,6 +37,7 @@ import CustomLink from "./ui/CustomLink";
 import Footer from "./ui/Footer";
 import Header from "./ui/Header";
 import ImageCarousel from "./ui/ImageCarousel";
+import MobileFooter from "./ui/MobileFooter";
 import NavBar from "./ui/NavBar";
 import Page from "./ui/Page";
 import PageContent from "./ui/PageContent";
@@ -49,9 +50,9 @@ const LandingPage = () => {
   return (
     <Page>
       <NavBar />
+
       <LandingPageContent>
         <MainBanner />
-
         <PageTitle text={LANDING_PAGE_TITLE} />
 
         <Sections>
@@ -59,8 +60,11 @@ const LandingPage = () => {
           <AccommodationShortcuts />
           <GoogleReviews />
         </Sections>
+
+        <Footer />
       </LandingPageContent>
-      <Footer />
+
+      <MobileFooter />
     </Page>
   );
 };
