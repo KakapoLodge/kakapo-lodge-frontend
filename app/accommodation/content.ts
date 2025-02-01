@@ -347,49 +347,49 @@ export const ACCOMMODATION_IMAGE_PATHS = {
 
 export const DEFAULT_RATES: AllRates = {
   "5-bed-dorm": {
-    price: 45,
+    price: 50, // winter price: 45
     overallAvailable: null,
     overallMinStay: null,
     isForSale: true,
   },
   "4-bed-dorm": {
-    price: 50,
+    price: 53, // winter price: 50
     overallAvailable: null,
     overallMinStay: null,
     isForSale: true,
   },
   "private-double": {
-    price: 90,
+    price: 100, // winter price: 90
     overallAvailable: null,
     overallMinStay: null,
     isForSale: true,
   },
   "private-twin": {
-    price: 96,
+    price: 110, // winter price: 96
     overallAvailable: null,
     overallMinStay: null,
     isForSale: true,
   },
   "family-room": {
-    price: 120,
+    price: 130, // winter price: 120
     overallAvailable: null,
     overallMinStay: null,
     isForSale: true,
   },
   "double-ensuite": {
-    price: 110,
+    price: 120, // winter price: 110
     overallAvailable: null,
     overallMinStay: null,
     isForSale: true,
   },
   "deluxe-double-ensuite": {
-    price: 120,
+    price: 130, // winter price: 120
     overallAvailable: null,
     overallMinStay: null,
     isForSale: true,
   },
   "motel-unit": {
-    price: 140,
+    price: 155, // winter price: 140
     overallAvailable: null,
     overallMinStay: null,
     isForSale: true,
