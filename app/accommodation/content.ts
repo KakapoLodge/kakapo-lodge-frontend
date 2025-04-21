@@ -144,7 +144,7 @@ export const ALL_ADDITIONAL_FEATURES = {
     },
     {
       icon: "fa-venus",
-      description: "Female only",
+      description: "Female",
     },
   ],
   "private-double": [
