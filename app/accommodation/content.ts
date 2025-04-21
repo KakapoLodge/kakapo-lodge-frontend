@@ -61,7 +61,7 @@ export const GROUND_FLOOR_NAME_IDS: Set<AccommodationNameId> = new Set([
 
 export const ACCOMMODATION_NAMES = {
   "5-bed-dorm": "Bed in 5-Bed Dorm",
-  "4-bed-dorm": "Bed in 4-Bed Female Dorm",
+  "4-bed-dorm": "Bed in 4-Bed Dorm",
   "private-double": "Private Double",
   "private-twin": "Private Twin",
   "family-room": "Family Room",
