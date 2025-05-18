@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { BUILT_BY_TEXT, BUILT_BY_URL, COPYRIGHT_TEXT } from "../content";
-import { useMobileDetection } from "../lib/hooks/useMobileDetection";
-import { IsMobileProps } from "../lib/types";
+import { useMobileDetection } from "../.lib/hooks/useMobileDetection";
+import { IsMobileProps } from "../.lib/types";
 import CustomLink from "./CustomLink";
 
 const Footer = () => {

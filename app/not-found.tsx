@@ -8,9 +8,9 @@ import {
   NOT_FOUND_PAGE_TITLE,
   RETURN_HOME_TEXT,
 } from "./content";
-import { useGoogleAnalyticsEvents } from "./lib/hooks/useGoogleAnalyticsEvents";
-import { useMobileDetection } from "./lib/hooks/useMobileDetection";
-import { IsMobileProps } from "./lib/types";
+import { useGoogleAnalyticsEvents } from "./.lib/hooks/useGoogleAnalyticsEvents";
+import { useMobileDetection } from "./.lib/hooks/useMobileDetection";
+import { IsMobileProps } from "./.lib/types";
 import Footer from "./.ui/Footer";
 import MobileFooter from "./.ui/MobileFooter";
 import NavBar from "./.ui/NavBar";

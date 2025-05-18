@@ -1,5 +1,5 @@
-import { useIconLibrary } from "../lib/hooks/useIconLibrary";
-import { usePrefetchTonightsRates } from "../lib/hooks/usePrefetchTonightsRates";
+import { useIconLibrary } from "../.lib/hooks/useIconLibrary";
+import { usePrefetchTonightsRates } from "../.lib/hooks/usePrefetchTonightsRates";
 
 type PageProps = {
   children?: React.ReactNode;

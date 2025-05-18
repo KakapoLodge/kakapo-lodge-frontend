@@ -26,9 +26,9 @@ import {
   REVIEWS_HEADER,
   SHORTCUT_LINK_TEXT,
 } from "./content";
-import { useGoogleAnalyticsEvents } from "./lib/hooks/useGoogleAnalyticsEvents";
-import { useMobileDetection } from "./lib/hooks/useMobileDetection";
-import { IsMobileProps } from "./lib/types";
+import { useGoogleAnalyticsEvents } from "./.lib/hooks/useGoogleAnalyticsEvents";
+import { useMobileDetection } from "./.lib/hooks/useMobileDetection";
+import { IsMobileProps } from "./.lib/types";
 import Card from "./.ui/Card";
 import CarouselImage from "./.ui/CarouselImage";
 import CustomCarousel from "./.ui/CustomCarousel";

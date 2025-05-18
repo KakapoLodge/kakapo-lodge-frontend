@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useMobileDetection } from "../lib/hooks/useMobileDetection";
-import { IsMobileProps } from "../lib/types";
+import { useMobileDetection } from "../.lib/hooks/useMobileDetection";
+import { IsMobileProps } from "../.lib/types";
 
 type PageTitleProps = {
   text: string;

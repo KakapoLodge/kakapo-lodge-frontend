@@ -2,8 +2,8 @@ import Link from "next/link";
 import styled from "styled-components";
 import { PHONE_NUMBER } from "../contact/content";
 import { CALL_US_TEXT } from "../content";
-import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
-import { useMobileDetection } from "../lib/hooks/useMobileDetection";
+import { useGoogleAnalyticsEvents } from "../.lib/hooks/useGoogleAnalyticsEvents";
+import { useMobileDetection } from "../.lib/hooks/useMobileDetection";
 import BookDirectButton from "./BookDirectButton";
 import CustomIcon from "./CustomIcon";
 

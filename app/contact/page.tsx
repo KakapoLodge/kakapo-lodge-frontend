@@ -3,10 +3,10 @@
 import { FormEvent, HTMLInputTypeAttribute, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import styled from "styled-components";
-import { useLazySubmitFormQuery } from "../lib/api/formApi";
-import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
-import { useMobileDetection } from "../lib/hooks/useMobileDetection";
-import { FormContent, IsMobileProps } from "../lib/types";
+import { useLazySubmitFormQuery } from "../.lib/api/formApi";
+import { useGoogleAnalyticsEvents } from "../.lib/hooks/useGoogleAnalyticsEvents";
+import { useMobileDetection } from "../.lib/hooks/useMobileDetection";
+import { FormContent, IsMobileProps } from "../.lib/types";
 import CustomLink from "../.ui/CustomLink";
 import Footer from "../.ui/Footer";
 import Header from "../.ui/Header";

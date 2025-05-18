@@ -7,8 +7,8 @@ import {
   KAKAPO_LODGE_NAME,
 } from "./content";
 import "./globals.css";
-import StoreProvider from "./lib/StoreProvider";
-import StyledComponentsRegistry from "./lib/StyledComponentsRegistry";
+import StoreProvider from "./.lib/StoreProvider";
+import StyledComponentsRegistry from "./.lib/StyledComponentsRegistry";
 
 const font = Nunito({ subsets: ["latin"] });
 

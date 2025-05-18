@@ -2,8 +2,8 @@
 
 import { Fragment } from "react";
 import styled from "styled-components";
-import { useMobileDetection } from "../lib/hooks/useMobileDetection";
-import { IsMobileProps } from "../lib/types";
+import { useMobileDetection } from "../.lib/hooks/useMobileDetection";
+import { IsMobileProps } from "../.lib/types";
 import CustomIcon from "../.ui/CustomIcon";
 import Footer from "../.ui/Footer";
 import Header from "../.ui/Header";

@@ -11,18 +11,18 @@ import {
 } from "react";
 import { RangePicker } from "react-ease-picker";
 import styled from "styled-components";
-import { useGetRatesQuery } from "../lib/api/ratesApi";
+import { useGetRatesQuery } from "../.lib/api/ratesApi";
 import {
   getNextDaysDateRfc3339,
   getPreviousDaysDateRfc3339,
   getTodaysDateRfc3339,
-} from "../lib/dates";
-import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
-import { useMobileDetection } from "../lib/hooks/useMobileDetection";
-import { useScrollPosition } from "../lib/hooks/useScrollPosition";
-import { useAppDispatch, useAppSelector } from "../lib/hooks/useStore";
-import { linearInterpolate } from "../lib/math";
-import { IsMobileProps } from "../lib/types";
+} from "../.lib/dates";
+import { useGoogleAnalyticsEvents } from "../.lib/hooks/useGoogleAnalyticsEvents";
+import { useMobileDetection } from "../.lib/hooks/useMobileDetection";
+import { useScrollPosition } from "../.lib/hooks/useScrollPosition";
+import { useAppDispatch, useAppSelector } from "../.lib/hooks/useStore";
+import { linearInterpolate } from "../.lib/math";
+import { IsMobileProps } from "../.lib/types";
 import Card from "../.ui/Card";
 import CustomIcon from "../.ui/CustomIcon";
 import ImageCarousel from "../.ui/ImageCarousel";

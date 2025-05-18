@@ -1,8 +1,8 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
-import { useMobileDetection } from "../lib/hooks/useMobileDetection";
-import { IsMobileProps } from "../lib/types";
+import { useGoogleAnalyticsEvents } from "../.lib/hooks/useGoogleAnalyticsEvents";
+import { useMobileDetection } from "../.lib/hooks/useMobileDetection";
+import { IsMobileProps } from "../.lib/types";
 
 type BookDirectButtonProps = {
   isFooter?: boolean;
