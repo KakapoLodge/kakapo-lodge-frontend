@@ -1,14 +1,14 @@
 "use client";
 
-import Footer from "../ui/Footer";
-import Header from "../ui/Header";
-import MobileFooter from "../ui/MobileFooter";
-import NavBar from "../ui/NavBar";
-import Page from "../ui/Page";
-import PageContent from "../ui/PageContent";
-import PageTitle from "../ui/PageTitle";
-import Section from "../ui/Section";
-import Sections from "../ui/Sections";
+import Footer from "../.ui/Footer";
+import Header from "../.ui/Header";
+import MobileFooter from "../.ui/MobileFooter";
+import NavBar from "../.ui/NavBar";
+import Page from "../.ui/Page";
+import PageContent from "../.ui/PageContent";
+import PageTitle from "../.ui/PageTitle";
+import Section from "../.ui/Section";
+import Sections from "../.ui/Sections";
 import {
   CANCELLATION_POLICY,
   HOUSE_RULES,

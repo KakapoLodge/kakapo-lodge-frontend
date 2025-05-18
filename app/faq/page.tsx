@@ -1,15 +1,15 @@
 "use client";
 
-import Footer from "../ui/Footer";
-import ImageCarousel from "../ui/ImageCarousel";
-import MobileFooter from "../ui/MobileFooter";
-import NavBar from "../ui/NavBar";
-import Page from "../ui/Page";
-import PageContent from "../ui/PageContent";
-import PageTitle from "../ui/PageTitle";
-import Section from "../ui/Section";
-import Sections from "../ui/Sections";
-import Subheader from "../ui/Subheader";
+import Footer from "../.ui/Footer";
+import ImageCarousel from "../.ui/ImageCarousel";
+import MobileFooter from "../.ui/MobileFooter";
+import NavBar from "../.ui/NavBar";
+import Page from "../.ui/Page";
+import PageContent from "../.ui/PageContent";
+import PageTitle from "../.ui/PageTitle";
+import Section from "../.ui/Section";
+import Sections from "../.ui/Sections";
+import Subheader from "../.ui/Subheader";
 import {
   FAQ_PAGE_TITLE,
   FREQUENTLY_ASKED_QUESTIONS,

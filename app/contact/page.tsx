@@ -7,16 +7,16 @@ import { useLazySubmitFormQuery } from "../lib/api/formApi";
 import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
 import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import { FormContent, IsMobileProps } from "../lib/types";
-import CustomLink from "../ui/CustomLink";
-import Footer from "../ui/Footer";
-import Header from "../ui/Header";
-import LoadingAnimation from "../ui/LoadingAnimation";
-import MobileFooter from "../ui/MobileFooter";
-import NavBar from "../ui/NavBar";
-import Page from "../ui/Page";
-import PageContent from "../ui/PageContent";
-import PageTitle from "../ui/PageTitle";
-import Sections from "../ui/Sections";
+import CustomLink from "../.ui/CustomLink";
+import Footer from "../.ui/Footer";
+import Header from "../.ui/Header";
+import LoadingAnimation from "../.ui/LoadingAnimation";
+import MobileFooter from "../.ui/MobileFooter";
+import NavBar from "../.ui/NavBar";
+import Page from "../.ui/Page";
+import PageContent from "../.ui/PageContent";
+import PageTitle from "../.ui/PageTitle";
+import Sections from "../.ui/Sections";
 import {
   CLOSE_BUTTON_LABEL,
   CONTACT_DETAILS_HEADER,

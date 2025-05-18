@@ -4,17 +4,17 @@ import { Fragment } from "react";
 import styled from "styled-components";
 import { useMobileDetection } from "../lib/hooks/useMobileDetection";
 import { IsMobileProps } from "../lib/types";
-import CustomIcon from "../ui/CustomIcon";
-import Footer from "../ui/Footer";
-import Header from "../ui/Header";
-import ImageCarousel from "../ui/ImageCarousel";
-import MobileFooter from "../ui/MobileFooter";
-import NavBar from "../ui/NavBar";
-import Page from "../ui/Page";
-import PageContent from "../ui/PageContent";
-import PageTitle from "../ui/PageTitle";
-import Section from "../ui/Section";
-import Sections from "../ui/Sections";
+import CustomIcon from "../.ui/CustomIcon";
+import Footer from "../.ui/Footer";
+import Header from "../.ui/Header";
+import ImageCarousel from "../.ui/ImageCarousel";
+import MobileFooter from "../.ui/MobileFooter";
+import NavBar from "../.ui/NavBar";
+import Page from "../.ui/Page";
+import PageContent from "../.ui/PageContent";
+import PageTitle from "../.ui/PageTitle";
+import Section from "../.ui/Section";
+import Sections from "../.ui/Sections";
 import {
   FACILITIES,
   FACILITIES_PAGE_TITLE,

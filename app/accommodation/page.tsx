@@ -23,14 +23,14 @@ import { useScrollPosition } from "../lib/hooks/useScrollPosition";
 import { useAppDispatch, useAppSelector } from "../lib/hooks/useStore";
 import { linearInterpolate } from "../lib/math";
 import { IsMobileProps } from "../lib/types";
-import Card from "../ui/Card";
-import CustomIcon from "../ui/CustomIcon";
-import ImageCarousel from "../ui/ImageCarousel";
-import LoadingAnimation from "../ui/LoadingAnimation";
-import NavBar from "../ui/NavBar";
-import Page from "../ui/Page";
-import PageContent from "../ui/PageContent";
-import PageTitle from "../ui/PageTitle";
+import Card from "../.ui/Card";
+import CustomIcon from "../.ui/CustomIcon";
+import ImageCarousel from "../.ui/ImageCarousel";
+import LoadingAnimation from "../.ui/LoadingAnimation";
+import NavBar from "../.ui/NavBar";
+import Page from "../.ui/Page";
+import PageContent from "../.ui/PageContent";
+import PageTitle from "../.ui/PageTitle";
 import {
   ACCOMMODATION_IMAGE_PATHS,
   ACCOMMODATION_LOADING_TEXT,
@@ -58,7 +58,7 @@ import {
 } from "./content";
 import { filterSlice } from "./filterSlice";
 import { AccommodationNameId, AllRates, FilterOption, Rates } from "./types";
-import Footer from "../ui/Footer";
+import Footer from "../.ui/Footer";
 
 const AccommodationPage = () => {
   const todaysDateRfc3339 = getTodaysDateRfc3339();

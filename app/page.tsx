@@ -29,22 +29,22 @@ import {
 import { useGoogleAnalyticsEvents } from "./lib/hooks/useGoogleAnalyticsEvents";
 import { useMobileDetection } from "./lib/hooks/useMobileDetection";
 import { IsMobileProps } from "./lib/types";
-import Card from "./ui/Card";
-import CarouselImage from "./ui/CarouselImage";
-import CustomCarousel from "./ui/CustomCarousel";
-import CustomIcon from "./ui/CustomIcon";
-import CustomLink from "./ui/CustomLink";
-import Footer from "./ui/Footer";
-import Header from "./ui/Header";
-import ImageCarousel from "./ui/ImageCarousel";
-import MobileFooter from "./ui/MobileFooter";
-import NavBar from "./ui/NavBar";
-import Page from "./ui/Page";
-import PageContent from "./ui/PageContent";
-import PageTitle from "./ui/PageTitle";
-import Section from "./ui/Section";
-import Sections from "./ui/Sections";
-import Subheader from "./ui/Subheader";
+import Card from "./.ui/Card";
+import CarouselImage from "./.ui/CarouselImage";
+import CustomCarousel from "./.ui/CustomCarousel";
+import CustomIcon from "./.ui/CustomIcon";
+import CustomLink from "./.ui/CustomLink";
+import Footer from "./.ui/Footer";
+import Header from "./.ui/Header";
+import ImageCarousel from "./.ui/ImageCarousel";
+import MobileFooter from "./.ui/MobileFooter";
+import NavBar from "./.ui/NavBar";
+import Page from "./.ui/Page";
+import PageContent from "./.ui/PageContent";
+import PageTitle from "./.ui/PageTitle";
+import Section from "./.ui/Section";
+import Sections from "./.ui/Sections";
+import Subheader from "./.ui/Subheader";
 
 const LandingPage = () => {
   return (

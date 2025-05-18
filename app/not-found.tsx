@@ -11,12 +11,12 @@ import {
 import { useGoogleAnalyticsEvents } from "./lib/hooks/useGoogleAnalyticsEvents";
 import { useMobileDetection } from "./lib/hooks/useMobileDetection";
 import { IsMobileProps } from "./lib/types";
-import Footer from "./ui/Footer";
-import MobileFooter from "./ui/MobileFooter";
-import NavBar from "./ui/NavBar";
-import Page from "./ui/Page";
-import PageContent from "./ui/PageContent";
-import PageTitle from "./ui/PageTitle";
+import Footer from "./.ui/Footer";
+import MobileFooter from "./.ui/MobileFooter";
+import NavBar from "./.ui/NavBar";
+import Page from "./.ui/Page";
+import PageContent from "./.ui/PageContent";
+import PageTitle from "./.ui/PageTitle";
 
 const NotFoundPage = () => {
   return (
