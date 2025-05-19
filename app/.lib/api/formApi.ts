@@ -1,5 +1,5 @@
+import { FormContent } from "@/app/.lib/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { FormContent } from "../types";
 
 const BASE_URL =
   "https://faas-syd1-c274eac6.doserverless.co/api/v1/web/fn-f128daea-976b-402e-9f78-17eac28ae887/default/contact-form-email";

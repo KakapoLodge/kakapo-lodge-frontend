@@ -1,21 +1,21 @@
 "use client";
 
-import Footer from "../.ui/Footer";
-import ImageCarousel from "../.ui/ImageCarousel";
-import MobileFooter from "../.ui/MobileFooter";
-import NavBar from "../.ui/NavBar";
-import Page from "../.ui/Page";
-import PageContent from "../.ui/PageContent";
-import PageTitle from "../.ui/PageTitle";
-import Section from "../.ui/Section";
-import Sections from "../.ui/Sections";
-import Subheader from "../.ui/Subheader";
+import Footer from "@/app/.ui/Footer";
+import ImageCarousel from "@/app/.ui/ImageCarousel";
+import MobileFooter from "@/app/.ui/MobileFooter";
+import NavBar from "@/app/.ui/NavBar";
+import Page from "@/app/.ui/Page";
+import PageContent from "@/app/.ui/PageContent";
+import PageTitle from "@/app/.ui/PageTitle";
+import Section from "@/app/.ui/Section";
+import Sections from "@/app/.ui/Sections";
+import Subheader from "@/app/.ui/Subheader";
 import {
   FAQ_PAGE_TITLE,
   FREQUENTLY_ASKED_QUESTIONS,
   NO_ANSWER_SUBHEADER,
   NO_ANSWER_TEXT,
-} from "./content";
+} from "@/app/faq/content";
 
 const FAQPage = () => {
   return (

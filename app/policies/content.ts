@@ -1,4 +1,4 @@
-import { HouseRules, Policy } from "./types";
+import { HouseRules, Policy } from "@/app/policies/types";
 
 export const POLICIES_PAGE_TITLE = "Policies";
 

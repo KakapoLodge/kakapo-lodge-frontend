@@ -1,5 +1,5 @@
-import CarouselImage from "./CarouselImage";
-import CustomCarousel from "./CustomCarousel";
+import CarouselImage from "@/app/.ui/CarouselImage";
+import CustomCarousel from "@/app/.ui/CustomCarousel";
 
 type ImageCarouselProps = {
   description: string;

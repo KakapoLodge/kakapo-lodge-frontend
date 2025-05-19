@@ -1,6 +1,6 @@
+import { useMobileDetection } from "@/app/.lib/hooks/useMobileDetection";
+import { IsMobileProps } from "@/app/.lib/types";
 import styled from "styled-components";
-import { useMobileDetection } from "../.lib/hooks/useMobileDetection";
-import { IsMobileProps } from "../.lib/types";
 
 type SectionProps = {
   children?: React.ReactNode;

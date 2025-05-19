@@ -1,4 +1,4 @@
-import { AccommodationNameId, AllRates } from "./types";
+import { AccommodationNameId, AllRates } from "@/app/accommodation/types";
 
 export const ACCOMMODATION_PAGE_TITLE = "Accommodation";
 

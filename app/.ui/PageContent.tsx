@@ -1,6 +1,6 @@
+import { useMobileDetection } from "@/app/.lib/hooks/useMobileDetection";
 import { usePathname } from "next/navigation";
 import styled from "styled-components";
-import { useMobileDetection } from "../.lib/hooks/useMobileDetection";
 
 type PageContentProps = {
   children?: React.ReactNode;

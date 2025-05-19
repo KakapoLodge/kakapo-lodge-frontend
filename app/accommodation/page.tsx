@@ -1,36 +1,26 @@
 "use client";
 
-import Link from "next/link";
-import {
-  ChangeEventHandler,
-  Dispatch,
-  Fragment,
-  MouseEventHandler,
-  SetStateAction,
-  useState,
-} from "react";
-import { RangePicker } from "react-ease-picker";
-import styled from "styled-components";
-import { useGetRatesQuery } from "../.lib/api/ratesApi";
+import { useGetRatesQuery } from "@/app/.lib/api/ratesApi";
 import {
   getNextDaysDateRfc3339,
   getPreviousDaysDateRfc3339,
   getTodaysDateRfc3339,
-} from "../.lib/dates";
-import { useGoogleAnalyticsEvents } from "../.lib/hooks/useGoogleAnalyticsEvents";
-import { useMobileDetection } from "../.lib/hooks/useMobileDetection";
-import { useScrollPosition } from "../.lib/hooks/useScrollPosition";
-import { useAppDispatch, useAppSelector } from "../.lib/hooks/useStore";
-import { linearInterpolate } from "../.lib/math";
-import { IsMobileProps } from "../.lib/types";
-import Card from "../.ui/Card";
-import CustomIcon from "../.ui/CustomIcon";
-import ImageCarousel from "../.ui/ImageCarousel";
-import LoadingAnimation from "../.ui/LoadingAnimation";
-import NavBar from "../.ui/NavBar";
-import Page from "../.ui/Page";
-import PageContent from "../.ui/PageContent";
-import PageTitle from "../.ui/PageTitle";
+} from "@/app/.lib/dates";
+import { useGoogleAnalyticsEvents } from "@/app/.lib/hooks/useGoogleAnalyticsEvents";
+import { useMobileDetection } from "@/app/.lib/hooks/useMobileDetection";
+import { useScrollPosition } from "@/app/.lib/hooks/useScrollPosition";
+import { useAppDispatch, useAppSelector } from "@/app/.lib/hooks/useStore";
+import { linearInterpolate } from "@/app/.lib/math";
+import { IsMobileProps } from "@/app/.lib/types";
+import Card from "@/app/.ui/Card";
+import CustomIcon from "@/app/.ui/CustomIcon";
+import Footer from "@/app/.ui/Footer";
+import ImageCarousel from "@/app/.ui/ImageCarousel";
+import LoadingAnimation from "@/app/.ui/LoadingAnimation";
+import NavBar from "@/app/.ui/NavBar";
+import Page from "@/app/.ui/Page";
+import PageContent from "@/app/.ui/PageContent";
+import PageTitle from "@/app/.ui/PageTitle";
 import {
   ACCOMMODATION_IMAGE_PATHS,
   ACCOMMODATION_LOADING_TEXT,
@@ -55,10 +45,25 @@ import {
   ROOM_SIZE_TEXT,
   SEPARATE_BEDS_FILTER_LABEL,
   SLEEPS_TEXT,
-} from "./content";
-import { filterSlice } from "./filterSlice";
-import { AccommodationNameId, AllRates, FilterOption, Rates } from "./types";
-import Footer from "../.ui/Footer";
+} from "@/app/accommodation/content";
+import { filterSlice } from "@/app/accommodation/filterSlice";
+import {
+  AccommodationNameId,
+  AllRates,
+  FilterOption,
+  Rates,
+} from "@/app/accommodation/types";
+import Link from "next/link";
+import {
+  ChangeEventHandler,
+  Dispatch,
+  Fragment,
+  MouseEventHandler,
+  SetStateAction,
+  useState,
+} from "react";
+import { RangePicker } from "react-ease-picker";
+import styled from "styled-components";
 
 const AccommodationPage = () => {
   const todaysDateRfc3339 = getTodaysDateRfc3339();

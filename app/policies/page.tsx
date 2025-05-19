@@ -1,21 +1,21 @@
 "use client";
 
-import Footer from "../.ui/Footer";
-import Header from "../.ui/Header";
-import MobileFooter from "../.ui/MobileFooter";
-import NavBar from "../.ui/NavBar";
-import Page from "../.ui/Page";
-import PageContent from "../.ui/PageContent";
-import PageTitle from "../.ui/PageTitle";
-import Section from "../.ui/Section";
-import Sections from "../.ui/Sections";
+import Footer from "@/app/.ui/Footer";
+import Header from "@/app/.ui/Header";
+import MobileFooter from "@/app/.ui/MobileFooter";
+import NavBar from "@/app/.ui/NavBar";
+import Page from "@/app/.ui/Page";
+import PageContent from "@/app/.ui/PageContent";
+import PageTitle from "@/app/.ui/PageTitle";
+import Section from "@/app/.ui/Section";
+import Sections from "@/app/.ui/Sections";
 import {
   CANCELLATION_POLICY,
   HOUSE_RULES,
   PAYMENT_POLICY,
   POLICIES_PAGE_TITLE,
-} from "./content";
-import { Policy, RulesGrouping } from "./types";
+} from "@/app/policies/content";
+import { Policy, RulesGrouping } from "@/app/policies/types";
 
 const PoliciesPage = () => {
   return (

@@ -1,6 +1,6 @@
+import { POLICIES_PAGE_TITLE } from "@/app/policies/content";
+import PoliciesPage from "@/app/policies/page";
 import { Metadata } from "next";
-import { POLICIES_PAGE_TITLE } from "./content";
-import PoliciesPage from "./page";
 
 export const metadata: Metadata = {
   title: POLICIES_PAGE_TITLE,

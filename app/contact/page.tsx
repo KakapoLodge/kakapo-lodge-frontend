@@ -1,22 +1,19 @@
 "use client";
 
-import { FormEvent, HTMLInputTypeAttribute, useRef, useState } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
-import styled from "styled-components";
-import { useLazySubmitFormQuery } from "../.lib/api/formApi";
-import { useGoogleAnalyticsEvents } from "../.lib/hooks/useGoogleAnalyticsEvents";
-import { useMobileDetection } from "../.lib/hooks/useMobileDetection";
-import { FormContent, IsMobileProps } from "../.lib/types";
-import CustomLink from "../.ui/CustomLink";
-import Footer from "../.ui/Footer";
-import Header from "../.ui/Header";
-import LoadingAnimation from "../.ui/LoadingAnimation";
-import MobileFooter from "../.ui/MobileFooter";
-import NavBar from "../.ui/NavBar";
-import Page from "../.ui/Page";
-import PageContent from "../.ui/PageContent";
-import PageTitle from "../.ui/PageTitle";
-import Sections from "../.ui/Sections";
+import { useLazySubmitFormQuery } from "@/app/.lib/api/formApi";
+import { useGoogleAnalyticsEvents } from "@/app/.lib/hooks/useGoogleAnalyticsEvents";
+import { useMobileDetection } from "@/app/.lib/hooks/useMobileDetection";
+import { FormContent, IsMobileProps } from "@/app/.lib/types";
+import CustomLink from "@/app/.ui/CustomLink";
+import Footer from "@/app/.ui/Footer";
+import Header from "@/app/.ui/Header";
+import LoadingAnimation from "@/app/.ui/LoadingAnimation";
+import MobileFooter from "@/app/.ui/MobileFooter";
+import NavBar from "@/app/.ui/NavBar";
+import Page from "@/app/.ui/Page";
+import PageContent from "@/app/.ui/PageContent";
+import PageTitle from "@/app/.ui/PageTitle";
+import Sections from "@/app/.ui/Sections";
 import {
   CLOSE_BUTTON_LABEL,
   CONTACT_DETAILS_HEADER,
@@ -40,7 +37,10 @@ import {
   SUBMIT_INVALID_TEXT,
   SUBMIT_LOADING_TEXT,
   SUBMIT_SUCCESS_TEXT,
-} from "./content";
+} from "@/app/contact/content";
+import { FormEvent, HTMLInputTypeAttribute, useRef, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
+import styled from "styled-components";
 
 const ContactPage = () => {
   const [submitForm, formResult] = useLazySubmitFormQuery();

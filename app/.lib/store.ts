@@ -1,7 +1,7 @@
+import { formApi } from "@/app/.lib/api/formApi";
+import { ratesApi } from "@/app/.lib/api/ratesApi";
+import { filterSlice } from "@/app/accommodation/filterSlice";
 import { configureStore } from "@reduxjs/toolkit";
-import { filterSlice } from "../accommodation/filterSlice";
-import { formApi } from "./api/formApi";
-import { ratesApi } from "./api/ratesApi";
 
 export const makeStore = () => {
   return configureStore({

@@ -1,5 +1,14 @@
 "use client";
 
+import { useGoogleAnalyticsEvents } from "@/app/.lib/hooks/useGoogleAnalyticsEvents";
+import { useMobileDetection } from "@/app/.lib/hooks/useMobileDetection";
+import { IsMobileProps } from "@/app/.lib/types";
+import Footer from "@/app/.ui/Footer";
+import MobileFooter from "@/app/.ui/MobileFooter";
+import NavBar from "@/app/.ui/NavBar";
+import Page from "@/app/.ui/Page";
+import PageContent from "@/app/.ui/PageContent";
+import PageTitle from "@/app/.ui/PageTitle";
 import Link from "next/link";
 import styled from "styled-components";
 import {
@@ -8,15 +17,6 @@ import {
   NOT_FOUND_PAGE_TITLE,
   RETURN_HOME_TEXT,
 } from "./content";
-import { useGoogleAnalyticsEvents } from "./.lib/hooks/useGoogleAnalyticsEvents";
-import { useMobileDetection } from "./.lib/hooks/useMobileDetection";
-import { IsMobileProps } from "./.lib/types";
-import Footer from "./.ui/Footer";
-import MobileFooter from "./.ui/MobileFooter";
-import NavBar from "./.ui/NavBar";
-import Page from "./.ui/Page";
-import PageContent from "./.ui/PageContent";
-import PageTitle from "./.ui/PageTitle";
 
 const NotFoundPage = () => {
   return (

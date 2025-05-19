@@ -1,14 +1,14 @@
-import { GoogleAnalytics } from "@next/third-parties/google";
-import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
+import StoreProvider from "@/app/.lib/StoreProvider";
+import StyledComponentsRegistry from "@/app/.lib/StyledComponentsRegistry";
 import {
   GOOGLE_ANALYTICS_ID,
   KAKAPO_LODGE_DESCRIPTION,
   KAKAPO_LODGE_NAME,
-} from "./content";
-import "./globals.css";
-import StoreProvider from "./.lib/StoreProvider";
-import StyledComponentsRegistry from "./.lib/StyledComponentsRegistry";
+} from "@/app/content";
+import "@/app/globals.css";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import type { Metadata } from "next";
+import { Nunito } from "next/font/google";
 
 const font = Nunito({ subsets: ["latin"] });
 

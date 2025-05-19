@@ -1,4 +1,4 @@
-import { Page } from "./.lib/types";
+import { Page } from "@/app/.lib/types";
 
 export const GOOGLE_ANALYTICS_ID = "G-Q6FH3J5ZQM";
 

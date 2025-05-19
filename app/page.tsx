@@ -1,15 +1,30 @@
 "use client";
 
-import Image from "next/image";
-import { ReactGoogleReview, ReactGoogleReviews } from "react-google-reviews";
-import "react-google-reviews/dist/index.css";
-import styled from "styled-components";
+import { useGoogleAnalyticsEvents } from "@/app/.lib/hooks/useGoogleAnalyticsEvents";
+import { useMobileDetection } from "@/app/.lib/hooks/useMobileDetection";
+import { IsMobileProps } from "@/app/.lib/types";
+import Card from "@/app/.ui/Card";
+import CarouselImage from "@/app/.ui/CarouselImage";
+import CustomCarousel from "@/app/.ui/CustomCarousel";
+import CustomIcon from "@/app/.ui/CustomIcon";
+import CustomLink from "@/app/.ui/CustomLink";
+import Footer from "@/app/.ui/Footer";
+import Header from "@/app/.ui/Header";
+import ImageCarousel from "@/app/.ui/ImageCarousel";
+import MobileFooter from "@/app/.ui/MobileFooter";
+import NavBar from "@/app/.ui/NavBar";
+import Page from "@/app/.ui/Page";
+import PageContent from "@/app/.ui/PageContent";
+import PageTitle from "@/app/.ui/PageTitle";
+import Section from "@/app/.ui/Section";
+import Sections from "@/app/.ui/Sections";
+import Subheader from "@/app/.ui/Subheader";
 import {
   ACCOMMODATION_IMAGE_PATHS,
   ACCOMMODATION_NAME_IDS,
   ACCOMMODATION_NAMES,
-} from "./accommodation/content";
-import { AccommodationNameId } from "./accommodation/types";
+} from "@/app/accommodation/content";
+import { AccommodationNameId } from "@/app/accommodation/types";
 import {
   ACCOMMODATION_SHORTCUTS_HEADER,
   ACCOMMODATION_URL,
@@ -25,26 +40,11 @@ import {
   MOBILE_GOOGLE_LOGO_PATH,
   REVIEWS_HEADER,
   SHORTCUT_LINK_TEXT,
-} from "./content";
-import { useGoogleAnalyticsEvents } from "./.lib/hooks/useGoogleAnalyticsEvents";
-import { useMobileDetection } from "./.lib/hooks/useMobileDetection";
-import { IsMobileProps } from "./.lib/types";
-import Card from "./.ui/Card";
-import CarouselImage from "./.ui/CarouselImage";
-import CustomCarousel from "./.ui/CustomCarousel";
-import CustomIcon from "./.ui/CustomIcon";
-import CustomLink from "./.ui/CustomLink";
-import Footer from "./.ui/Footer";
-import Header from "./.ui/Header";
-import ImageCarousel from "./.ui/ImageCarousel";
-import MobileFooter from "./.ui/MobileFooter";
-import NavBar from "./.ui/NavBar";
-import Page from "./.ui/Page";
-import PageContent from "./.ui/PageContent";
-import PageTitle from "./.ui/PageTitle";
-import Section from "./.ui/Section";
-import Sections from "./.ui/Sections";
-import Subheader from "./.ui/Subheader";
+} from "@/app/content";
+import Image from "next/image";
+import { ReactGoogleReview, ReactGoogleReviews } from "react-google-reviews";
+import "react-google-reviews/dist/index.css";
+import styled from "styled-components";
 
 const LandingPage = () => {
   return (

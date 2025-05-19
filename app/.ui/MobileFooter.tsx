@@ -1,11 +1,11 @@
+import { useGoogleAnalyticsEvents } from "@/app/.lib/hooks/useGoogleAnalyticsEvents";
+import { useMobileDetection } from "@/app/.lib/hooks/useMobileDetection";
+import BookDirectButton from "@/app/.ui/BookDirectButton";
+import CustomIcon from "@/app/.ui/CustomIcon";
+import { PHONE_NUMBER } from "@/app/contact/content";
+import { CALL_US_TEXT } from "@/app/content";
 import Link from "next/link";
 import styled from "styled-components";
-import { PHONE_NUMBER } from "../contact/content";
-import { CALL_US_TEXT } from "../content";
-import { useGoogleAnalyticsEvents } from "../.lib/hooks/useGoogleAnalyticsEvents";
-import { useMobileDetection } from "../.lib/hooks/useMobileDetection";
-import BookDirectButton from "./BookDirectButton";
-import CustomIcon from "./CustomIcon";
 
 const MobileFooter = () => {
   const isMobile = useMobileDetection();

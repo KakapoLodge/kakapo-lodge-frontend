@@ -1,16 +1,16 @@
+import { useGoogleAnalyticsEvents } from "@/app/.lib/hooks/useGoogleAnalyticsEvents";
+import { useMobileDetection } from "@/app/.lib/hooks/useMobileDetection";
+import { useScrollPosition } from "@/app/.lib/hooks/useScrollPosition";
+import { linearInterpolate } from "@/app/.lib/math";
+import { IsMobileProps } from "@/app/.lib/types";
+import BookDirectButton from "@/app/.ui/BookDirectButton";
+import CustomIcon from "@/app/.ui/CustomIcon";
+import CustomLink from "@/app/.ui/CustomLink";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { MouseEventHandler, useState } from "react";
 import styled from "styled-components";
 import { HOME_URL, KAKAPO_LODGE_NAME, LOGO_PATH, SUB_PAGES } from "../content";
-import { useGoogleAnalyticsEvents } from "../.lib/hooks/useGoogleAnalyticsEvents";
-import { useMobileDetection } from "../.lib/hooks/useMobileDetection";
-import { useScrollPosition } from "../.lib/hooks/useScrollPosition";
-import { linearInterpolate } from "../.lib/math";
-import { IsMobileProps } from "../.lib/types";
-import BookDirectButton from "./BookDirectButton";
-import CustomIcon from "./CustomIcon";
-import CustomLink from "./CustomLink";
 
 const NavBar = () => {
   const pathname = usePathname();

@@ -1,20 +1,18 @@
 "use client";
 
-import { Fragment } from "react";
-import styled from "styled-components";
-import { useMobileDetection } from "../.lib/hooks/useMobileDetection";
-import { IsMobileProps } from "../.lib/types";
-import CustomIcon from "../.ui/CustomIcon";
-import Footer from "../.ui/Footer";
-import Header from "../.ui/Header";
-import ImageCarousel from "../.ui/ImageCarousel";
-import MobileFooter from "../.ui/MobileFooter";
-import NavBar from "../.ui/NavBar";
-import Page from "../.ui/Page";
-import PageContent from "../.ui/PageContent";
-import PageTitle from "../.ui/PageTitle";
-import Section from "../.ui/Section";
-import Sections from "../.ui/Sections";
+import { useMobileDetection } from "@/app/.lib/hooks/useMobileDetection";
+import { IsMobileProps } from "@/app/.lib/types";
+import CustomIcon from "@/app/.ui/CustomIcon";
+import Footer from "@/app/.ui/Footer";
+import Header from "@/app/.ui/Header";
+import ImageCarousel from "@/app/.ui/ImageCarousel";
+import MobileFooter from "@/app/.ui/MobileFooter";
+import NavBar from "@/app/.ui/NavBar";
+import Page from "@/app/.ui/Page";
+import PageContent from "@/app/.ui/PageContent";
+import PageTitle from "@/app/.ui/PageTitle";
+import Section from "@/app/.ui/Section";
+import Sections from "@/app/.ui/Sections";
 import {
   FACILITIES,
   FACILITIES_PAGE_TITLE,
@@ -22,7 +20,9 @@ import {
   PURCHASEABLES,
   SERVICES,
   SERVICES_HEADER,
-} from "./content";
+} from "@/app/facilities/content";
+import { Fragment } from "react";
+import styled from "styled-components";
 
 const FacilitiesPage = () => {
   return (
