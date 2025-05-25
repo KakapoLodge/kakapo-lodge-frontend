@@ -22,15 +22,16 @@ import Page from "@/app/.ui/Page";
 import PageContent from "@/app/.ui/PageContent";
 import PageTitle from "@/app/.ui/PageTitle";
 import {
+  ACCOMMODATION_BOOKING_BASE_URL,
   ACCOMMODATION_IMAGE_PATHS,
   ACCOMMODATION_LOADING_TEXT,
   ACCOMMODATION_NAME_IDS,
   ACCOMMODATION_NAMES,
   ACCOMMODATION_PAGE_TITLE,
+  ACCOMMODATION_TYPE_IDS,
   ALL_ADDITIONAL_FEATURES,
   BASE_FEATURES,
   BOOK_BUTTON_TEXT,
-  BOOKING_URLS,
   CHECK_IN_OUT_LABEL,
   DATE_PICKER_LOCALE,
   DEFAULT_RATES,
@@ -87,11 +88,19 @@ const AccommodationPage = () => {
         />
 
         {error ? (
-          <AccommodationCards allRates={DEFAULT_RATES} />
+          <AccommodationCards
+            allRates={DEFAULT_RATES}
+            startDateRfc3339={startDateRfc3339}
+            endDateRfc3339={endDateRfc3339}
+          />
         ) : isLoading || isFetching ? (
           <LoadingAnimation text={ACCOMMODATION_LOADING_TEXT} />
         ) : data ? (
-          <AccommodationCards allRates={data} />
+          <AccommodationCards
+            allRates={data}
+            startDateRfc3339={startDateRfc3339}
+            endDateRfc3339={endDateRfc3339}
+          />
         ) : (
           <></>
         )}
@@ -325,9 +334,15 @@ const Checkbox = styled.input`
 
 type AccommodationCardsProps = {
   allRates: AllRates;
+  startDateRfc3339: string;
+  endDateRfc3339: string;
 };
 
-const AccommodationCards = ({ allRates }: AccommodationCardsProps) => {
+const AccommodationCards = ({
+  allRates,
+  startDateRfc3339,
+  endDateRfc3339,
+}: AccommodationCardsProps) => {
   const isMobile = useMobileDetection();
 
   const matchingNameIds = new Set(
@@ -346,6 +361,8 @@ const AccommodationCards = ({ allRates }: AccommodationCardsProps) => {
             key={nameId}
             nameId={nameId}
             rates={allRates[nameId]}
+            checkInDateRfc3339={startDateRfc3339}
+            checkOutDateRfc3339={getNextDaysDateRfc3339(endDateRfc3339)}
           />
         </Fragment>
       ))}
@@ -369,12 +386,24 @@ const ShortcutLandingPoint = styled.div<IsMobileProps>`
 type AccommodationCardProps = {
   nameId: AccommodationNameId;
   rates: Rates;
+  checkInDateRfc3339: string;
+  checkOutDateRfc3339: string;
 };
 
-const AccommodationCard = ({ nameId, rates }: AccommodationCardProps) => {
+const AccommodationCard = ({
+  nameId,
+  rates,
+  checkInDateRfc3339,
+  checkOutDateRfc3339,
+}: AccommodationCardProps) => {
   const isMobile = useMobileDetection();
+
   const name = ACCOMMODATION_NAMES[nameId];
   const displayPrice = getDisplayPrice(rates.price, rates.overallMinStay);
+
+  const typeId = ACCOMMODATION_TYPE_IDS[nameId];
+
+  const url = `${ACCOMMODATION_BOOKING_BASE_URL}&checkInDate=${checkInDateRfc3339}&checkOutDate=${checkOutDateRfc3339}&items[0][rateId]=${typeId}`;
 
   return (
     <_Card $isMobile={isMobile}>
@@ -393,7 +422,7 @@ const AccommodationCard = ({ nameId, rates }: AccommodationCardProps) => {
           available={rates.overallAvailable}
           isForSale={rates.isForSale}
         />
-        <BookButton price={rates.price} url={BOOKING_URLS[nameId]} />
+        <BookButton price={rates.price} url={url} />
       </Text>
     </_Card>
   );

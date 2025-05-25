@@ -281,23 +281,18 @@ export const ALL_ADDITIONAL_FEATURES = {
   ],
 };
 
-export const BOOKING_URLS = {
-  "5-bed-dorm":
-    "https://apac.littlehotelier.com/reservations/kakapolodgedirect/9239?promotion_code=5OFF",
-  "4-bed-dorm":
-    "https://apac.littlehotelier.com/reservations/kakapolodgedirect/9238?promotion_code=5OFF",
-  "private-double":
-    "https://apac.littlehotelier.com/reservations/kakapolodgedirect/9243?promotion_code=5OFF",
-  "private-twin":
-    "https://apac.littlehotelier.com/reservations/kakapolodgedirect/9244?promotion_code=5OFF",
-  "family-room":
-    "https://apac.littlehotelier.com/reservations/kakapolodgedirect/9245?promotion_code=5OFF",
-  "double-ensuite":
-    "https://apac.littlehotelier.com/reservations/kakapolodgedirect/9242?promotion_code=5OFF",
-  "deluxe-double-ensuite":
-    "https://apac.littlehotelier.com/reservations/kakapolodgedirect/73051?promotion_code=5OFF",
-  "motel-unit":
-    "https://apac.littlehotelier.com/reservations/kakapolodgedirect/9240?promotion_code=5OFF",
+export const ACCOMMODATION_BOOKING_BASE_URL =
+  "https://book-directonline.com/properties/KAKPLYHADIRECT/book?locale=en&items[0][adults]=1&items[0][children]=0&items[0][infants]=0&items[1][adults]=1&items[1][children]=0&items[1][infants]=0&currency=NZD&trackPage=yes&selected=0&step=step1&promotion_code=5OFF";
+
+export const ACCOMMODATION_TYPE_IDS = {
+  "5-bed-dorm": "12334",
+  "4-bed-dorm": "12333",
+  "private-double": "12338",
+  "private-twin": "12339",
+  "family-room": "677184",
+  "double-ensuite": "136867",
+  "deluxe-double-ensuite": "12337",
+  "motel-unit": "12335",
 };
 
 export const ACCOMMODATION_IMAGE_PATHS = {
@@ -353,7 +348,7 @@ export const DEFAULT_RATES: AllRates = {
     isForSale: true,
   },
   "4-bed-dorm": {
-    price: 53, // winter price: 50
+    price: 55, // winter price: 50
     overallAvailable: null,
     overallMinStay: null,
     isForSale: true,
