@@ -9,7 +9,7 @@ type BookDirectButtonProps = {
 };
 
 const BOOK_DIRECT_URL =
-  "https://apac.littlehotelier.com/properties/kakapolodgedirect?promotion_code=5OFF";
+  "https://book-directonline.com/properties/KAKPLYHADIRECT?promocode=5OFF";
 
 const BookDirectButton = ({ isFooter = false }: BookDirectButtonProps) => {
   const isMobile = useMobileDetection();
