@@ -542,8 +542,8 @@ const BookButton = ({ price, url }: BookButtonProps) => {
   const isMobile = useMobileDetection();
   const { sendLinkClickedEvent } = useGoogleAnalyticsEvents();
 
-  // 2 decimal places for cents
-  const discountedPrice = (price * DISCOUNT_RATE).toFixed(2);
+  // round off to nearest dollar for consistency with booking site
+  const discountedPrice = (price * DISCOUNT_RATE).toFixed(0);
 
   return (
     <_BookButton
