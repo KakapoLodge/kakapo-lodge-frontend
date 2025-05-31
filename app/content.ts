@@ -54,9 +54,14 @@ export const INTRODUCTION_PARAGRAPHS = [
 ];
 
 export const ACCOMMODATION_SHORTCUTS_HEADER = "Our Accommodation";
-export const SHORTCUT_LINK_TEXT = "Find out more";
 
-export const REVIEWS_HEADER = "What our guests say";
+export const LIVE_CHART_HEADER = "Book Your Stay";
+export const LIVE_CHART_WIDGET_URL =
+  "https://apac.littlehotelier.com/properties/kakapolodgedirect/widget?promotion_code=5OFF";
+
+export const SHORTCUT_LINK_TEXT = "Find Out More";
+
+export const REVIEWS_HEADER = "What Our Guests Say";
 
 export const FEATUREABLE_WIDGET_ID = "c2948fbe-ce17-425b-917a-1f0d787229df";
 export const GOOGLE_REVIEWS_URL =

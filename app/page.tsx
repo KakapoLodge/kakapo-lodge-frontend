@@ -37,6 +37,8 @@ import {
   INTRODUCTION_PARAGRAPHS,
   KAKAPO_LODGE_NAME,
   LANDING_PAGE_TITLE,
+  LIVE_CHART_HEADER,
+  LIVE_CHART_WIDGET_URL,
   MOBILE_GOOGLE_LOGO_PATH,
   REVIEWS_HEADER,
   SHORTCUT_LINK_TEXT,
@@ -57,6 +59,7 @@ const LandingPage = () => {
 
         <Sections>
           <Introduction />
+          <LiveChart />
           <AccommodationShortcuts />
           <GoogleReviews />
         </Sections>
@@ -116,6 +119,20 @@ const _Introduction = styled.div<IsMobileProps>`
 
   padding: ${(props) => (props.$isMobile ? "0px 32px" : "0px 16vw")};
 `;
+
+const LiveChart = () => {
+  return (
+    <Section>
+      <Header text={LIVE_CHART_HEADER} center={true} />
+
+      <iframe
+        src={LIVE_CHART_WIDGET_URL}
+        height={563}
+        allowTransparency={true}
+      ></iframe>
+    </Section>
+  );
+};
 
 const AccommodationShortcuts = () => {
   return (
