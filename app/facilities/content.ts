@@ -76,7 +76,7 @@ export const FACILITIES = [
   },
   {
     name: "Car Park",
-    description: "Free, accessible and secure parking on premise.",
+    description: "Free on-site parking is available for all Kakapo Lodge guests.",
     imagePaths: [
       "/sub_pages/facilities/car_park/car_park_1.png",
       "/sub_pages/facilities/car_park/car_park_2.png",
