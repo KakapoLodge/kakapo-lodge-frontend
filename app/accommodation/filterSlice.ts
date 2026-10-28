@@ -1,12 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
 import {
   ACCOMMODATION_NAME_IDS,
   GROUND_FLOOR_NAME_IDS,
   PRIVATE_BATHROOM_NAME_IDS,
   PRIVATE_ROOM_NAME_IDS,
   SEPARATE_BEDS_NAME_IDS,
-} from "./content";
-import { AccommodationNameId } from "./types";
+} from "@/app/accommodation/content";
+import { AccommodationNameId } from "@/app/accommodation/types";
+import { createSlice } from "@reduxjs/toolkit";
 
 type FilterState = {
   matchingNameIds: AccommodationNameId[];

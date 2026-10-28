@@ -1,8 +1,8 @@
 // Need to use the React-specific entry point to import createApi
+import { RatesApiDates } from "@/app/.lib/types";
+import { mapResponse } from "@/app/accommodation/mapping";
+import { AllRates } from "@/app/accommodation/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { mapResponse } from "../../accommodation/mapping";
-import { AllRates } from "../../accommodation/types";
-import { RatesApiDates } from "../types";
 
 const BASE_URL =
   "https://faas-syd1-c274eac6.doserverless.co/api/v1/web/fn-f128daea-976b-402e-9f78-17eac28ae887/default/kakapo-lodge-rates";

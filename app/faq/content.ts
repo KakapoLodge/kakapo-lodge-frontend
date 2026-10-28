@@ -1,4 +1,4 @@
-import { FrequentlyAskedQuestion } from "./types";
+import { FrequentlyAskedQuestion } from "@/app/faq/types";
 
 export const FAQ_PAGE_TITLE = "Frequently Asked Questions";
 

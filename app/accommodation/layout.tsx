@@ -1,6 +1,6 @@
+import { ACCOMMODATION_PAGE_TITLE } from "@/app/accommodation/content";
+import AccommodationPage from "@/app/accommodation/page";
 import { Metadata } from "next";
-import { ACCOMMODATION_PAGE_TITLE } from "./content";
-import AccommodationPage from "./page";
 
 export const metadata: Metadata = {
   title: ACCOMMODATION_PAGE_TITLE,

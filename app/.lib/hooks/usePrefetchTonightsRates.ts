@@ -1,6 +1,6 @@
+import { ratesApi } from "@/app/.lib/api/ratesApi";
+import { getTodaysDateRfc3339 } from "app/.lib/dates";
 import { useEffect } from "react";
-import { ratesApi } from "../api/ratesApi";
-import { getTodaysDateRfc3339 } from "../dates";
 
 export function usePrefetchTonightsRates() {
   const prefetchRates = ratesApi.usePrefetch("getRates");

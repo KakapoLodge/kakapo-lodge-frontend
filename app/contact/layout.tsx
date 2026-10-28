@@ -1,6 +1,6 @@
+import { CONTACT_PAGE_TITLE } from "@/app/contact/content";
+import ContactPage from "@/app/contact/page";
 import { Metadata } from "next";
-import { CONTACT_PAGE_TITLE } from "./content";
-import ContactPage from "./page";
 
 export const metadata: Metadata = {
   title: CONTACT_PAGE_TITLE,

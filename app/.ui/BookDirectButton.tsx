@@ -1,15 +1,15 @@
+import { useGoogleAnalyticsEvents } from "@/app/.lib/hooks/useGoogleAnalyticsEvents";
+import { useMobileDetection } from "@/app/.lib/hooks/useMobileDetection";
+import { IsMobileProps } from "@/app/.lib/types";
 import Link from "next/link";
 import styled from "styled-components";
-import { useGoogleAnalyticsEvents } from "../lib/hooks/useGoogleAnalyticsEvents";
-import { useMobileDetection } from "../lib/hooks/useMobileDetection";
-import { IsMobileProps } from "../lib/types";
 
 type BookDirectButtonProps = {
   isFooter?: boolean;
 };
 
 const BOOK_DIRECT_URL =
-  "https://apac.littlehotelier.com/properties/kakapolodgedirect?promotion_code=5OFF";
+  "https://book-directonline.com/properties/KAKPLYHADIRECT?promocode=5OFF";
 
 const BookDirectButton = ({ isFooter = false }: BookDirectButtonProps) => {
   const isMobile = useMobileDetection();

@@ -1,5 +1,10 @@
-import { DEFAULT_RATES } from "./content";
-import { AccommodationNameId, AllRates, LHRate, LHRatePlanDate } from "./types";
+import { DEFAULT_RATES } from "@/app/accommodation/content";
+import {
+  AccommodationNameId,
+  AllRates,
+  LHRate,
+  LHRatePlanDate,
+} from "@/app/accommodation/types";
 
 export const mapResponse = (rates: LHRate[]): AllRates => {
   const rate = rates[0];
