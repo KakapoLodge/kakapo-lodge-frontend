@@ -59,7 +59,6 @@ const LandingPage = () => {
 
         <Sections>
           <Introduction />
-          <LiveChart />
           <AccommodationShortcuts />
           <GoogleReviews />
         </Sections>
